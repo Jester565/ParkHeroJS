@@ -57,10 +57,13 @@ async function uploadFile(path, key) {
     }).promise();
 }
 
-async function initDatabase() {
-    //await uploadFile(appropiateImgPath, appropiateImgKey);
-    //await uploadFile(inappropiateImgPath, inappropiateImgKey);
+async function initUsers() {
+    await users.createUser('id1', 'joe', query, dynamodb);
+    await users.createUser('id2', null, query, dynamodb);
+    await users.createUser('id3', null, query, dynamodb);
+}
 
+beforeAll(async () => {
     await query(`CREATE TABLE Users (id varchar(50), name varchar(50) UNIQUE, defaultName tinyint(1), PRIMARY KEY(id))`);
     await query(`CREATE TABLE ProfilePictures (userId varchar(50), url varchar(100), PRIMARY KEY(userId))`)
     await query(`CREATE TABLE Invitations (inviterId varchar(50), receiverId varchar(50), type tinyint(1), PRIMARY KEY(inviterId, receiverId), FOREIGN KEY (inviterId) REFERENCES Users(id), FOREIGN KEY (receiverId) REFERENCES Users(id))`);
@@ -68,333 +71,377 @@ async function initDatabase() {
     await query(`CREATE TABLE Parties (id varchar(50), userID varchar(50), PRIMARY KEY(id, userID), FOREIGN KEY(userID) REFERENCES Users(id))`);
     await query(`CREATE TABLE DefaultNames (name varchar(50), count INT)`);
     await query(`INSERT INTO DefaultNames VALUES ?`, [[['test', 0]]]);
-}
-
-beforeAll(async () => {
-    await initDatabase();
 });
 
-test('create user - custom name', async () => {
-    await users.createUser('id1', 'joe', query, dynamodb);
-    expect(await users.getUser('id1', query)).toEqual({ id: 'id1', name: 'joe', profilePicUrl: null });
+describe('Create user tests', () => {
+    test('create user - custom name', async () => {
+        await users.createUser('id1', 'joe', query, dynamodb);
+        expect(await users.getUser('id1', query)).toEqual({ id: 'id1', name: 'joe', profilePicUrl: null });
+    });
+
+    test('create user - default name', async () => {
+        await users.createUser('id2', null, query, dynamodb);
+        expect(await users.getUser('id2', query)).toEqual({ id: 'id2', name: 'test0', profilePicUrl: null });
+        await users.createUser('id3', null, query, dynamodb);
+        expect(await users.getUser('id3', query)).toEqual({ id: 'id3', name: 'test1', profilePicUrl: null });
+    });
+
+    afterEach(async () => {
+        await query(`DELETE FROM Users`);
+    });
 });
 
-test('create user - default name', async () => {
-    await users.createUser('id2', null, query, dynamodb);
-    expect(await users.getUser('id2', query)).toEqual({ id: 'id2', name: 'test0', profilePicUrl: null });
-    await users.createUser('id3', null, query, dynamodb);
-    expect(await users.getUser('id3', query)).toEqual({ id: 'id3', name: 'test1', profilePicUrl: null });
-});
+describe('ProfilePic', () => {
+    beforeAll(async () => {
+        await uploadFile(appropiateImgPath, appropiateImgKey);
+        await uploadFile(inappropiateImgPath, inappropiateImgKey);
+    });
 
-/*
-test('profile pic - create profile picture', async () => {
-    await users.updateProfilePic('id1', bucket, appropiateImgKey, query, s3, imageAnnotatorClient);
-    expect((await users.getUser('id1', query))['profilePicUrl']).toBe('profileImgs/id1');
-    var objectLists = await s3.listObjects({
-        Bucket: bucket,
-        Prefix: 'profileImgs/id1'
-    }).promise();
-    
-    expect(objectLists.Contents.length).toBe(4);
+    beforeEach(async() => {
+        await initUsers();
+    });
 
-    var deletePromises = [];
-    for (var object of objectLists.Contents) {
-        deletePromises.push(s3.deleteObject({
+    test('Create profile picture', async () => {
+        await users.updateProfilePic('id1', bucket, appropiateImgKey, query, s3, imageAnnotatorClient);
+        expect((await users.getUser('id1', query))['profilePicUrl']).toBe('profileImgs/id1');
+        var objectLists = await s3.listObjects({
             Bucket: bucket,
-            Key: object.Key
-        }).promise());
-    }
-    await Promise.all(deletePromises);
-});
+            Prefix: 'profileImgs/id1'
+        }).promise();
+        
+        expect(objectLists.Contents.length).toBe(4);
+    });
 
-test('profile pic - attempt inappropiate profile picture', async () => {
-    var error = null;
-    try {
-        await users.updateProfilePic('id2', bucket, inappropiateImgKey, query, s3, imageAnnotatorClient);
-    } catch (e) {
-        error = e;
-    }
-    expect(error).toBeTruthy();
+    test('profile pic - attempt inappropiate profile picture', async () => {
+        var error = null;
+        try {
+            await users.updateProfilePic('id2', bucket, inappropiateImgKey, query, s3, imageAnnotatorClient);
+        } catch (e) {
+            error = e;
+        }
+        expect(error).toBeTruthy();
 
-    expect((await users.getUser('id2', query))['profilePicUrl']).toBeFalsy();
+        expect((await users.getUser('id2', query))['profilePicUrl']).toBeFalsy();
 
-    var objectLists = await s3.listObjects({
-        Bucket: bucket,
-        Prefix: 'profileImgs/id2'
-    }).promise();
-
-    //Delete any object keys in case they show up in subsequent tests
-    var deletePromises = [];
-    for (var object of objectLists.Contents) {
-        deletePromises.push(s3.deleteObject({
+        var objectLists = await s3.listObjects({
             Bucket: bucket,
-            Key: object.Key
-        }).promise());
-    }
-    await Promise.all(deletePromises);
+            Prefix: 'profileImgs/id2'
+        }).promise();
+        
+        expect(objectLists.Contents.length).toBe(0);
+    });
+
+    afterEach(async() => {
+        await query(`DELETE FROM ProfilePictures`);
+        await query(`DELETE FROM Users`);
+    });
+
+    afterAll(async() => {
+        var deleteKeysWithPrefix = async(prefix) => {
+            var objectLists = await s3.listObjects({
+                Bucket: bucket,
+                Prefix: prefix
+            }).promise();
+
+            var deletePromises = [];
+            for (var object of objectLists.Contents) {
+                deletePromises.push(s3.deleteObject({
+                    Bucket: bucket,
+                    Key: object.Key
+                }).promise());
+            }
+            await Promise.all(deletePromises);
+        }
+        await deleteKeysWithPrefix('profileImgs/id1');
+        await deleteKeysWithPrefix('profileImgs/id2');
+    });
+});
+
+describe('Query Users Test', () => {
+    beforeEach(async() => {
+        await initUsers();
+    });
+
+    test('getUsers', async () => {
+        var usrs = await users.getUsers(['id1', 'id2', 'id3'], query);
+        expect(usrs.length).toBe(3);
+    });
+
+    test('searchUsers', async () => {
+        var searchResults = await users.searchUsers('te', 'id2', query);
+        expect(searchResults.length).toBe(1);
+    });
+
+    afterEach(async() => {
+        await query(`DELETE FROM Users`);
+    });
+});
+
+describe('Friends tests', () => {
+    beforeEach(async() => {
+        await initUsers();
+    });
     
-    expect(objectLists.Contents.length).toBe(0);
-});
-*/
-
-test('getUsers', async () => {
-    var usrs = await users.getUsers(['id1', 'id2', 'id3'], query);
-    expect(usrs.length).toBe(3);
-});
-
-test('searchUsers', async () => {
-    var searchResults = await users.searchUsers('te', 'id2', query);
-    expect(searchResults.length).toBe(1);
-});
-
-
-//FRIEND SYSTEM
-test('getInvites - no invites', async() => {
-    var invites = await users.getInvites('id1', users.FRIEND_INVITE_TYPE, query);
-    expect(invites.length).toBe(0);
-});
-
-test('getFriends - no friends', async() => {
-    var friends = await users.getFriends('id1', query);
-    expect(friends.length).toBe(0);
-});
-
-test('friend management - send friend invites', async() => {
-    //id1 invites id2
-    var isFriend = await users.addFriend('id1', 'id2', query);
-    expect(isFriend).toBeFalsy();
-    {
-        var invites = await users.getInvites('id1', users.FRIEND_INVITE_TYPE, query);
-        expect(invites.length).toBe(1);
-    }
-    {
-        var invites = await users.getInvites('id2', users.FRIEND_INVITE_TYPE, query);
-        expect(invites.length).toBe(1);
-    }
-
-    //id1 invites id3
-    await users.addFriend('id1', 'id3', query);
-    {
-        var invites = await users.getInvites('id1', users.FRIEND_INVITE_TYPE, query);
-        expect(invites.length).toBe(2);
-    }
-    {
-        var invites = await users.getInvites('id2', users.FRIEND_INVITE_TYPE, query);
-        expect(invites.length).toBe(1);
-    }
-    {
-        var invites = await users.getInvites('id2', users.FRIEND_INVITE_TYPE, query);
-        expect(invites.length).toBe(1);
-    }
-});
-
-test('friend managment - accept own invite', async() => {
-    //check that another invite can't be made
-    isFriend = await users.addFriend('id1', 'id2', query);
-    expect(isFriend).toBeFalsy();
-});
-
-test('friend management - accept friend invite', async() => {
-    //id2 accepts invite from id1
-    isFriend = await users.addFriend('id2', 'id1', query);
-    expect(isFriend).toBeTruthy();
-    {
-        var invites = await users.getInvites('id1', users.FRIEND_INVITE_TYPE, query);
-        expect(invites.length).toBe(1);
-    }
-    {
-        var invites = await users.getInvites('id2', users.FRIEND_INVITE_TYPE, query);
-        expect(invites.length).toBe(0);
-    }
-    {
-        var invites = await users.getInvites('id3', users.FRIEND_INVITE_TYPE, query);
-        expect(invites.length).toBe(1);
-    }
-    {
-        var friends = await users.getFriends('id1', query);
-        expect(friends.length).toBe(1);
-    }
-    {
-        var friends = await users.getFriends('id2', query);
-        expect(friends.length).toBe(1);
-    }
-});
-
-test('friend management - decline friend invite', async() => {
-    //id3 declines invite from id1
-    await users.deleteInvite('id1', 'id3', users.FRIEND_INVITE_TYPE, query);
-    {
+    test('getInvites - no invites', async() => {
         var invites = await users.getInvites('id1', users.FRIEND_INVITE_TYPE, query);
         expect(invites.length).toBe(0);
-    }
-    {
-        var invites = await users.getInvites('id3', users.FRIEND_INVITE_TYPE, query);
-        expect(invites.length).toBe(0);
-    }
-});
+    });
 
-test('friend management - remove friend', async() => {
-    await users.removeFriend('id2', 'id1', query);
-    {
+    test('getFriends - no friends', async() => {
         var friends = await users.getFriends('id1', query);
         expect(friends.length).toBe(0);
-    }
-    {
-        var friends = await users.getFriends('id2', query);
-        expect(friends.length).toBe(0);
-    }
+    });
+
+    test('invite friend', async() => {
+        //id1 invites id2
+        var isFriend = await users.addFriend('id1', 'id2', query);
+        expect(isFriend).toBeFalsy();
+        {
+            var invites = await users.getInvites('id1', users.FRIEND_INVITE_TYPE, query);
+            expect(invites.length).toBe(1);
+        }
+        {
+            var invites = await users.getInvites('id2', users.FRIEND_INVITE_TYPE, query);
+            expect(invites.length).toBe(1);
+        }
+    });
+
+    test(`accept friend invite`, async() => {
+        await users.addFriend('id1', 'id2', query);
+        isFriend = await users.addFriend('id2', 'id1', query);
+        expect(isFriend).toBeTruthy();
+        {
+            var invites = await users.getInvites('id1', users.FRIEND_INVITE_TYPE, query);
+            expect(invites.length).toBe(0);
+        }
+        {
+            var friends = await users.getFriends('id1', query);
+            expect(friends.length).toBe(1);
+        }
+    });
+
+    test(`accept own invite`, async() => {
+        await users.addFriend('id1', 'id2', query);
+        var isFriend = await users.addFriend('id1', 'id2', query);
+        expect(isFriend).toBeFalsy();
+        {
+            var invites = await users.getInvites('id1', users.FRIEND_INVITE_TYPE, query);
+            expect(invites.length).toBe(1);
+        }
+        {
+            var friends = await users.getFriends('id1', query);
+            expect(friends.length).toBe(0);
+        }
+    });
+
+    test('decline invite', async() => {
+        await users.addFriend('id1', 'id3', query);
+
+        //id3 declines invite from id1
+        await users.deleteInvite('id1', 'id3', users.FRIEND_INVITE_TYPE, query);
+        {
+            var invites = await users.getInvites('id1', users.FRIEND_INVITE_TYPE, query);
+            expect(invites.length).toBe(0);
+        }
+    });
+
+    test('remove friend', async() => {
+        await users.addFriend('id1', 'id2', query);
+        await users.addFriend('id2', 'id1', query);
+        await users.removeFriend('id2', 'id1', query);
+        {
+            var friends = await users.getFriends('id1', query);
+            expect(friends.length).toBe(0);
+        }
+    });
+
+    afterEach(async () => {
+        await query(`DELETE FROM Invitations`);
+        await query(`DELETE FROM Friends`);
+        await query(`DELETE FROM Users`);
+    });
 });
 
+describe('Party', () => {
+    beforeEach(async() => {
+        await initUsers();
+    });
 
-//PARTY SYSTEM
-test('getPartyMembers - no party members', async () => {
-    var members = await users.getPartyMembers('id1', query);
-    expect(members.length).toBe(0);
-});
-
-test('partyManagement - Invite to party', async () => {
-    await users.inviteToParty('id1', 'id2', query);
-    {
-        var invites = await users.getInvites('id1', users.PARTY_INVITE_TYPE, query);
-        expect(invites.length).toBe(1);
-    }
-});
-
-test('partyManagement - Only accept friend', async () => {
-    var nowFriend = await users.addFriend('id2', 'id1', query);
-    expect(nowFriend).toBeTruthy();
-    //User should now be friend but invite should not be there
-    {
-        var friends = await users.getFriends('id2', query);
-        expect(friends.length).toBe(1);
-    }
-    {
-        var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
-        expect(invites.length).toBe(1);
-    }
-});
-
-test('partyManagement - Delete party invite', async () => {
-    await users.deleteInvite('id1', 'id2', users.PARTY_INVITE_TYPE, query);
-    //The party invite was deleted
-    {
-        var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
-        expect(invites.length).toBe(0);
-    }
-});
-
-test('partyManagement - Friend accepts party invite', async() => {
-    await users.inviteToParty('id1', 'id2', query);
-    {
-        var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
-        expect(invites.length).toBe(1);
-    }
-    await users.acceptPartyInvite('id2', 'id1', query);
-    {
-        var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
-        expect(invites.length).toBe(0);
-    }
-    {
+    test('get no party members', async () => {
         var members = await users.getPartyMembers('id1', query);
-        expect(members.length).toBe(2);
-    }
-    {
-        var members = await users.getPartyMembers('id2', query);
-        expect(members.length).toBe(2);
-    }
-    {
-        var members = await users.getPartyMembers('id3', query);
         expect(members.length).toBe(0);
-    }
-});
+    });
+    
+    test('Invite to party', async () => {
+        await users.inviteToParty('id1', 'id2', query);
+        {
+            var invites = await users.getInvites('id1', users.PARTY_INVITE_TYPE, query);
+            expect(invites.length).toBe(1);
+        }
+    });
 
-test('partyManagement - Accept Party Invite with other invites / add friend through party invite', async() => {
-    await users.inviteToParty('id1', 'id3', query);
-    //id2 invite is deleted because its to the same party as id1
-    await users.inviteToParty('id2', 'id3', query);
-    //id3 invites are deleted when joins another party
-    await users.inviteToParty('id3', 'id2', query);
-    {
-        var invites = await users.getInvites('id1', users.PARTY_INVITE_TYPE, query);
-        expect(invites.length).toBe(1);
-    }
-    {
-        var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
-        expect(invites.length).toBe(2);
-    }
-    {
-        var invites = await users.getInvites('id3', users.PARTY_INVITE_TYPE, query);
-        expect(invites.length).toBe(3);
-    }
-    await users.acceptPartyInvite('id3', 'id1', query);
-    {
-        var invites = await users.getInvites('id1', users.PARTY_INVITE_TYPE, query);
-        expect(invites.length).toBe(0);
-    }
-    {
-        var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
-        expect(invites.length).toBe(0);
-    }
-    {
-        var invites = await users.getInvites('id3', users.PARTY_INVITE_TYPE, query);
-        expect(invites.length).toBe(0);
-    }
-    {
-        var friends = await users.getFriends('id3', query);
-        expect(friends.length).toBe(1);
-    }
-});
+    test('Only accept friend', async () => {
+        await users.inviteToParty('id1', 'id2', query);
+        var nowFriend = await users.addFriend('id2', 'id1', query);
+        expect(nowFriend).toBeTruthy();
+        //User should now be friend but invite should not be there
+        {
+            var members = await users.getPartyMembers('id2', query);
+            expect(members.length).toBe(0);
+        }
+        {
+            var friends = await users.getFriends('id2', query);
+            expect(friends.length).toBe(1);
+        }
+        {
+            var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
+            expect(invites.length).toBe(1);
+        }
+    });
 
-test('partyManagement - Send party invite to existing member', async() => {
-    var error = null;
-    try {
+    test('Delete party invite', async () => {
+        await users.inviteToParty('id1', 'id2', query);
+        await users.deleteInvite('id1', 'id2', users.PARTY_INVITE_TYPE, query);
+        {
+            var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
+            expect(invites.length).toBe(0);
+        }
+    });
+
+    test('Nonfriend accepts party invite', async() => {
+        await users.inviteToParty('id1', 'id2', query);
+        await users.acceptPartyInvite('id2', 'id1', query);
+        {
+            var members = await users.getPartyMembers('id1', query);
+            expect(members.length).toBe(2);
+        }
+        {
+            var friends = await users.getFriends('id2', query);
+            expect(friends.length).toBe(1);
+        }
+        {
+            var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
+            expect(invites.length).toBe(0);
+        }
+    });
+
+    test('Friend accepts party invite', async() => {
+        await users.addFriend('id1', 'id2', query);
+        await users.addFriend('id2', 'id1', query);
+        await users.inviteToParty('id1', 'id2', query);
+        await users.acceptPartyInvite('id2', 'id1', query);
+        {
+            var members = await users.getPartyMembers('id1', query);
+            expect(members.length).toBe(2);
+        }
+        {
+            var members = await users.getPartyMembers('id2', query);
+            expect(members.length).toBe(2);
+        }
+        {
+            var friends = await users.getFriends('id2', query);
+            expect(friends.length).toBe(1);
+        }
+        {
+            var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
+            expect(invites.length).toBe(0);
+        }
+    });
+
+    test('Accept Party Invite with other invites / add friend through party invite', async() => {
+        await users.inviteToParty('id1', 'id2', query);
+        await users.acceptPartyInvite('id2', 'id1', query);
         await users.inviteToParty('id1', 'id3', query);
-    } catch (e) {
-        error = e;
-    }
-    expect(error).toBeTruthy();
-    {
-        var invites = await users.getInvites('id1', users.PARTY_INVITE_TYPE, query);
-        expect(invites.length).toBe(0);
-    }
-});
+        //id2 invite is deleted because its to the same party as id1
+        await users.inviteToParty('id2', 'id3', query);
+        //id3 invites are deleted when joins another party
+        await users.inviteToParty('id3', 'id2', query);
+        {
+            var invites = await users.getInvites('id1', users.PARTY_INVITE_TYPE, query);
+            expect(invites.length).toBe(1);
+        }
+        {
+            var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
+            expect(invites.length).toBe(2);
+        }
+        {
+            var invites = await users.getInvites('id3', users.PARTY_INVITE_TYPE, query);
+            expect(invites.length).toBe(3);
+        }
+        await users.acceptPartyInvite('id3', 'id1', query);
+        {
+            var invites = await users.getInvites('id1', users.PARTY_INVITE_TYPE, query);
+            expect(invites.length).toBe(0);
+        }
+        {
+            var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
+            expect(invites.length).toBe(0);
+        }
+        {
+            var invites = await users.getInvites('id3', users.PARTY_INVITE_TYPE, query);
+            expect(invites.length).toBe(0);
+        }
+        {
+            var friends = await users.getFriends('id3', query);
+            expect(friends.length).toBe(1);
+        }
+    });
 
-test('partyManagement - Leave Party', async() => {
-    await users.leaveParty('id1', query);
-    await users.leaveParty('id2', query);
-    await users.inviteToParty('id3', 'id1', query);
-    await users.inviteToParty('id3', 'id2', query);
-    await users.inviteToParty('id1', 'id3', query);
-    await users.inviteToParty('id1', 'id2', query);
-    await users.leaveParty('id3', query);
-    {
-        var invites = await users.getInvites('id1', users.PARTY_INVITE_TYPE, query);
-        expect(invites.length).toBe(2);
-    }
-    {
-        var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
-        expect(invites.length).toBe(1);
-    }
-    {
-        var invites = await users.getInvites('id3', users.PARTY_INVITE_TYPE, query);
-        expect(invites.length).toBe(1);
-    }
-    await users.deleteInvite('id1', 'id3', users.PARTY_INVITE_TYPE, query);
-    await users.deleteInvite('id1', 'id2', users.PARTY_INVITE_TYPE, query);
-    await users.removeFriend('id1', 'id2', query);
-    await users.removeFriend('id1', 'id3', query);
-});
+    test('Send party invite to existing member', async() => {
+        await users.inviteToParty('id1', 'id2', query);
+        await users.acceptPartyInvite('id2', 'id1', query);
+        var error = null;
+        try {
+            await users.inviteToParty('id1', 'id2', query);
+        } catch (e) {
+            error = e;
+        }
+        expect(error).toBeTruthy();
+        {
+            var invites = await users.getInvites('id1', users.PARTY_INVITE_TYPE, query);
+            expect(invites.length).toBe(0);
+        }
+    });
 
-async function clearDatabase() {
+    test('Leave Party', async() => {
+        await users.inviteToParty('id1', 'id2', query);
+        await users.inviteToParty('id1', 'id3', query);
+        await users.acceptPartyInvite('id2', 'id1', query);
+
+        await users.leaveParty('id1', query);
+        await users.leaveParty('id2', query);
+        await users.inviteToParty('id3', 'id1', query);
+        await users.inviteToParty('id3', 'id2', query);
+        await users.inviteToParty('id1', 'id3', query);
+        await users.inviteToParty('id1', 'id2', query);
+        await users.leaveParty('id3', query);
+        {
+            var invites = await users.getInvites('id1', users.PARTY_INVITE_TYPE, query);
+            expect(invites.length).toBe(2);
+        }
+        {
+            var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
+            expect(invites.length).toBe(1);
+        }
+        {
+            var invites = await users.getInvites('id3', users.PARTY_INVITE_TYPE, query);
+            expect(invites.length).toBe(1);
+        }
+    });
+
+    afterEach(async () => {
+        await query(`DELETE FROM Parties`);
+        await query(`DELETE FROM Friends`);
+        await query(`DELETE FROM Invitations`);
+        await query(`DELETE FROM Users`);
+    });
+});
+afterAll(async () => {
     await query(`DROP TABLE DefaultNames`);
     await query(`DROP TABLE Parties`);
     await query(`DROP TABLE Friends`);
     await query(`DROP TABLe Invitations`);
     await query(`DROP TABLE ProfilePictures`);
     await query(`DROP TABLE Users`);
-}
-
-afterAll(async () => {
-    await clearDatabase();
     connection.end();
 });
