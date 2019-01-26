@@ -182,7 +182,7 @@ async function deleteInvite(ownerID, receiverID, type, query) {
 }
 
 async function deleteInvites(ownerID, type, query) {
-    await query('DELETE FROM Invitations WHERE ownerID=? AND type=?', [ownerID, receiverID, type]);
+    await query('DELETE FROM Invitations WHERE inviterId=? AND type=?', [ownerID, type]);
 }
 
 //FRIENDS
@@ -199,7 +199,7 @@ async function areFriends(userID, friendIDs, query) {
     var friendCountResult = await query(`SELECT COUNT(*) AS count
         FROM Friends f
         WHERE f.userId=? AND f.friendId IN (?)`, [userID, friendIDs]);
-    return friendCountResult[0].count == userIDs.length;
+    return friendCountResult[0].count == friendIDs.length;
 }
 
 async function addFriend(userID, friendID, query) {
@@ -264,6 +264,10 @@ async function getUserIDsForParty(partyID, query) {
 
 async function getPartyMembers(userID, query) {
     var partyID = await(getPartyID(userID, query));
+    return await getPartyMembersForParty(partyID, query);
+}
+
+async function getPartyMembersForParty(partyID, query) {
     var userIDs = await(getUserIDsForParty(partyID, query));
     var getUserPromises = [];
     for (var userID of userIDs) {
@@ -274,13 +278,18 @@ async function getPartyMembers(userID, query) {
 }
 
 async function inviteToParty(userID, memberID, query) {
-    if (hasInvite(userID, memberID, PARTY_INVITE_TYPE, query)) {
-        throw "Inviate to party already exists";
+    if (await hasInvite(userID, memberID, PARTY_INVITE_TYPE, query)) {
+        throw "Invite to party already exists";
     }
-    var partyID = getPartyID(userID, query);
+    var partyID = await getPartyID(userID, query);
     if (partyID == null) {
         partyID = uuidv4();
         await query(`INSERT INTO Parties VALUES ?`, [[[partyID, userID]]]);
+    } else {
+        var memberPartyID = await getPartyID(memberID, query);
+        if (memberPartyID == partyID) {
+            throw "User already a member of this party";
+        }
     }
     await createInvite(userID, memberID, PARTY_INVITE_TYPE, query);
 }
@@ -299,12 +308,25 @@ async function acceptPartyInvite(userID, inviterID, query) {
     if (!hasPartyInvite) {
         throw "Party invititation does not exist";
     }
-    var ownerIsFriend = areFriends(inviterID, [userID], query);
+    var ownerIsFriend = await areFriends(inviterID, [userID], query);
     if (!ownerIsFriend) {
         await addFriend(userID, inviterID, query);
     }
     await leaveParty(userID, query);
     var partyID = await getPartyID(inviterID, query);
+    if (partyID == null) {
+        var result = await query(`SELECT * FROM Parties`);
+        //Should never hit
+        throw "User is not in a party";
+    }
+    var members = await getPartyMembersForParty(partyID, query);
+    var deletePromises = [];
+    for (var member of members) {
+        deletePromises.push(deleteInvite(member.id, userID, PARTY_INVITE_TYPE, query));
+    }
+    if (deletePromises.length > 0) {
+        await Promise.all(deletePromises);
+    }
     await _joinParty(userID, partyID, query);
 }
 

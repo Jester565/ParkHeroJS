@@ -58,8 +58,8 @@ async function uploadFile(path, key) {
 }
 
 async function initDatabase() {
-    await uploadFile(appropiateImgPath, appropiateImgKey);
-    await uploadFile(inappropiateImgPath, inappropiateImgKey);
+    //await uploadFile(appropiateImgPath, appropiateImgKey);
+    //await uploadFile(inappropiateImgPath, inappropiateImgKey);
 
     await query(`CREATE TABLE Users (id varchar(50), name varchar(50) UNIQUE, defaultName tinyint(1), PRIMARY KEY(id))`);
     await query(`CREATE TABLE ProfilePictures (userId varchar(50), url varchar(100), PRIMARY KEY(userId))`)
@@ -86,6 +86,7 @@ test('create user - default name', async () => {
     expect(await users.getUser('id3', query)).toEqual({ id: 'id3', name: 'test1', profilePicUrl: null });
 });
 
+/*
 test('profile pic - create profile picture', async () => {
     await users.updateProfilePic('id1', bucket, appropiateImgKey, query, s3, imageAnnotatorClient);
     expect((await users.getUser('id1', query))['profilePicUrl']).toBe('profileImgs/id1');
@@ -134,6 +135,7 @@ test('profile pic - attempt inappropiate profile picture', async () => {
     
     expect(objectLists.Contents.length).toBe(0);
 });
+*/
 
 test('getUsers', async () => {
     var usrs = await users.getUsers(['id1', 'id2', 'id3'], query);
@@ -145,6 +147,8 @@ test('searchUsers', async () => {
     expect(searchResults.length).toBe(1);
 });
 
+
+//FRIEND SYSTEM
 test('getInvites - no invites', async() => {
     var invites = await users.getInvites('id1', users.FRIEND_INVITE_TYPE, query);
     expect(invites.length).toBe(0);
@@ -155,7 +159,7 @@ test('getFriends - no friends', async() => {
     expect(friends.length).toBe(0);
 });
 
-test('friend management', async() => {
+test('friend management - send friend invites', async() => {
     //id1 invites id2
     var isFriend = await users.addFriend('id1', 'id2', query);
     expect(isFriend).toBeFalsy();
@@ -182,11 +186,15 @@ test('friend management', async() => {
         var invites = await users.getInvites('id2', users.FRIEND_INVITE_TYPE, query);
         expect(invites.length).toBe(1);
     }
+});
 
+test('friend managment - accept own invite', async() => {
     //check that another invite can't be made
     isFriend = await users.addFriend('id1', 'id2', query);
     expect(isFriend).toBeFalsy();
+});
 
+test('friend management - accept friend invite', async() => {
     //id2 accepts invite from id1
     isFriend = await users.addFriend('id2', 'id1', query);
     expect(isFriend).toBeTruthy();
@@ -210,7 +218,9 @@ test('friend management', async() => {
         var friends = await users.getFriends('id2', query);
         expect(friends.length).toBe(1);
     }
+});
 
+test('friend management - decline friend invite', async() => {
     //id3 declines invite from id1
     await users.deleteInvite('id1', 'id3', users.FRIEND_INVITE_TYPE, query);
     {
@@ -221,7 +231,9 @@ test('friend management', async() => {
         var invites = await users.getInvites('id3', users.FRIEND_INVITE_TYPE, query);
         expect(invites.length).toBe(0);
     }
+});
 
+test('friend management - remove friend', async() => {
     await users.removeFriend('id2', 'id1', query);
     {
         var friends = await users.getFriends('id1', query);
@@ -234,6 +246,144 @@ test('friend management', async() => {
 });
 
 
+//PARTY SYSTEM
+test('getPartyMembers - no party members', async () => {
+    var members = await users.getPartyMembers('id1', query);
+    expect(members.length).toBe(0);
+});
+
+test('partyManagement - Invite to party', async () => {
+    await users.inviteToParty('id1', 'id2', query);
+    {
+        var invites = await users.getInvites('id1', users.PARTY_INVITE_TYPE, query);
+        expect(invites.length).toBe(1);
+    }
+});
+
+test('partyManagement - Only accept friend', async () => {
+    var nowFriend = await users.addFriend('id2', 'id1', query);
+    expect(nowFriend).toBeTruthy();
+    //User should now be friend but invite should not be there
+    {
+        var friends = await users.getFriends('id2', query);
+        expect(friends.length).toBe(1);
+    }
+    {
+        var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
+        expect(invites.length).toBe(1);
+    }
+});
+
+test('partyManagement - Delete party invite', async () => {
+    await users.deleteInvite('id1', 'id2', users.PARTY_INVITE_TYPE, query);
+    //The party invite was deleted
+    {
+        var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
+        expect(invites.length).toBe(0);
+    }
+});
+
+test('partyManagement - Friend accepts party invite', async() => {
+    await users.inviteToParty('id1', 'id2', query);
+    {
+        var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
+        expect(invites.length).toBe(1);
+    }
+    await users.acceptPartyInvite('id2', 'id1', query);
+    {
+        var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
+        expect(invites.length).toBe(0);
+    }
+    {
+        var members = await users.getPartyMembers('id1', query);
+        expect(members.length).toBe(2);
+    }
+    {
+        var members = await users.getPartyMembers('id2', query);
+        expect(members.length).toBe(2);
+    }
+    {
+        var members = await users.getPartyMembers('id3', query);
+        expect(members.length).toBe(0);
+    }
+});
+
+test('partyManagement - Accept Party Invite with other invites / add friend through party invite', async() => {
+    await users.inviteToParty('id1', 'id3', query);
+    //id2 invite is deleted because its to the same party as id1
+    await users.inviteToParty('id2', 'id3', query);
+    //id3 invites are deleted when joins another party
+    await users.inviteToParty('id3', 'id2', query);
+    {
+        var invites = await users.getInvites('id1', users.PARTY_INVITE_TYPE, query);
+        expect(invites.length).toBe(1);
+    }
+    {
+        var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
+        expect(invites.length).toBe(2);
+    }
+    {
+        var invites = await users.getInvites('id3', users.PARTY_INVITE_TYPE, query);
+        expect(invites.length).toBe(3);
+    }
+    await users.acceptPartyInvite('id3', 'id1', query);
+    {
+        var invites = await users.getInvites('id1', users.PARTY_INVITE_TYPE, query);
+        expect(invites.length).toBe(0);
+    }
+    {
+        var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
+        expect(invites.length).toBe(0);
+    }
+    {
+        var invites = await users.getInvites('id3', users.PARTY_INVITE_TYPE, query);
+        expect(invites.length).toBe(0);
+    }
+    {
+        var friends = await users.getFriends('id3', query);
+        expect(friends.length).toBe(1);
+    }
+});
+
+test('partyManagement - Send party invite to existing member', async() => {
+    var error = null;
+    try {
+        await users.inviteToParty('id1', 'id3', query);
+    } catch (e) {
+        error = e;
+    }
+    expect(error).toBeTruthy();
+    {
+        var invites = await users.getInvites('id1', users.PARTY_INVITE_TYPE, query);
+        expect(invites.length).toBe(0);
+    }
+});
+
+test('partyManagement - Leave Party', async() => {
+    await users.leaveParty('id1', query);
+    await users.leaveParty('id2', query);
+    await users.inviteToParty('id3', 'id1', query);
+    await users.inviteToParty('id3', 'id2', query);
+    await users.inviteToParty('id1', 'id3', query);
+    await users.inviteToParty('id1', 'id2', query);
+    await users.leaveParty('id3', query);
+    {
+        var invites = await users.getInvites('id1', users.PARTY_INVITE_TYPE, query);
+        expect(invites.length).toBe(2);
+    }
+    {
+        var invites = await users.getInvites('id2', users.PARTY_INVITE_TYPE, query);
+        expect(invites.length).toBe(1);
+    }
+    {
+        var invites = await users.getInvites('id3', users.PARTY_INVITE_TYPE, query);
+        expect(invites.length).toBe(1);
+    }
+    await users.deleteInvite('id1', 'id3', users.PARTY_INVITE_TYPE, query);
+    await users.deleteInvite('id1', 'id2', users.PARTY_INVITE_TYPE, query);
+    await users.removeFriend('id1', 'id2', query);
+    await users.removeFriend('id1', 'id3', query);
+});
 
 async function clearDatabase() {
     await query(`DROP TABLE DefaultNames`);
