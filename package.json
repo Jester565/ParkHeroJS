@@ -7,6 +7,9 @@
         "aws-sdk": "^2.395.0",
         "mysql": "^2.16.0",
         "profanities": "^2.9.0",
+        "querystring": "^0.2.0",
+        "request": "^2.88.0",
+        "request-promise-native": "^1.0.5",
         "sharp": "^0.21.3",
         "stream": "0.0.2"
     },
