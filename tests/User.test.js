@@ -27,23 +27,13 @@ const imageAnnotatorClient = new vision.ImageAnnotatorClient({
 const mysql = require('mysql'); // or use import if you use TS
 
 var connection = null;
-if (process.env && process.env.db_host) {
-    connection = mysql.createConnection({
-    	host: process.env.db_host,
-    	user: process.env.db_user,
-    	password: process.env.db_pwd,
-    	port: process.env.db_port,
-    	database: process.env.db_db
-    });
-} else {
-    connection = mysql.createConnection({
-    	host: config.mysql.host,
-    	user: config.mysql.user,
-    	password: config.mysql.password,
-    	database: config.mysql.database,
-    	port: config.mysql.port
-    });
-}
+connection = mysql.createConnection({
+    host: config.mysql.host,
+    user: config.mysql.user,
+    password: config.mysql.password,
+    database: config.mysql.database,
+    port: config.mysql.port
+});
 const query = util.promisify(connection.query).bind(connection);
 
 var users = require('../core/User');
@@ -64,12 +54,18 @@ async function initUsers() {
 }
 
 beforeAll(async () => {
-    await query(`CREATE TABLE Users (id varchar(50), name varchar(50) UNIQUE, defaultName tinyint(1), PRIMARY KEY(id))`);
-    await query(`CREATE TABLE ProfilePictures (userId varchar(50), url varchar(100), PRIMARY KEY(userId))`)
-    await query(`CREATE TABLE Invitations (inviterId varchar(50), receiverId varchar(50), type tinyint(1), PRIMARY KEY(inviterId, receiverId), FOREIGN KEY (inviterId) REFERENCES Users(id), FOREIGN KEY (receiverId) REFERENCES Users(id))`);
-    await query(`CREATE TABLE Friends (userId varchar(50), friendId varchar(50), PRIMARY KEY(userId, friendId), FOREIGN KEY(userId) REFERENCES Users(id), FOREIGN KEY(friendId) REFERENCES Users(id))`);
-    await query(`CREATE TABLE Parties (id varchar(50), userID varchar(50), PRIMARY KEY(id, userID), FOREIGN KEY(userID) REFERENCES Users(id))`);
-    await query(`CREATE TABLE DefaultNames (name varchar(50), count INT)`);
+    await query(`CREATE TABLE IF NOT EXISTS Users (id varchar(50), name varchar(50) UNIQUE, defaultName tinyint(1), PRIMARY KEY(id))`);
+    await query(`CREATE TABLE IF NOT EXISTS ProfilePictures (userId varchar(50), url varchar(100), PRIMARY KEY(userId))`)
+    await query(`CREATE TABLE IF NOT EXISTS Invitations (inviterId varchar(50), receiverId varchar(50), type tinyint(1), PRIMARY KEY(inviterId, receiverId), FOREIGN KEY (inviterId) REFERENCES Users(id), FOREIGN KEY (receiverId) REFERENCES Users(id))`);
+    await query(`CREATE TABLE IF NOT EXISTS Friends (userId varchar(50), friendId varchar(50), PRIMARY KEY(userId, friendId), FOREIGN KEY(userId) REFERENCES Users(id), FOREIGN KEY(friendId) REFERENCES Users(id))`);
+    await query(`CREATE TABLE IF NOT EXISTS Parties (id varchar(50), userID varchar(50), PRIMARY KEY(id, userID), FOREIGN KEY(userID) REFERENCES Users(id))`);
+    await query(`CREATE TABLE IF NOT EXISTS DefaultNames (name varchar(50), count INT)`);
+    await query(`DELETE FROM DefaultNames`);
+    await query(`DELETE FROM Parties`);
+    await query(`DELETE FROM Friends`);
+    await query(`DELETE FROM Invitations`);
+    await query(`DELETE FROM ProfilePictures`);
+    await query(`DELETE FROM Users`);
     await query(`INSERT INTO DefaultNames VALUES ?`, [[['test', 0]]]);
 });
 
@@ -91,6 +87,7 @@ describe('Create user tests', () => {
     });
 });
 
+/*
 describe('ProfilePic', () => {
     beforeAll(async () => {
         await uploadFile(appropiateImgPath, appropiateImgKey);
@@ -156,6 +153,7 @@ describe('ProfilePic', () => {
         await deleteKeysWithPrefix('profileImgs/id2');
     });
 });
+*/
 
 describe('Query Users Test', () => {
     beforeEach(async() => {
