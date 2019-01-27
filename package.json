@@ -5,6 +5,8 @@
     "dependencies": {
         "@google-cloud/vision": "^0.24.0",
         "aws-sdk": "^2.395.0",
+        "moment": "^2.24.0",
+        "moment-timezone": "^0.5.23",
         "mysql": "^2.16.0",
         "profanities": "^2.9.0",
         "querystring": "^0.2.0",
