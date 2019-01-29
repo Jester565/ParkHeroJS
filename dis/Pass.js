@@ -16,6 +16,37 @@ async function getPass(passID, accessToken) {
     return respData['entitlement'];
 }
 
+async function getParsedPass(passID, accessToken, tz) {
+    var pass = await getPass(passID, accessToken);
+    var disID = pass["primaryGuest"];
+    var name = null;
+    if (pass["assignedGuest"] != null) {
+        var nickname = pass["assignedGuest"]["nickname"];
+        var firstName = pass["assignedGuest"]["firstName"];
+        var lastName = pass["assignedGuest"]["lastName"];
+        if (nickname != null) {
+            name = nickname;
+        } else if (firstName != null) {
+            name = firstName;
+            if (lastName != null) {
+                name += " " + lastName;
+            }
+        }
+    }
+    var type = pass["productTypeId"];
+    var expireDT = null;
+    if (pass["endDateTime"] != null) {
+        expireDT = moment(pass["endDateTime"]).tz(tz);
+    }
+    return {
+        passID: passID,
+        disID: disID,
+        name: name,
+        type: type,
+        expireDT: expireDT
+    };
+}
+
 function stripTimezone(dt) {
     return moment(moment(dt).format("YYYY-MM-DD HH:mm"), "YYYY-MM-DD HH:mm");
 }
@@ -118,21 +149,7 @@ function getLatestSelectionDateTime(selectionTimes) {
     return latestSelectionDateTime;
 }
 
-async function aggregateFastPassesForPassIDs(passAndDisIDs, accessToken, tz) {
-    var fpPromises = [];
-    for (var passAndDisID of passAndDisIDs) {
-        fpPromises.push(getFastPassesForPassID(passAndDisID.passID, passAndDisID.disID, accessToken, tz));
-    }
-    var fpPassResps = await Promise.all(fpPromises);
-
-    var selectionTimes = [];
-    var earliestSelectionTimes = [];
-    for (var fpResp of fpPassResps) {
-        selectionTimes.push(fpResp.selectionDateTime);
-        earliestSelectionTimes.push(fpResp.earliestSelectionDateTime);
-    }
-    var selectionDT = getLatestSelectionDateTime(selectionTimes);
-    var earlistSelectionDT = getLatestSelectionDateTime(earliestSelectionTimes);
+function aggregateSimilarFastPasses(fpPassResps) {
     var fastPassTransactions = [];
     for (var fpResp of fpPassResps) {
         for (var entitlement of fpResp.entitlements) {
@@ -169,7 +186,10 @@ async function aggregateFastPassesForPassIDs(passAndDisIDs, accessToken, tz) {
                 endDateTime: entitlement.endDateTime });
         }
     }
+    return fastPassTransactions;
+}
 
+function sortFastPassTransactions(fastPassTransactions) {
     fastPassTransactions.sort((t1, t2) => {
         if (t1.startDateTime == null) {
             return -1;
@@ -183,16 +203,39 @@ async function aggregateFastPassesForPassIDs(passAndDisIDs, accessToken, tz) {
         }
         return 0;
     });
+}
 
+async function aggregateFastPassesForPassIDs(passAndDisIDs, accessToken, tz) {
+    var fpPromises = [];
+    for (var passAndDisID of passAndDisIDs) {
+        fpPromises.push(getFastPassesForPassID(passAndDisID.passID, passAndDisID.disID, accessToken, tz));
+    }
+    var fpPassResps = await Promise.all(fpPromises);
+
+    var selectionTimes = [];
+    var earliestSelectionTimes = [];
+    for (var fpResp of fpPassResps) {
+        selectionTimes.push(fpResp.selectionDateTime);
+        earliestSelectionTimes.push(fpResp.earliestSelectionDateTime);
+    }
+    var selectionDT = getLatestSelectionDateTime(selectionTimes);
+    var earlistSelectionDT = getLatestSelectionDateTime(earliestSelectionTimes);
+    
+    //I refer to common fastPasses as transactions
+    var transactions = aggregateSimilarFastPasses(fpPassResps);
+    sortFastPassTransactions(transactions);
+    
     return {
         selectionDateTime: selectionDT,
         earliestSelectionDateTime: earlistSelectionDT,
-        transactions: fastPassTransactions
+        transactions: transactions,
+        individualResps: fpPassResps
     }
 }
 
 module.exports = {
     getPass: getPass,
+    getParsedPass: getParsedPass,
     getFastPasses: getFastPasses,
     getFastPassesForPassID: getFastPassesForPassID,
     aggregateFastPassesForPassIDs: aggregateFastPassesForPassIDs
