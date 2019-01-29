@@ -2,9 +2,11 @@
     CREATE TABLE PlannedFpTransactions(id varchar(100), userID varchar(50), rideID int(11), partyID varchar(200), PRIMARY KEY(id), FOREIGN KEY (userID) REFERENCES Users(id), FOREIGN KEY (rideID) REFERENCES Rides(id), FOREIGN KEY (partyID) REFERENCES Parties(id));
     CREATE TABLE FpTransactionPasses(transactionID varchar(100), userID varchar(50), passID varchar(200), priority INT, PRIMARY KEY(transactionID, passID), FOREIGN KEY(transactionID) REFERENCES PlannedFpTransactions(id), FOREIGN KEY (passID, userID) REFERENCES ParkPasses(id, ownerID));
 */
-
+var moment = require('moment-timezone');
+var uuidv4 = require('uuid/v4');
 
 //New FastPassManager relies less on the database
+var users = require('./User');
 var passes = require('../dis/Pass');
 var passManager = require('./PassManager');
 var predictionManager = require('./Predictions');
@@ -62,6 +64,7 @@ async function processPlannedTransaction(transactionID, passID, priority,
         }
     }
 }
+
 
 /*
     passes: [
@@ -139,6 +142,82 @@ async function getPlannedTransactions(userIDs, passes, tz, query) {
     return results;
 }
 
+
+async function updatePlannedTransactions(plannedTransactions, userIDs) {
+    //<passID, <priority, transactionID>>
+    var passIDsToTransactionIDs = {};
+    for (var transaction of plannedTransactions) {
+        //If id is not given, make our own
+        if (transaction.id == null) {
+            transaction.id = uuidv4();
+        }
+
+        for (var pass of plannedTransactions.passes) {
+            var prioritiesToTransactionID = passIDsToTransactionIDs[pass.id];
+            if (prioritiesToTransactionID != null) {
+                prioritiesToTransactionID = {};
+                passIDsToTransactionIDs[pass.id] = prioritiesToTransactionID;
+            }
+            if (prioritiesToTransactionID[pass.priority] != null) {
+                throw "Pass " + pass.id + " had duplicate priority for " + pass.priority;
+            }
+            prioritiesToTransactionID[pass.priority] = transaction.id;
+        }
+    }
+    //Verify that priorities are no more than one apart
+    for (var passID in passIDsToTransactionIDs) {
+        var prioritiesToTransactionID = passIDsToTransactionIDs[passID];
+        var priorityCount = Object.keys(prioritiesToTransactionID).length;
+        for (var priorityStr in prioritiesToTransactionID) {
+            var priority = parseInt(priorityStr);
+            if (priority < 0 || priority >= priorityCount) {
+                throw "Priority was more than one apart";
+            }
+        }
+    }
+    //Verify all passes for plans belong to users
+    var userPasses = passManager.getPassesForUsers(userIDs);
+    var userPassIDs = {};
+    for (var userPasses of userPassesArr) {
+        for (var pass of userPasses.passes) {
+            userPassIDs[pass.id] = userPasses.user.id;
+        }
+    }
+    for (var passID in passIDsToTransactionIDs) {
+        if (userPassIDs[passID] == null) {
+            throw "PassID: " + passID + " does not belong to users";
+        }
+    }
+    //Delete all previous transactions for passes in party
+    await query(`DELETE FROM FpTransactionPasses WHERE passID IN (?)`, Object.keys(userPassIDs));
+    await query(`DELETE pfpt FROM PlannedFpTransactions  pfpt
+        LEFT JOIN FpTransactionPasses ftp ON fpt.transactionID=pfpt.id 
+        WHERE fpt.transactionID IS NULL`);
+
+    //Insert all the new transactions and transactionPasses
+    var insertTransactionPromises = [];
+    for (var transaction of plannedTransactions) {
+        insertTransactionPromises.push(
+            query(`INSERT INTO PlannedFpTransactions VALUES ?`, [[[transaction.id, transaction.rideID]]])
+        );
+    }
+    await Promise.all(insertTransactionPromises);
+
+    var insertFpPassPromises = [];
+    for (var passID in passIDsToTransactionIDs) {
+        var userID = userPassIDs[passID];
+        var prioritiesToTransactionID = passIDsToTransactionIDs[passID];
+        for (var priorityStr in prioritiesToTransactionID) {
+            var transactionID = prioritiesToTransactionID[priorityStr];
+            var priority = parseInt(priorityStr);
+            insertFpPassPromises.push(
+                query(`INSERT INTO FpTransactionPasses VALUES ?`, [[[transactionID, userID, passID, priority]]])
+            );
+        }
+    }
+    await Promise.all(insertFpPassPromises);
+}
+
 /*
     Response: {
         selectionTime,
@@ -194,7 +273,7 @@ async function getFastPasses(userIDs, accessToken, tz, query) {
     //Extract passes from user mapping
     var passAndDisIDs = [];
     for (var userPasses of userPassesArr) {
-        for (var pass of userPasses) {
+        for (var pass of userPasses.passes) {
             passIDsToUserPasses[pass.id] = { "user": user, "pass": pass };
             passAndDisIDs.push({
                 passID: pass.id,
@@ -212,6 +291,7 @@ async function getFastPasses(userIDs, accessToken, tz, query) {
         var userPass = passIDsToUserPass[fpResp.passID];
         passIDsToInfo[fpResp.passID] = {
             selectionTime: fpResp.earliestSelectionDateTime,
+            latestSelectionTime: fpResp.selectionDateTime,
             hasMaxPass: fpResp.hasMaxPass
         };
         var allUserPasses = userIDsToAllUserPasses[userPass.user.id];
@@ -231,9 +311,18 @@ async function getFastPasses(userIDs, accessToken, tz, query) {
         };
         allUserPasses.allPasses.push(passFastPasses);
     }
+    var dbUpdatePromises = [];
+    for (var passID in passIDsToInfo) {
+        var passInfo = passIDsToInfo[passID];
+        dbUpdatePromises.push(query(`INSERT INTO PassSelectionTimes VALUES ?
+            ON DUPLICATE KEY UPDATE selectionTime=?, earliestSelectionTime=?`, 
+                [[[passID, passInfo.latestSelectionTime, passInfo.selectionTime]], 
+                passInfo.latestSelectionTime, passInfo.selectionTime]));
+    }
 
     var plannedTransactions = await getPlannedTransactions(userIDs, passIDsToInfo, tz, query);
 
+    await Promise.all(dbUpdatePromises);
     var result = {
         selectionDateTime: fastPassData.selectionDateTime, 
         earliestSelectionDateTime: fastPassData.earliestSelectionDateTime,
