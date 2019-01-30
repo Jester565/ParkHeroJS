@@ -1,21 +1,28 @@
 var passes = require('../dis/Pass');
 var users = require('../core/User')
-var moment = require('moment');
+var moment = require('moment-timezone');
 
 //add or update existing pass (can also be used to refresh pass information)
 async function updatePass(userID, passID, isPrimary, isEnabled, accesssToken, tz, query) {
     var passInfo = await passes.getParsedPass(passID, accesssToken, tz);
-    var userPasses = await query(`SELECT id, isPrimary FROM ParkPasses WHERE userID=?`, [userID]);
-    if (isPrimary) {
-        //Mark all other passes as non-primary
-        for (var pass of userPasses) {
-            if (pass.isPrimary) {
-                await query('UPDATE ParkPasses SET isPrimary=0 WHERE id=? AND userID=?', [pass.id, userID]);
-            }
+    var primaryOwners = await query(`SELECT ownerID FROM ParkPasses WHERE id=? AND isPrimary=1`, [passID]);
+
+    //Make sure only one primary pass for this id exists for all users
+    var primaryOwnerID = (primaryOwners.length > 0)? primaryOwners[0].ownerID: null;
+    if (isPrimary && primaryOwnerID != null) {
+        if (primaryOwnerID != userID) {
+            throw "This pass is already primary on someone elses account!";
+        } else {
+            //If we own the primary pass, then make it non-primary
+            await query(`UPDATE ParkPasses SET isPrimary=0 WHERE ownerID=? AND id=?`, [userID, passID]);
         }
-    } else if (userPasses.length == 0) {
-        //If there are no other passes, isPrimary is always true
-        isPrimary = true;
+    }
+    //First pass is primary by default if its not primary already
+    if (isPrimary == null && primaryOwnerID == null) {
+        var userPasses = await query(`SELECT id FROM ParkPasses WHERE ownerID=?`, [userID]);
+        if (userPasses.length == 0) {
+            isPrimary = true;
+        }
     }
     await query(`INSERT INTO ParkPasses VALUES ?
         ON DUPLICATE KEY UPDATE
@@ -24,6 +31,27 @@ async function updatePass(userID, passID, isPrimary, isEnabled, accesssToken, tz
         , isPrimary, isEnabled, passInfo.expireDT]);
 }
 
+
+/*
+    Response: [
+        {
+            user: {
+                id,
+                name,
+                profilePicUrl
+            },
+            passes: [{
+                id,
+                name,
+                type,
+                expirationDT,
+                isPrimary,
+                isEnabled,
+                hasMaxPass
+            }]
+        }
+    ]
+*/
 async function getPassesForUsers(userIDs, showDisabled, tz, query) {
     var enabledCondition = ``;
     if (!showDisabled) {
@@ -32,9 +60,10 @@ async function getPassesForUsers(userIDs, showDisabled, tz, query) {
     var dateTime = moment().tz(tz);
     dateTime.subtract(4, 'hours')
     var passes = await query(`SELECT p.ownerID AS userID, p.id AS id, p.name AS name, p.disID AS disID, 
-        p.type AS type, p.expirationDT AS expirationDT, p.isPrimary AS isPrimary, p.maxPassDate=? AS hasMaxPass
+        p.type AS type, p.expirationDT AS expirationDT, p.isPrimary AS isPrimary, p.isEnabled AS isEnabled, p.maxPassDate=? AS hasMaxPass
         FROM ParkPasses p
-        WHERE p.ownerID in (?) ${enabledCondition}`, [dateTime.format('YYYY-MM-DD'), userIDs]);
+        WHERE p.ownerID in (?) ${enabledCondition} ORDER BY p.isPrimary DESC, p.ownerID, p.id`, [dateTime.format('YYYY-MM-DD'), userIDs]);
+    console.log("PASSES: ", JSON.stringify(passes));
     
     //Map passID to primary status
     var foundPasses = {};
@@ -46,15 +75,24 @@ async function getPassesForUsers(userIDs, showDisabled, tz, query) {
                 var user = await users.getUser(pass.userID, query);
                 usersToPasses[pass.userID] = {
                     user: user,
-                    passses: []
+                    passes: []
                 };
             }
+            usersToPasses[pass.userID].passes.push({
+                id: pass.id,
+                name: pass.name,
+                disID: pass.disID,
+                type: pass.type,
+                expirationDT: pass.expirationDT,
+                isPrimary: pass.isPrimary,
+                isEnabled: pass.isEnabled,
+                hasMaxPass: pass.hasMaxPass
+            });
         }
-        usersToPasses[userPass.userID].passes.push(userPass);
     }
     var userPassesArr = [];
-    for (var userPasses in usersToPasses) {
-        userPassesArr.push(userPasses);
+    for (var userID in usersToPasses) {
+        userPassesArr.push(usersToPasses[userID]);
     }
     return userPassesArr;
 }
@@ -64,7 +102,7 @@ async function removePass(userID, passID, query) {
 }
 
 module.exports = {
-    addPass: addPass,
+    updatePass: updatePass,
     getPassesForUsers: getPassesForUsers,
     removePass: removePass
 };
