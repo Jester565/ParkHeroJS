@@ -5,7 +5,8 @@ async function getFastPassPrediction(rideID, dateTime, query) {
     var dtDiff = lastDT.getTime() - firstDT.getTime();
     var fpTimes = await query(`SELECT fastpassTime AS fpt, openHour AS openHour, hoursOpen AS hoursOpen
         FROM BatchResults 
-        WHERE rideID=? AND (dateTime=? OR dateTime=?) ORDER BY dateTime`, [rideID, firstDT, lastDT]);
+        WHERE rideID=? AND (dateTime=? OR dateTime=?) ORDER BY dateTime`, 
+        [rideID, firstDT.format("YYYY-MM-DD HH:mm:ss"), lastDT.format("YYYY-MM-DD HH:mm:ss")]);
     var predTime = null;
     if (fpTimes.length == 2) {
         var fpDiff = fpTimes[0].fpt.getTime() - fpTimes[1].fpt.getTime();

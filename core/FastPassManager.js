@@ -6,7 +6,6 @@ var moment = require('moment-timezone');
 var uuidv4 = require('uuid/v4');
 
 //New FastPassManager relies less on the database
-var users = require('./User');
 var passes = require('../dis/Pass');
 var passManager = require('./PassManager');
 var predictionManager = require('./Predictions');
@@ -14,7 +13,6 @@ var predictionManager = require('./Predictions');
 function getLatestSelectionTime(selectionTimes, tz) {
     var latestSelectionTime = moment().tz(tz);
     for (var selectionTime of selectionTimes) {
-        var selectionTime = pass[passID];
         if (selectionTime > latestSelectionTime) {
             latestSelectionTime = selectionTime;
         }
@@ -22,15 +20,19 @@ function getLatestSelectionTime(selectionTimes, tz) {
     return latestSelectionTime;
 }
 
-function getNextSelectionTime(hasMaxPass, latestSelectionTime, minsToFastPass) {
+function getNextSelectionTime(hasMaxPass, latestSelectionTime, fpTime) {
     var maxSelectionWaitMins = 120;
     if (hasMaxPass) {
         maxSelectionWaitMins = 90;
     }
     var nextSelectionTime = null;
-    if (minsToFastPass <= maxSelectionWaitMins) {
-        nextSelectionTime = fpTime;
-    } else {
+    if (fpTime != null) {
+        var minsToFastPass = moment.duration(fpTime.diff(latestSelectionTime)).asMinutes();
+        if (minsToFastPass <= maxSelectionWaitMins) {
+            nextSelectionTime = fpTime.clone();
+        }
+    }
+    if (nextSelectionTime == null) {
         nextSelectionTime = latestSelectionTime.clone().add(maxSelectionWaitMins, 'minutes');
     }
     return nextSelectionTime;
@@ -42,6 +44,9 @@ async function processPlannedTransaction(transactionID, passID, priority,
     passes, tz, query) 
 {
     var transaction = transactions[transactionID];
+    if (transaction.passesToPriorities[passID] != null) {
+        return;
+    }
     transaction.passesToPriorities[passID] = priority;
     if (transaction.passCount == Object.keys(transaction.passesToPriorities).length) {
         var transactionSelectionTimes = [];
@@ -51,16 +56,19 @@ async function processPlannedTransaction(transactionID, passID, priority,
             }
         }
         transaction.selectionTime = getLatestSelectionTime(transactionSelectionTimes, tz);
-        transaction.fastPassTime = await predictionManager.getFastPassPrediction(rideID, latestSelectionTime, query);
-
-        var minsToFastPass = moment.duration(fpTime.diff(latestSelectionTime)).asMinutes();
+        transaction.fastPassTime = await predictionManager.getFastPassPrediction(transaction.rideID, transaction.selectionTime, query);
+        transaction.passesToNextSelectionTime = {};
         for (var passID in transaction.passesToPriorities) {
             var pass = passes[passID];
-            var nextSelectionTime = getNextSelectionTime(pass.hasMaxPass, latestTransactionSelectionTime, minsToFastPass);
+            var nextSelectionTime = getNextSelectionTime(pass.hasMaxPass, transaction.selectionTime, transaction.fastPassTime);
             nextSelectionTimes[passID] = nextSelectionTime;
+            transaction.passesToNextSelectionTime[passID] = nextSelectionTime;
             var passPriority = transaction.passesToPriorities[passID];
             var nextTransactionID = passToTransactionIDs[passID][passPriority + 1];
-            await processTransaction(nextTransactionID, passID, passPriority);
+            if (nextTransactionID != null) {
+                await processPlannedTransaction(nextTransactionID, passID, passPriority + 1, 
+                    transactions, passToTransactionIDs, nextSelectionTimes, passes, tz, query);
+            }
         }
     }
 }
@@ -78,13 +86,13 @@ async function getPlannedTransactions(userIDs, passes, tz, query) {
     var transactionPasses = await query(`SELECT tp.transactionID AS transactionID, t.rideID AS rideID, p.id AS passID, p.ownerID AS userID, tp.priority
         FROM FpTransactionPasses tp 
         INNER JOIN PlannedFpTransactions t ON tp.transactionID=t.id
-        INNER JOIN Passes p ON tp.passID=p.passID AND tp.userID=p.ownerID
-        WHERE p.isEnabled=1 AND tp.userID IN (?) ORDER BY tp.priority`, [partyID, userIDs]);
+        INNER JOIN ParkPasses p ON tp.passID=p.id AND tp.userID=p.ownerID
+        WHERE p.isEnabled=1 AND tp.userID IN (?) ORDER BY tp.priority`, [userIDs]);
     
     //{ rideID, passCount, passesToPriorities: <passID, priority>, selectionTime, fpTime }
     var transactions = { };
     //Map <passID, <priority, transactionIDs>>: Used so we can figure out what the next transactionID is for a particular pass
-    var passToTransactionIDs = {  };
+    var passToTransactionIDs = { };
 
     //Build passToTransactionIDs and transactions to count how many passes a particular transaction is expecting before processing
     for (var tp of transactionPasses) {
@@ -113,7 +121,7 @@ async function getPlannedTransactions(userIDs, passes, tz, query) {
 
     //Kick off by processing the first transaction for every pass, the recursion should handle the rest
     for (var tp of transactionPasses) {
-        await processTransaction(tp.transactionID, tp.passID, tp.priority,
+        await processPlannedTransaction(tp.transactionID, tp.passID, tp.priority,
             transactions, passToTransactionIDs, nextSelectionTimes,
             passes, tz, query);
         if (tp.priority > 0) {
@@ -123,27 +131,40 @@ async function getPlannedTransactions(userIDs, passes, tz, query) {
     var results = [];
     for (var transactionID in transactions) {
         var transaction = transactions[transactionID];
-        var passPriorities = [];
+        var passResults = [];
         for (var passID in transaction.passesToPriorities) {
             var priority = transaction.passesToPriorities[passID];
-            passPriorities.push({
-                passID: passID,
-                priority: priority
+            var nextSelectionTime = transaction.passesToNextSelectionTime[passID];
+            passResults.push({
+                id: passID,
+                priority: priority,
+                nextSelectionDateTime: nextSelectionTime
             });
         }
         results.push({
+            id: transactionID,
             rideID: transaction.rideID,
-            selectionDateTime: transaction.selectionTime.format("YYYY-MM-DD HH:mm:ss"),
-            fastPassTime: transaction.fastPassTime.format("YYYY-MM-DD HH:mm:ss"),
-            passPriorities: passPriorities
+            selectionDateTime: transaction.selectionTime,
+            passSelectionDateTime: transaction,
+            fastPassTime: transaction.fastPassTime,
+            passes: passResults
         });
     }
 
     return results;
 }
 
-
-async function updatePlannedTransactions(plannedTransactions, userIDs) {
+/*
+    plannedTransactions: [{
+        id (optional),
+        rideID,
+        passes: [{
+            id,
+            priority
+        }]
+    }]
+*/
+async function updatePlannedTransactions(plannedTransactions, userIDs, tz, query) {
     //<passID, <priority, transactionID>>
     var passIDsToTransactionIDs = {};
     for (var transaction of plannedTransactions) {
@@ -152,9 +173,9 @@ async function updatePlannedTransactions(plannedTransactions, userIDs) {
             transaction.id = uuidv4();
         }
 
-        for (var pass of plannedTransactions.passes) {
+        for (var pass of transaction.passes) {
             var prioritiesToTransactionID = passIDsToTransactionIDs[pass.id];
-            if (prioritiesToTransactionID != null) {
+            if (prioritiesToTransactionID == null) {
                 prioritiesToTransactionID = {};
                 passIDsToTransactionIDs[pass.id] = prioritiesToTransactionID;
             }
@@ -176,7 +197,7 @@ async function updatePlannedTransactions(plannedTransactions, userIDs) {
         }
     }
     //Verify all passes for plans belong to users
-    var userPasses = passManager.getPassesForUsers(userIDs);
+    var userPassesArr = await passManager.getPassesForUsers(userIDs, false, tz, query);
     var userPassIDs = {};
     for (var userPasses of userPassesArr) {
         for (var pass of userPasses.passes) {
@@ -191,8 +212,8 @@ async function updatePlannedTransactions(plannedTransactions, userIDs) {
     //Delete all previous transactions for passes in party
     await query(`DELETE FROM FpTransactionPasses WHERE passID IN (?)`, Object.keys(userPassIDs));
     await query(`DELETE pfpt FROM PlannedFpTransactions  pfpt
-        LEFT JOIN FpTransactionPasses ftp ON fpt.transactionID=pfpt.id 
-        WHERE fpt.transactionID IS NULL`);
+        LEFT JOIN FpTransactionPasses ftp ON ftp.transactionID=pfpt.id 
+        WHERE ftp.transactionID IS NULL`);
 
     //Insert all the new transactions and transactionPasses
     var insertTransactionPromises = [];
@@ -227,7 +248,7 @@ async function updatePlannedTransactions(plannedTransactions, userIDs) {
             startDateTime,
             endDateTime,
             passes: [{
-                passID,
+                id,
                 startDateTime,
                 endDateTime
             }]
@@ -237,8 +258,9 @@ async function updatePlannedTransactions(plannedTransactions, userIDs) {
             selectionTime,
             fastPassTime,
             passes: [{
-                passID,
-                priority
+                id,
+                priority,
+                nextSelectionDateTime
             }]
         }],
         allUserPasses: [
@@ -274,7 +296,7 @@ async function getFastPasses(userIDs, accessToken, tz, query) {
     var passAndDisIDs = [];
     for (var userPasses of userPassesArr) {
         for (var pass of userPasses.passes) {
-            passIDsToUserPasses[pass.id] = { "user": user, "pass": pass };
+            passIDsToUserPass[pass.id] = { "user": userPasses.user, "pass": pass };
             passAndDisIDs.push({
                 passID: pass.id,
                 disID: pass.disID
@@ -292,7 +314,7 @@ async function getFastPasses(userIDs, accessToken, tz, query) {
         passIDsToInfo[fpResp.passID] = {
             selectionTime: fpResp.earliestSelectionDateTime,
             latestSelectionTime: fpResp.selectionDateTime,
-            hasMaxPass: fpResp.hasMaxPass
+            hasMaxPass: passIDsToUserPass[fpResp.passID].pass.hasMaxPass
         };
         var allUserPasses = userIDsToAllUserPasses[userPass.user.id];
         if (allUserPasses == null) {
@@ -316,12 +338,16 @@ async function getFastPasses(userIDs, accessToken, tz, query) {
         var passInfo = passIDsToInfo[passID];
         dbUpdatePromises.push(query(`INSERT INTO PassSelectionTimes VALUES ?
             ON DUPLICATE KEY UPDATE selectionTime=?, earliestSelectionTime=?`, 
-                [[[passID, passInfo.latestSelectionTime, passInfo.selectionTime]], 
-                passInfo.latestSelectionTime, passInfo.selectionTime]));
+                [[[passID, passInfo.latestSelectionTime.format("YYYY-MM-DD HH:mm:ss"), passInfo.selectionTime.format("YYYY-MM-DD HH:mm:ss")]], 
+                passInfo.latestSelectionTime.format("YYYY-MM-DD HH:mm:ss"), passInfo.selectionTime.format("YYYY-MM-DD HH:mm:ss")]));
     }
 
     var plannedTransactions = await getPlannedTransactions(userIDs, passIDsToInfo, tz, query);
 
+    var allUserPasses = [];
+    for (var userID in userIDsToAllUserPasses) {
+        allUserPasses.push(userIDsToAllUserPasses[userID]);
+    }
     await Promise.all(dbUpdatePromises);
     var result = {
         selectionDateTime: fastPassData.selectionDateTime, 
@@ -332,3 +358,8 @@ async function getFastPasses(userIDs, accessToken, tz, query) {
     };
     return result;
 }
+
+module.exports = {
+    getFastPasses: getFastPasses,
+    updatePlannedTransactions: updatePlannedTransactions
+};
