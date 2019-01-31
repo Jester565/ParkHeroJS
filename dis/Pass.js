@@ -38,12 +38,36 @@ async function getParsedPass(passID, accessToken, tz) {
     if (pass["endDateTime"] != null) {
         expireDT = moment(pass["endDateTime"]).tz(tz);
     }
+    var hasMaxPass = false;
+    if (pass["featureIds"] != null) {
+        for (var feature of pass["featureIds"]) {
+            if (feature == "MaxPass") {
+                hasMaxPass = true;
+                break;
+            }
+        }
+    }
+    if (!hasMaxPass && pass["addons"] != null) {
+        for (var addon of pass["addons"]) {
+            if (addon["parentVisualId"] == passID 
+                && addon["productTypeId"] == 'dlr-maxpass') 
+            {
+                var startDateTime = moment(addon["startDateTime"]).tz(tz);
+                var endDateTime = moment(addon["endDateTime"]).tz(tz);
+                var now = moment().tz(tz);
+                if (startDateTime <= now && now <= endDateTime) {
+                    hasMaxPass = true;
+                }
+            }
+        }
+    }
     return {
         passID: passID,
         disID: disID,
         name: name,
         type: type,
-        expireDT: expireDT
+        expireDT: expireDT,
+        hasMaxPass: hasMaxPass
     };
 }
 
@@ -205,6 +229,38 @@ function sortFastPassTransactions(fastPassTransactions) {
     });
 }
 
+/*
+    passAndDisIDs: [ { passID, disID } ]
+
+    Response:
+    {
+        selectionDateTime,
+        earliestSelectionDateTime,
+        transactions: [
+            {
+                rideID,
+                startDateTime,
+                endDateTime,
+                fps: [
+                    { 
+                        passID,
+                        startDateTime,
+                        endDateTime
+                    }
+                ]
+            }
+        ],
+        individualReps: [
+            {
+                passID,
+                disID,
+                entitlements: [],
+                selectionDateTime,
+                earliestSelectionDateTime
+            }
+        ]
+    }
+*/
 async function aggregateFastPassesForPassIDs(passAndDisIDs, accessToken, tz) {
     var fpPromises = [];
     for (var passAndDisID of passAndDisIDs) {

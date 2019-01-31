@@ -24,11 +24,15 @@ async function updatePass(userID, passID, isPrimary, isEnabled, accesssToken, tz
             isPrimary = true;
         }
     }
+    var maxPassDateStr = null;
+    if (passInfo.hasMaxPass) {
+        maxPassDateStr = moment().tz(tz).format("YYYY-MM-DD HH:mm:ss");
+    }
     await query(`INSERT INTO ParkPasses VALUES ?
         ON DUPLICATE KEY UPDATE
-        isPrimary=?, isEnabled=?, expirationDT=?`, 
-        [[[passInfo.passID, userID, passInfo.name, passInfo.disID, passInfo.type, passInfo.expireDT, isPrimary, isEnabled, null]]
-        , isPrimary, isEnabled, passInfo.expireDT]);
+        isPrimary=?, isEnabled=?, expirationDT=?, maxPassDate=?`, 
+        [[[passInfo.passID, userID, passInfo.name, passInfo.disID, passInfo.type, passInfo.expireDT, isPrimary, isEnabled, maxPassDateStr]]
+        , isPrimary, isEnabled, passInfo.expireDT, maxPassDateStr]);
 }
 
 
