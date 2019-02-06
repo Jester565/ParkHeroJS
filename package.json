@@ -5,6 +5,8 @@
     "dependencies": {
         "@google-cloud/vision": "^0.24.0",
         "aws-sdk": "^2.395.0",
+        "cheerio": "^1.0.0-rc.2",
+        "he": "^1.2.0",
         "moment": "^2.24.0",
         "moment-timezone": "^0.5.23",
         "mysql": "^2.16.0",

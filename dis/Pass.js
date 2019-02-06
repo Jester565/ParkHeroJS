@@ -1,6 +1,21 @@
 var rp = require('request-promise-native');
 var moment = require('moment-timezone');
 
+async function getBlockLevel(type) {
+    if (type == "socal-select-annual") {
+        return 0;
+    } else if (type == "socal-annual" || type == "dlrSocalAnnualPass") {
+        return 1;
+    } else if (type == "deluxe-annual") {
+        return 2;
+    } else if (type == "signature") {
+        return 3;
+    } else if (type == "signature-plus") {
+        return 4;
+    }
+    return 5;  //Probably a day pass
+}
+
 async function getPass(passID, accessToken) {
     var options = {
         method: 'GET',
@@ -66,6 +81,7 @@ async function getParsedPass(passID, accessToken, tz) {
         disID: disID,
         name: name,
         type: type,
+        blockLevel: getBlockLevel(type),
         expireDT: expireDT,
         hasMaxPass: hasMaxPass
     };
@@ -290,6 +306,7 @@ async function aggregateFastPassesForPassIDs(passAndDisIDs, accessToken, tz) {
 }
 
 module.exports = {
+    getBlockLevel: getBlockLevel,
     getPass: getPass,
     getParsedPass: getParsedPass,
     getFastPasses: getFastPasses,
