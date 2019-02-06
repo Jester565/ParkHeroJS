@@ -3,11 +3,14 @@ var moment = require('moment-timezone');
 var cheerio = require('cheerio');
 var he = require('he');
 var passes = require('./Pass');
+var util = require('util');
 
 var PARK_NAMES = [ "disneyland", "disney-california-adventure" ];
 
+var sleep = util.promisify((a, f) => setTimeout(f, a));
 
-async function getAllSchedules(now) {
+
+async function getAllSchedules(now, tz, reqDelay = 3000) {
     var body = await getSchedulesPage('');
     const $ = cheerio.load(body, {
         normalizeWhitespace: true,
@@ -17,7 +20,7 @@ async function getAllSchedules(now) {
     var getMonthlySchedulesPromises = [];
     $('#monthlyDate').children().each((idx, elmRef) => {
         var elm = $(elmRef);
-        var dateStr = elm.val();
+        var dateStr = elm.attr("value");
         if (dateStr == null) {
             throw "No value in date";
         }
@@ -27,7 +30,7 @@ async function getAllSchedules(now) {
     var monthlySchedules = await Promise.all(getMonthlySchedulesPromises);
 
     //Assign blackout levels to each day
-    var blackouts = await getBlackoutDates();
+    var blackouts = await getBlackoutDates(now);
     monthlySchedules.forEach((monthlySchedule, monthI) => {
         for (var scheduleDay in monthlySchedule) {
             var schedule = monthlySchedule[scheduleDay];
@@ -46,7 +49,7 @@ async function getAllSchedules(now) {
         for (var dayStr in monthlySchedule) {
             var day = parseInt(dayStr);
             dateTime.set('date', day);
-            var dateStr = monthDateTime.format('YYYY-MM-DD');
+            var dateStr = dateTime.format('YYYY-MM-DD');
             var crowdLevel = crowdLevels[dateStr];
             var daySchedule = monthlySchedule[dayStr];
             for (var parkName in daySchedule) {
@@ -56,7 +59,21 @@ async function getAllSchedules(now) {
         dateTime.set(1, 'date');
         dateTime.add(1, 'months');
     }
-    
+
+    //Assign events to schedule
+    var dt = now.clone();
+    var events = await getEvents(now, tz, reqDelay);
+    var lastMonth = dt.month();
+    var monthI = 0;
+    for (var dayEvents of events) {
+        if (lastMonth != dt.month()) {
+            monthI++;
+        }
+        lastMonth = dt.month();
+        monthlySchedules[monthI][dt.date()]["events"] = dayEvents;
+        dt.add(1, 'days');
+    }
+
     return monthlySchedules;
 }
 
@@ -162,6 +179,59 @@ function parseHourPair(timeRangeStr) {
         startTime: moment(timeRangeStr.substr(0, idx), "hh:mm A"),
         endTime: moment(timeRangeStr.substr(idx), "hh:mm A")
     }
+}
+
+async function getEvents(now, tz, reqDelay) {
+    var dateTime = now.clone();
+    var events = [];
+    for (var i = 0; i < 30; i++) {
+        events.push(await getEventsForDate(dateTime, tz));
+        dateTime.add(1, 'days');
+        await sleep(reqDelay * Math.random() * (2.0/3.0) + reqDelay / 3.0);
+    }
+    return events;
+}
+
+async function getEventsForDate(date, tz) {
+    var options = {
+        url: 'https://disneyland.disney.go.com/calendars/day/' + date.format('YYYY-MM-DD') + '/',
+        method: 'GET',
+        headers: {
+            'x-requested-with': 'XMLHttpRequest'
+        }
+    };
+    
+    var body = await rp(options);
+    const $ = cheerio.load(body, {
+        normalizeWhitespace: true,
+        xmlMode: true
+    });
+
+    var events = []; 
+    $(".eventDetail").each((idx, cardRef) => {
+        var cardElm = $(cardRef);
+        var name = cardElm.find(".eventText").text();
+        if (name != null && name.length > 0) {
+            var imgUrl = cardElm.find('.thumbnail').prop('src');
+            var location = cardElm.find(".locationNameContainer").text();
+            var operatingHoursText = cardElm.find(".operatingHoursContainer").text();
+            var operatingHoursSplit = operatingHoursText.split(',');
+            var operatingTimes = [];
+            for (var operatingHourStr of operatingHoursSplit) {
+                var operatingHourTrimmed = operatingHourStr.trim();
+                var operatingTime = moment(operatingHourTrimmed, "h:mm A").tz(tz);
+                operatingTimes.push(operatingTime);
+            }
+            events.push({
+                name: name,
+                imgUrl: imgUrl,
+                location: location,
+                operatingTimes: operatingTimes
+            });
+        }
+    });
+
+    return events;
 }
 
 async function getBlackoutDates(now) {
@@ -286,8 +356,7 @@ async function getCrowdLevels() {
         json: true
     };
     var data = await rp(options);
-    console.log(JSON.stringify(data, null, "\t"));
-
+    
     var dateToCrowdLevel = {};
     for (var evt of data["EVENTS"]) {
         var localID = evt["local_id"];
@@ -308,5 +377,7 @@ module.exports = {
     getAllSchedules: getAllSchedules,
     getSchedulesForMonth: getSchedulesForMonth,
     getCrowdLevels: getCrowdLevels,
-    getBlackoutDates: getBlackoutDates
+    getBlackoutDates: getBlackoutDates,
+    getEvents: getEvents,
+    getEventsForDate: getEventsForDate
 };
