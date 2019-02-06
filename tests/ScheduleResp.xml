@@ -1,0 +1,1472 @@
+<script type="text/javascript">
+    window.actionName = "month"</script>
+<div id="monthView" class="calendarBase" data-plugins='[&quot;pepFinderCalendars&quot;,&quot;pepFinderCalendarsMonth&quot;,&quot;pepFinderCalendarsFacet&quot;,&quot;pepFinderCalendarsAnalytics&quot;]'>
+    <div class="clearfix filterContainer">
+        <div id="finderCalendarsDatePicker">
+            <script type="text/javascript">
+                    window.defaultUrl = "https:\/\/disneyland.disney.go.com\/calendars\/month\/"                </script>
+            <div class="filter monthlyDate">
+                <div id="monthlyDateMonthly" class="pepExtendedDatePicker pepMonthlyDatepicker">
+                    <div class="navContainer clearfix">
+                        <a  rel="prev" class="prevDateNavSprite" href="https://disneyland.disney.go.com/calendars/month/2019-02-01/">
+                            <span class="accessibleText">Previous Month</span>
+                        </a>
+                        <div class="textDate">
+                            <span class="rich-select" data-plugins="[[&quot;pepRichSelect&quot;,{&quot;disableSelectedToTop&quot;:&quot;1&quot;,&quot;highlightSelected&quot;:&quot;1&quot;,&quot;accessible&quot;:&quot;1&quot;,&quot;accessibleText&quot;:&quot; - Select Month&quot;}]]">
+                                <span class="richSelectArrowIcon"></span>
+                                <select name="monthlyDate" id="monthlyDate" url="finder-calendars-month index month date 1 calendar">
+                                    <option value="2019-02-01">February, 2019&lt;div  class=&quot;horizontalSeparator optionSeparator&quot;&gt;
+&lt;/div&gt;</option>
+                                    <option value="2019-03-01" selected="selected">March, 2019</option>
+                                </select>
+                            </span>
+                        </div>
+                        <a  rel="next" class="nextDateNavSprite noMoreDates" aria-hidden="true" tab-index="-1&quot;">
+                            <span class="accessibleText">Next Month</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix">
+        <div class="annualPassHolderContainer">
+            <a href="https://disneyland.disney.go.com/passes/blockout-dates/">View Annual Passport Blockout Calendar</a>
+        </div>
+        <div class="printContainerWithAnnualPass" data-plugins="[&quot;pepPrintPage&quot;]" tabindex="0" role="button">
+            <span class="printButton">&#58127;</span>
+            <span class="printLabel">Print</span>
+        </div>
+    </div>
+    <div id="finderCalendarNavContainer">
+        <nav id="finderCalendarNavigation" class="menuTab" role="navigation">
+            <a id="monthTab" class="selected" href="https://disneyland.disney.go.com/calendars/month/2019-03-01/" aria-selected="true">
+                Month View
+                <span class="accessibleText">Selected</span>
+            </a>
+            <a id="fiveDayTab" href="https://disneyland.disney.go.com/calendars/five-day/2019-03-01/" aria-selected="false">
+                5-Day View            </a>
+            <a id="dayTab" href="https://disneyland.disney.go.com/calendars/day/2019-03-01/" aria-selected="false">
+                Day View            </a>
+            <a id="parkHoursTab" href="https://disneyland.disney.go.com/calendars/park-hours/2019-03-01/" aria-selected="false">
+                Park Hours            </a>
+        </nav>
+    </div>
+    <div id='calendarBody'>
+        <h1>
+        Monthly Calendar        
+            <span class="accessibleText"> - Disneyland Resort</span>
+        </h1>
+        <div id="calendarFacetBar" class="clearfix accordion">
+            <form name="finderFacets" id="finderFacetsForm">
+                <fieldset class="facet destinationsFacet pepFilterMultiCheckbox" data-filterdefaultorder="disneyland,disney-california-adventure,downtown-disney-district">
+                    <legend class="title">
+Destinations     </legend>
+                    <ul>
+                        <li class="pepLightCheckbox">
+                            <input type="checkbox" id="checkbox-disneyland" name="destinations[]" value="disneyland"/>
+                            <label for="checkbox-disneyland">
+                                <![if !(IE 8)]>
+                                <span class="icon" aria-hidden="true"></span>
+                                <![endif]>
+                                <span class="value">Disneyland Park</span>
+                            </label>
+                        </li>
+                        <li class="pepLightCheckbox">
+                            <input type="checkbox" id="checkbox-disney-california-adventure" name="destinations[]" value="disney-california-adventure"/>
+                            <label for="checkbox-disney-california-adventure">
+                                <![if !(IE 8)]>
+                                <span class="icon" aria-hidden="true"></span>
+                                <![endif]>
+                                <span class="value">Disney California Adventure Park</span>
+                            </label>
+                        </li>
+                        <li class="pepLightCheckbox">
+                            <input type="checkbox" id="checkbox-downtown-disney-district" name="destinations[]" value="downtown-disney-district"/>
+                            <label for="checkbox-downtown-disney-district">
+                                <![if !(IE 8)]>
+                                <span class="icon" aria-hidden="true"></span>
+                                <![endif]>
+                                <span class="value">Downtown Disney District</span>
+                            </label>
+                        </li>
+                    </ul>
+                </fieldset>
+            </form>
+            <div class="buttonBar">
+                <div class="clearAllButton">
+                    <a role="button" tabindex="0" aria-label="Clear all facet filters">
+Clear All                </a>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+    window.calendarsDefaultFacets = {"destinations":["disneyland","disney-california-adventure","downtown-disney-district"],"schedules":["parades","nighttime-spectacular-firework","event","shows","park-atmosphere-entertainment","refurbishment"]};
+</script>
+        <table id="monthlyCalendarTable">
+            <tr class="daysOfWeek">
+                <th id="sunday" scope="col">Sunday</th>
+                <th id="monday" scope="col">Monday</th>
+                <th id="tuesday" scope="col">Tuesday</th>
+                <th id="wednesday" scope="col">Wednesday</th>
+                <th id="thursday" scope="col">Thursday</th>
+                <th id="friday" scope="col">Friday</th>
+                <th id="saturday" scope="col">Saturday</th>
+            </tr>
+            <tr class="weekRow">
+                <td headers="sunday" class="sunday">
+                    <div class="dayOfMonth noData">
+24    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="monday" class="monday">
+                    <div class="dayOfMonth noData">
+25    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="tuesday" class="tuesday">
+                    <div class="dayOfMonth noData">
+26    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="wednesday" class="wednesday">
+                    <div class="dayOfMonth noData">
+27    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="thursday" class="thursday">
+                    <div class="dayOfMonth noData">
+28    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="friday" class="friday">
+                    <div class="dayOfMonth">
+1    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut socal-annual" data-blockoutid="socal-annual"></div>
+                        <div class="blockOut socal-select-annual" data-blockoutid="socal-select-annual"></div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march01 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 12:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="magicHours"></div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march01 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 10:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 9:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march01 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td headers="saturday" class="saturday">
+                    <div class="dayOfMonth">
+2    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut blocked socal-annual blockCaption lastBlockedDay" data-blockoutid="socal-annual" title="Blocked -  Disney Southern California Passport">
+                            <span aria-hidden="true" class="prefix">Blocked - </span>
+                            <span aria-hidden="true">Disney Southern California...</span>
+                            <span class="accessibleText">Blocked -  Disney Southern California Passport</span>
+                        </div>
+                        <div class="blockOut blocked socal-select-annual blockCaption lastBlockedDay" data-blockoutid="socal-select-annual" title="Blocked -  Disney Southern California Select Passport">
+                            <span aria-hidden="true" class="prefix">Blocked - </span>
+                            <span aria-hidden="true">Disney Southern California...</span>
+                            <span class="accessibleText">Blocked -  Disney Southern California Select Passport</span>
+                        </div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march02 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 12:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/magic-morning-early-admission/">            Magic Morning        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march02 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 10:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 9:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march02 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="weekRow">
+                <td headers="sunday" class="sunday">
+                    <div class="dayOfMonth">
+3    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut socal-annual" data-blockoutid="socal-annual"></div>
+                        <div class="blockOut blocked socal-select-annual blockCaption lastBlockedDay" data-blockoutid="socal-select-annual" title="Blocked -  Disney Southern California Select Passport">
+                            <span aria-hidden="true" class="prefix">Blocked - </span>
+                            <span aria-hidden="true">Disney Southern California...</span>
+                            <span class="accessibleText">Blocked -  Disney Southern California Select Passport</span>
+                        </div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march03 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 11:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="magicHours"></div>
+                            <div class="eventBlock event"></div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march03 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 10:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 9:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march03 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td headers="monday" class="monday">
+                    <div class="dayOfMonth">
+4    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut socal-annual" data-blockoutid="socal-annual"></div>
+                        <div class="blockOut socal-select-annual" data-blockoutid="socal-select-annual"></div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march04 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>9:00&nbsp;AM to 10:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="magicHours"></div>
+                            <div class="eventBlock event"></div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march04 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>9:00&nbsp;AM to 8:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>8:00&nbsp;AM to 9:00&nbsp;AM</p>
+                            </div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 8:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march04 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td headers="tuesday" class="tuesday">
+                    <div class="dayOfMonth">
+5    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut socal-annual" data-blockoutid="socal-annual"></div>
+                        <div class="blockOut socal-select-annual" data-blockoutid="socal-select-annual"></div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march05 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>9:00&nbsp;AM to 9:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>8:00&nbsp;AM to 9:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/magic-morning-early-admission/">            Magic Morning        </a>
+                                </p>
+                                <p>8:00&nbsp;AM to 9:00&nbsp;AM</p>
+                            </div>
+                            <div class="eventBlock event"></div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march05 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>9:00&nbsp;AM to 8:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 8:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march05 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td headers="wednesday" class="wednesday">
+                    <div class="dayOfMonth">
+6    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut socal-annual" data-blockoutid="socal-annual"></div>
+                        <div class="blockOut socal-select-annual" data-blockoutid="socal-select-annual"></div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march06 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>9:00&nbsp;AM to 8:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="magicHours"></div>
+                            <div class="eventBlock event"></div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march06 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>9:00&nbsp;AM to 8:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>8:00&nbsp;AM to 9:00&nbsp;AM</p>
+                            </div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 8:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march06 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td headers="thursday" class="thursday">
+                    <div class="dayOfMonth">
+7    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut socal-annual" data-blockoutid="socal-annual"></div>
+                        <div class="blockOut socal-select-annual" data-blockoutid="socal-select-annual"></div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march07 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>9:00&nbsp;AM to 8:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>8:00&nbsp;AM to 9:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/magic-morning-early-admission/">            Magic Morning        </a>
+                                </p>
+                                <p>8:00&nbsp;AM to 9:00&nbsp;AM</p>
+                            </div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/after-dark-90s-nite/">Disneyland After Dark: 90s Nite</a>
+                                    <p class="operatingHoursContainer">9:00&nbsp;PM to 1:00&nbsp;AM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march07 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>9:00&nbsp;AM to 8:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 8:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march07 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td headers="friday" class="friday">
+                    <div class="dayOfMonth">
+8    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut socal-annual" data-blockoutid="socal-annual"></div>
+                        <div class="blockOut socal-select-annual" data-blockoutid="socal-select-annual"></div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march08 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>9:00&nbsp;AM to 12:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="magicHours"></div>
+                            <div class="eventBlock event"></div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march08 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>9:00&nbsp;AM to 10:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>8:00&nbsp;AM to 9:00&nbsp;AM</p>
+                            </div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 9:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march08 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td headers="saturday" class="saturday">
+                    <div class="dayOfMonth">
+9    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut blocked socal-annual blockCaption lastBlockedDay" data-blockoutid="socal-annual" title="Blocked -  Disney Southern California Passport">
+                            <span aria-hidden="true" class="prefix">Blocked - </span>
+                            <span aria-hidden="true">Disney Southern California...</span>
+                            <span class="accessibleText">Blocked -  Disney Southern California Passport</span>
+                        </div>
+                        <div class="blockOut blocked socal-select-annual blockCaption lastBlockedDay" data-blockoutid="socal-select-annual" title="Blocked -  Disney Southern California Select Passport">
+                            <span aria-hidden="true" class="prefix">Blocked - </span>
+                            <span aria-hidden="true">Disney Southern California...</span>
+                            <span class="accessibleText">Blocked -  Disney Southern California Select Passport</span>
+                        </div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march09 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 12:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/magic-morning-early-admission/">            Magic Morning        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div class="eventBlock event"></div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march09 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 10:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 9:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march09 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="weekRow">
+                <td headers="sunday" class="sunday">
+                    <div class="dayOfMonth">
+10    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut socal-annual" data-blockoutid="socal-annual"></div>
+                        <div class="blockOut blocked socal-select-annual blockCaption lastBlockedDay" data-blockoutid="socal-select-annual" title="Blocked -  Disney Southern California Select Passport">
+                            <span aria-hidden="true" class="prefix">Blocked - </span>
+                            <span aria-hidden="true">Disney Southern California...</span>
+                            <span class="accessibleText">Blocked -  Disney Southern California Select Passport</span>
+                        </div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march10 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 12:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="magicHours"></div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march10 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 10:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 9:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march10 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td headers="monday" class="monday">
+                    <div class="dayOfMonth">
+11    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut socal-annual" data-blockoutid="socal-annual"></div>
+                        <div class="blockOut socal-select-annual" data-blockoutid="socal-select-annual"></div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march11 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 12:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="magicHours"></div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march11 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 10:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 9:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march11 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td headers="tuesday" class="tuesday">
+                    <div class="dayOfMonth">
+12    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut socal-annual" data-blockoutid="socal-annual"></div>
+                        <div class="blockOut socal-select-annual" data-blockoutid="socal-select-annual"></div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march12 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 11:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/magic-morning-early-admission/">            Magic Morning        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march12 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 10:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 9:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march12 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td headers="wednesday" class="wednesday">
+                    <div class="dayOfMonth">
+13    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut socal-annual" data-blockoutid="socal-annual"></div>
+                        <div class="blockOut socal-select-annual" data-blockoutid="socal-select-annual"></div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march13 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 11:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="magicHours"></div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march13 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 10:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 9:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march13 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td headers="thursday" class="thursday">
+                    <div class="dayOfMonth">
+14    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut socal-annual" data-blockoutid="socal-annual"></div>
+                        <div class="blockOut socal-select-annual" data-blockoutid="socal-select-annual"></div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march14 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 12:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/magic-morning-early-admission/">            Magic Morning        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march14 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 10:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 9:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march14 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td headers="friday" class="friday">
+                    <div class="dayOfMonth">
+15    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut socal-annual" data-blockoutid="socal-annual"></div>
+                        <div class="blockOut blocked socal-select-annual blockCaption" data-blockoutid="socal-select-annual" title="Blocked -  Disney Southern California Select Passport">
+                            <span aria-hidden="true" class="prefix">Blocked - </span>
+                            <span aria-hidden="true">Disney Southern California Select...</span>
+                            <span class="accessibleText">Blocked -  Disney Southern California Select Passport</span>
+                        </div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march15 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 11:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="magicHours"></div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march15 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 10:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 9:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march15 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td headers="saturday" class="saturday">
+                    <div class="dayOfMonth">
+16    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut blocked deluxe-annual blockCaption lastBlockedDay" data-blockoutid="deluxe-annual" title="Blocked -  Disney Deluxe Passport">
+                            <span aria-hidden="true" class="prefix">Blocked - </span>
+                            <span aria-hidden="true">Disney Deluxe Passport</span>
+                            <span class="accessibleText">Blocked -  Disney Deluxe Passport</span>
+                        </div>
+                        <div class="blockOut blocked socal-annual blockCaption lastBlockedDay" data-blockoutid="socal-annual" title="Blocked -  Disney Southern California Passport">
+                            <span aria-hidden="true" class="prefix">Blocked - </span>
+                            <span aria-hidden="true">Disney Southern California...</span>
+                            <span class="accessibleText">Blocked -  Disney Southern California Passport</span>
+                        </div>
+                        <div class="blockOut blocked socal-select-annual lastBlockedDay" data-blockoutid="socal-select-annual" title="Blocked -  Disney Southern California Select Passport">
+                            <span class="accessibleText">Blocked -  Disney Southern California Select Passport</span>
+                        </div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march16 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 12:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/magic-morning-early-admission/">            Magic Morning        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march16 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 10:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 9:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march16 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr class="weekRow">
+                <td headers="sunday" class="sunday">
+                    <div class="dayOfMonth">
+17    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut socal-annual" data-blockoutid="socal-annual"></div>
+                        <div class="blockOut blocked socal-select-annual blockCaption lastBlockedDay" data-blockoutid="socal-select-annual" title="Blocked -  Disney Southern California Select Passport">
+                            <span aria-hidden="true" class="prefix">Blocked - </span>
+                            <span aria-hidden="true">Disney Southern California...</span>
+                            <span class="accessibleText">Blocked -  Disney Southern California Select Passport</span>
+                        </div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march17 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 12:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="magicHours"></div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march17 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 10:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 9:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march17 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td headers="monday" class="monday">
+                    <div class="dayOfMonth">
+18    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut socal-annual" data-blockoutid="socal-annual"></div>
+                        <div class="blockOut socal-select-annual" data-blockoutid="socal-select-annual"></div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march18 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 12:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="magicHours"></div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march18 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 10:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 9:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march18 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td headers="tuesday" class="tuesday">
+                    <div class="dayOfMonth">
+19    </div>
+                    <div class="blockOutContainer">
+                        <div class="blockOut deluxe-annual" data-blockoutid="deluxe-annual"></div>
+                        <div class="blockOut socal-annual" data-blockoutid="socal-annual"></div>
+                        <div class="blockOut socal-select-annual" data-blockoutid="socal-select-annual"></div>
+                    </div>
+                    <div class="parkContentContainer">
+                        <div class="dailyBlock disneyland" headers="march19 disneyland">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disneyland/" class="cardLinkOverlay">
+                                    <span class="parkName">Disneyland Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 11:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/extra-magic-hour-early-admission/">            Extra Magic Hour        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div class="magicHours">
+                                <p>
+                                    <a href="/guest-services/magic-morning-early-admission/">            Magic Morning        </a>
+                                </p>
+                                <p>7:00&nbsp;AM to 8:00&nbsp;AM</p>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock disney-california-adventure" headers="march19 disney-california-adventure">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/disney-california-adventure/" class="cardLinkOverlay">
+                                    <span class="parkName">Disney California Adventure Park</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>8:00&nbsp;AM to 10:00&nbsp;PM</p>
+                            </div>
+                            <div class="magicHours"></div>
+                            <div class="eventBlock event">
+                                <div class="textColumn">
+                                    <a href="https://disneyland.disney.go.com/events-tours/disney-california-adventure/food-and-wine-festival/">2019 Disney California Adventure Food &amp; Wine Festival</a>
+                                    <p class="operatingHoursContainer">10:30&nbsp;AM to 9:00&nbsp;PM</p>
+                                </div>
+                            </div>
+                            <div  class="horizontalSeparator fullWidth"></div>
+                        </div>
+                        <div class="dailyBlock downtown-disney-district" headers="march19 downtown-disney-district">
+                            <div class="parkTitle">
+                                <a href="https://disneyland.disney.go.com/destinations/downtown-disney-district/" class="cardLinkOverlay">
+                                    <span class="parkName">Downtown Disney District</span>
+                                </a>
+                            </div>
+                            <div class="parkHours">
+                                <p>7:00&nbsp;AM to 2:00&nbsp;AM</p>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td headers="wednesday" class="wednesday">
+                    <div class="dayOfMonth noData">
+20    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="thursday" class="thursday">
+                    <div class="dayOfMonth noData">
+21    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="friday" class="friday">
+                    <div class="dayOfMonth noData">
+22    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="saturday" class="saturday">
+                    <div class="dayOfMonth noData">
+23    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="weekRow">
+                <td headers="sunday" class="sunday">
+                    <div class="dayOfMonth noData">
+24    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="monday" class="monday">
+                    <div class="dayOfMonth noData">
+25    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="tuesday" class="tuesday">
+                    <div class="dayOfMonth noData">
+26    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="wednesday" class="wednesday">
+                    <div class="dayOfMonth noData">
+27    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="thursday" class="thursday">
+                    <div class="dayOfMonth noData">
+28    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="friday" class="friday">
+                    <div class="dayOfMonth noData">
+29    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="saturday" class="saturday">
+                    <div class="dayOfMonth noData">
+30    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+            </tr>
+            <tr class="weekRow">
+                <td headers="sunday" class="sunday">
+                    <div class="dayOfMonth noData">
+31    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="monday" class="monday">
+                    <div class="dayOfMonth noData">
+1    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="tuesday" class="tuesday">
+                    <div class="dayOfMonth noData">
+2    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="wednesday" class="wednesday">
+                    <div class="dayOfMonth noData">
+3    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="thursday" class="thursday">
+                    <div class="dayOfMonth noData">
+4    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="friday" class="friday">
+                    <div class="dayOfMonth noData">
+5    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+                <td headers="saturday" class="saturday">
+                    <div class="dayOfMonth noData">
+6    </div>
+                    <div class="parkContentContainer">
+                        <span class="accessibleText">This date has no data</span>
+                    </div>
+                </td>
+            </tr>
+        </tr>
+    </table>
+    <div class="calendarsDisclaimer">
+        <p>All information is subject to change without notice. Hours for Downtown Disney District locations vary.</p>
+    </div>
+</div>
+</div>
