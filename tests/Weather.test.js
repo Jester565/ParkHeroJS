@@ -13,8 +13,8 @@ test('weathers', async () => {
     rp.mockResolvedValueOnce(new Promise((resolve) => {
         resolve(JSON.parse(respText));
     }));
-    var forecasts = await weathers.getForecast('', '', "America/Los_Angeles");
-    expect(forecasts[0].dateTime.format("YYYY-MM-DD HH:mm")).toBe("2019-02-06 12:00");
-    expect(forecasts[0].feelsLikeF).toBe(51);
+    var forecasts = await weathers.getForecast('', 0, 0, "America/Los_Angeles");
+    expect(forecasts[0].dateTime.format("YYYY-MM-DD HH:mm")).toBe("2019-02-06 21:00");
+    expect(forecasts[0].feelsLikeF).toBe(46);
     expect(forecasts[0].rainStatus).toBe(0);
 });
