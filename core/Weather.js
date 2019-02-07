@@ -17,10 +17,10 @@ function intensityToAerisCode(precipitation) {
     return 4;
 }
 
-async function getForecast(darkskySecret, coords, tz) {
+async function getForecast(darkskySecret, longitude, latitude, tz) {
     var options = {
         method: 'GET',
-        uri: 'https://api.darksky.net/forecast/' + darkskySecret + "/" + coords + "?extend=hourly",
+        uri: 'https://api.darksky.net/forecast/' + darkskySecret + "/" + longitude.toString() + "," + latitude.toString() + "?extend=hourly",
         headers: {
             'Accept': 'application/json'
         },

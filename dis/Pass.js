@@ -1,7 +1,7 @@
 var rp = require('request-promise-native');
 var moment = require('moment-timezone');
 
-async function getBlockLevel(type) {
+function getBlockLevel(type) {
     if (type == "socal-select-annual") {
         return 0;
     } else if (type == "socal-annual" || type == "dlrSocalAnnualPass") {

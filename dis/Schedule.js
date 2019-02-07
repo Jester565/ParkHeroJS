@@ -379,5 +379,6 @@ module.exports = {
     getCrowdLevels: getCrowdLevels,
     getBlackoutDates: getBlackoutDates,
     getEvents: getEvents,
-    getEventsForDate: getEventsForDate
+    getEventsForDate: getEventsForDate,
+    PARK_NAMES: PARK_NAMES
 };
