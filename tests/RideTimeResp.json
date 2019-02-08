@@ -1,0 +1,2128 @@
+{
+    "links": {
+        "themePark": {
+            "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/theme-parks/330339?region=us"
+        },
+        "self": {
+            "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/theme-parks/330339/wait-times?region=us"
+        }
+    },
+    "offset": 0,
+    "limit": 0,
+    "total": 0,
+    "entries": [
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353291;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353291;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353291;entityType=Attraction",
+            "name": "Astro Orbitor",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Closed",
+                "singleRider": false,
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353293;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353293;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353293;entityType=Attraction",
+            "name": "Autopia",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 20,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353295;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353295;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353295;entityType=Attraction",
+            "name": "Big Thunder Mountain Railroad",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "startTime": "15:05:00",
+                    "endTime": "16:05:00",
+                    "available": true
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 30,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353301;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353301;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353301;entityType=Attraction",
+            "name": "Buzz Lightyear Astro Blasters ",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "startTime": "14:00:00",
+                    "endTime": "15:00:00",
+                    "available": true
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 20,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353305;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353305;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353305;entityType=Attraction",
+            "name": "Casey Jr. Circus Train",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 15,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353309;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353309;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353309;entityType=Attraction",
+            "name": "Chip 'n Dale Treehouse",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353311;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353311;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353311;entityType=Attraction",
+            "name": "Davy Crockett's Explorer Canoes",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Closed",
+                "singleRider": false,
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353313;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353313;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353313;entityType=Attraction",
+            "name": "Disneyland Monorail",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 10,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353315;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353315;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353315;entityType=Attraction",
+            "name": "Disneyland Railroad",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 10,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353321;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353321;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353321;entityType=Attraction",
+            "name": "Donald's Boat",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353323;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353323;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353323;entityType=Attraction",
+            "name": "Dumbo the Flying Elephant",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 30,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353325;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353325;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353325;entityType=Attraction",
+            "name": "Walt Disney's Enchanted Tiki Room",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 10,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353327;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353327;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353327;entityType=Attraction",
+            "name": "Finding Nemo Submarine Voyage",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 30,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353329;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353329;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353329;entityType=Attraction",
+            "name": "Main Street Vehicles – Fire Engine",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353335;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353335;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353335;entityType=Attraction",
+            "name": "Frontierland Shootin' Exposition",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353337;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353337;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353337;entityType=Attraction",
+            "name": "Gadget's Go Coaster",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 20,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353343;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353343;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353343;entityType=Attraction",
+            "name": "Goofy's Playhouse",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353347;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353347;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353347;entityType=Attraction",
+            "name": "Haunted Mansion",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "startTime": "14:45:00",
+                    "endTime": "15:45:00",
+                    "available": true
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 45,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Moderate Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353351;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353351;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353351;entityType=Attraction",
+            "name": "Main Street Vehicles – Horse-Drawn Streetcars",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Down",
+                "singleRider": false,
+                "rollUpStatus": "Down",
+                "rollUpWaitTimeMessage": "Down"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353353;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353353;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353353;entityType=Attraction",
+            "name": "Main Street Vehicles – Horseless Carriage",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353355;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353355;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353355;entityType=Attraction",
+            "name": "Indiana Jones Adventure ",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "startTime": "17:10:00",
+                    "endTime": "18:10:00",
+                    "available": true
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 45,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Moderate Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353363;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353363;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353363;entityType=Attraction",
+            "name": "Jungle Cruise",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 15,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353365;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353365;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353365;entityType=Attraction",
+            "name": "King Arthur Carrousel",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 10,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353369;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353369;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353369;entityType=Attraction",
+            "name": "Mad Tea Party ",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 15,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353371;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353371;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353371;entityType=Attraction",
+            "name": "Main Street Cinema",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353375;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353375;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353375;entityType=Attraction",
+            "name": "Mark Twain Riverboat",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353377;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353377;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353377;entityType=Attraction",
+            "name": "Matterhorn Bobsleds",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "startTime": "15:40:00",
+                    "endTime": "16:40:00",
+                    "available": true
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 65,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Long Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353381;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353381;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353381;entityType=Attraction",
+            "name": "Mickey's House and Meet Mickey",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 35,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Moderate Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353383;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353383;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353383;entityType=Attraction",
+            "name": "Minnie's House",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353389;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353389;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353389;entityType=Attraction",
+            "name": "Mr. Toad's Wild Ride ",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 10,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353395;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353395;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353395;entityType=Attraction",
+            "name": "Main Street Vehicles – Omnibus",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Closed",
+                "singleRider": false,
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353399;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353399;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353399;entityType=Attraction",
+            "name": "Peter Pan's Flight ",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 30,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353401;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353401;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353401;entityType=Attraction",
+            "name": "Pinocchio's Daring Journey",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 15,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353403;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353403;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353403;entityType=Attraction",
+            "name": "Pirate's Lair on Tom Sawyer Island",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353405;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353405;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353405;entityType=Attraction",
+            "name": "Pirates of the Caribbean ",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 30,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353421;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353421;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353421;entityType=Attraction",
+            "name": "Roger Rabbit's Car Toon Spin",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "startTime": "14:30:00",
+                    "endTime": "15:30:00",
+                    "available": true
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 25,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353425;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353425;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353425;entityType=Attraction",
+            "name": "Sailing Ship Columbia",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Closed",
+                "singleRider": false,
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353427;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353427;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353427;entityType=Attraction",
+            "name": "Sleeping Beauty Castle Walkthrough",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Closed",
+                "singleRider": false,
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353429;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353429;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353429;entityType=Attraction",
+            "name": "Snow White's Scary Adventures",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 10,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353435;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353435;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353435;entityType=Attraction",
+            "name": "Space Mountain",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "startTime": "16:35:00",
+                    "endTime": "17:35:00",
+                    "available": true
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 70,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Long Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353437;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353437;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353437;entityType=Attraction",
+            "name": "Splash Mountain",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Closed",
+                "singleRider": false,
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353439;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353439;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353439;entityType=Attraction",
+            "name": "Star Tours - The Adventures Continue",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "startTime": "14:50:00",
+                    "endTime": "15:50:00",
+                    "available": true
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 35,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Moderate Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353443;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353443;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353443;entityType=Attraction",
+            "name": "Storybook Land Canal Boats",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 25,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353445;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353445;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353445;entityType=Attraction",
+            "name": "Tarzan's Treehouse",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353449;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353449;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353449;entityType=Attraction",
+            "name": "The Many Adventures of Winnie the Pooh",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 10,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353461;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/353461;entityType=Attraction?region=us"
+                }
+            },
+            "id": "353461;entityType=Attraction",
+            "name": "The Disneyland Story presenting Great Moments with Mr. Lincoln",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/367492;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/367492;entityType=Attraction?region=us"
+                }
+            },
+            "id": "367492;entityType=Attraction",
+            "name": "\"it's a small world\"",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "startTime": "14:00:00",
+                    "endTime": "15:00:00",
+                    "available": true
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 35,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Moderate Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/367495;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/367495;entityType=Attraction?region=us"
+                }
+            },
+            "id": "367495;entityType=Attraction",
+            "name": "Alice in Wonderland",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 30,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/393385;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/393385;entityType=Attraction?region=us"
+                }
+            },
+            "id": "393385;entityType=Attraction",
+            "name": "Main Street Vehicles",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/3433651;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/3433651;entityType=Attraction?region=us"
+                }
+            },
+            "id": "3433651;entityType=Attraction",
+            "name": "Pixie Hollow",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/16204726;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/16204726;entityType=Attraction?region=us"
+                }
+            },
+            "id": "16204726;entityType=Attraction",
+            "name": "Fantasmic!",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/17734741;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/17734741;entityType=Attraction?region=us"
+                }
+            },
+            "id": "17734741;entityType=Attraction",
+            "name": "The Disney Gallery",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/18171939;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/18171939;entityType=Attraction?region=us"
+                }
+            },
+            "id": "18171939;entityType=Attraction",
+            "name": "Trick-or-Treating at Mickey's Halloween Party",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operates Seasonally",
+                "singleRider": false,
+                "rollUpStatus": "Operates Seasonally",
+                "rollUpWaitTimeMessage": "Operates Seasonally"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/18237232;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/18237232;entityType=Attraction?region=us"
+                }
+            },
+            "id": "18237232;entityType=Attraction",
+            "name": "\"it's a small world\" Holiday",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Closed",
+                "singleRider": false,
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/18237343;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/18237343;entityType=Attraction?region=us"
+                }
+            },
+            "id": "18237343;entityType=Attraction",
+            "name": "Star Wars Launch Bay",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/18237368;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/18237368;entityType=Attraction?region=us"
+                }
+            },
+            "id": "18237368;entityType=Attraction",
+            "name": "Hyperspace Mountain",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operates Seasonally",
+                "singleRider": false,
+                "rollUpStatus": "Operates Seasonally",
+                "rollUpWaitTimeMessage": "Operates Seasonally"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/18249927;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/18249927;entityType=Attraction?region=us"
+                }
+            },
+            "id": "18249927;entityType=Attraction",
+            "name": "Haunted Mansion Holiday",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Closed",
+                "singleRider": false,
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/18452199;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/18452199;entityType=Attraction?region=us"
+                }
+            },
+            "id": "18452199;entityType=Attraction",
+            "name": "Main Street Pumpkin Festival",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operates Seasonally",
+                "singleRider": false,
+                "rollUpStatus": "Operates Seasonally",
+                "rollUpWaitTimeMessage": "Operates Seasonally"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/18532806;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/18532806;entityType=Attraction?region=us"
+                }
+            },
+            "id": "18532806;entityType=Attraction",
+            "name": "Holiday Décor",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operates Seasonally",
+                "singleRider": false,
+                "rollUpStatus": "Operates Seasonally",
+                "rollUpWaitTimeMessage": "Operates Seasonally"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/19063499;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/19063499;entityType=Attraction?region=us"
+                }
+            },
+            "id": "19063499;entityType=Attraction",
+            "name": "Pixar Shorts Film Festival at Tomorrowland Theater",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Closed",
+                "singleRider": false,
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/19085473;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/19085473;entityType=Attraction?region=us"
+                }
+            },
+            "id": "19085473;entityType=Attraction",
+            "name": "Play Disney Parks",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/19094413;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/19094413;entityType=Attraction?region=us"
+                }
+            },
+            "id": "19094413;entityType=Attraction",
+            "name": "Fortune Tellers",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/19193459;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/19193459;entityType=Attraction?region=us"
+                }
+            },
+            "id": "19193459;entityType=Attraction",
+            "name": "Millennium Falcon: Smugglers Run",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Opening Soon",
+                "singleRider": false,
+                "rollUpStatus": "Opening Soon"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/19193461;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/19193461;entityType=Attraction?region=us"
+                }
+            },
+            "id": "19193461;entityType=Attraction",
+            "name": "Star Wars: Rise of the Resistance",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Opening Soon",
+                "singleRider": false,
+                "rollUpStatus": "Opening Soon"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/19262770;entityType=Attraction/wait-times?region=us"
+                },
+                "attractions": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/attractions/19262770;entityType=Attraction?region=us"
+                }
+            },
+            "id": "19262770;entityType=Attraction",
+            "name": "Disney's \"Dumbo\" Sneak Peek",
+            "type": "Attraction",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Opening Soon",
+                "singleRider": false,
+                "rollUpStatus": "Opening Soon"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401451;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401451;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "401451;entityType=Entertainment",
+            "name": "\"Minnie & Friends - Breakfast in the Park\"",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Closed",
+                "singleRider": false,
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401463;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401463;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "401463;entityType=Entertainment",
+            "name": "The Dapper Dans",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401473;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401473;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "401473;entityType=Entertainment",
+            "name": "Disneyland Band at Main Street, U.S.A.",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401483;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401483;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "401483;entityType=Entertainment",
+            "name": "Fantasmic!",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Closed",
+                "singleRider": false,
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401487;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401487;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "401487;entityType=Entertainment",
+            "name": "Flag Retreat Ceremony",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401491;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401491;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "401491;entityType=Entertainment",
+            "name": "Meet Goofy, Pluto and Pals in Mickey's Toontown",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401501;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401501;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "401501;entityType=Entertainment",
+            "name": "Jambalaya Jazz",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401517;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401517;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "401517;entityType=Entertainment",
+            "name": "Main Street Piano Player",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401519;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401519;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "401519;entityType=Entertainment",
+            "name": "Meet Minnie at Her House in Mickey's Toontown",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401524;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401524;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "401524;entityType=Entertainment",
+            "name": "Meet Tinker Bell at Pixie Hollow",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "postedWaitMinutes": 15,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Short Wait Times"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401526;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401526;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "401526;entityType=Entertainment",
+            "name": "Meet Mickey at His House in Mickey's Toontown",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401554;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401554;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "401554;entityType=Entertainment",
+            "name": "The Straw Hatters",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401564;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401564;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "401564;entityType=Entertainment",
+            "name": "Meet Winnie The Pooh and Friends in Critter Country",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/422670;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/422670;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "422670;entityType=Entertainment",
+            "name": "Meet Disney Friends in Town Square",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/15751758;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/15751758;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "15751758;entityType=Entertainment",
+            "name": "The Bootstrappers",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/15937965;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/15937965;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "15937965;entityType=Entertainment",
+            "name": "Mickey's Soundsational Parade",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/16010318;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/16010318;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "16010318;entityType=Entertainment",
+            "name": "The Laughing Stock Co.",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/17346575;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/17346575;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "17346575;entityType=Entertainment",
+            "name": "Storytelling at Royal Theatre",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/17437680;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/17437680;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "17437680;entityType=Entertainment",
+            "name": "Mickey and the Magical Map",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Closed",
+                "singleRider": false,
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/17631233;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/17631233;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "17631233;entityType=Entertainment",
+            "name": "Meet Winnie The Pooh and Friends in Critter Country",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/18154861;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/18154861;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "18154861;entityType=Entertainment",
+            "name": "Disneyland Band at Frontierland",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/18237377;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/18237377;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "18237377;entityType=Entertainment",
+            "name": "Encounter Darth Vader at Star Wars Launch Bay",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/18237385;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/18237385;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "18237385;entityType=Entertainment",
+            "name": "Meet Chewbacca at Star Wars Launch Bay",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/18299866;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/18299866;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "18299866;entityType=Entertainment",
+            "name": "Disney Visa Cardmember Star Wars Character Experience",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/18738682;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/18738682;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "18738682;entityType=Entertainment",
+            "name": "Meet Disney Princesses at Royal Hall",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/18817397;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/18817397;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "18817397;entityType=Entertainment",
+            "name": "Encounter Kylo Ren at Star Wars Launch Bay",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Closed",
+                "singleRider": false,
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/19011420;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/19011420;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "19011420;entityType=Entertainment",
+            "name": "Meet Rey at Star Wars Launch Bay",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Closed",
+                "singleRider": false,
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/19244451;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/19244451;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "19244451;entityType=Entertainment",
+            "name": "\"Get Your Ears On\" Celebration Dance Party",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Closed",
+                "singleRider": false,
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/19263037;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/19263037;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "19263037;entityType=Entertainment",
+            "name": "Mickey's Mix Magic",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        }
+    ]
+}
