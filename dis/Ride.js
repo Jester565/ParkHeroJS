@@ -1,79 +1,9 @@
 var rp = require('request-promise-native');
 var moment = require('moment-timezone');
 var cheerio = require('cheerio');
-var resortManager = require('../core/ResortManager');
-
-var util = require('util');
-var sleep = util.promisify((a, f) => setTimeout(f, a));
 
 function getPosition(string, subString, index) {
     return string.split(subString, index).join(subString).length;
- }
-
-//Parses HTML to get rides and puts in database
-async function getRideInfo(rideUrl, maxImgSize) {
-    //extract ride name from the url
-    //var rideNameUrlStartIdx = getPosition(rideUrl, '/', 3) + 1;
-    //var rideNameUrlEndIdx = getPosition(rideUrl, '/', 4);
-    //var rideNameUrl = rideUrl.substring(rideNameUrlStartIdx, rideNameUrlEndIdx);
-    //var totalUrl = DIS_URL + rideUrl;
-    var options = {
-        method: 'GET',
-        uri: rideUrl
-    };
-
-    var body = await rp(options);
-    
-    const $ = cheerio.load(body);
-    
-    //Frontierland
-    var land = $(".locationLandArea").text().trim();
-    
-    //40
-    var requiredHeight = null;
-    var requiredHeightStr = $(".restriction").text();
-    var inchMarkIdx = requiredHeightStr.indexOf('"');
-    if (inchMarkIdx > 0) {
-        requiredHeight = parseInt(requiredHeightStr.substring(0, inchMarkIdx));
-    }
-    
-    //Teens, Children
-    var ageStr = $(".ageInfoText").text();
-    var ageArr = ageStr.split(",");
-    for (var i = 0; i < ageArr.length; i++) {
-        ageArr[i] = ageArr[i].trim();
-    }
-    
-    //Small drops, Big drops
-    var thrillArr = null;
-    var thrillStr=  $(".thrillFactorText").text();
-    if (thrillStr != null) {
-        thrillArr = thrillStr.split(',');
-        for (var i = 0; i < thrillArr.length; i++) {
-            thrillArr[i] = thrillArr[i].trim();
-        }
-    }
-    
-    var imgUrls = [];
-    $("img").each(function(idx) {
-        var src = $(this).attr('src');
-        if (src.indexOf(rideNameUrl) > 0) {
-            var resizeIdx = src.indexOf('resize');
-            var resizeStr = src.substring(resizeIdx);
-            var widthStartIdx = getPosition(resizeStr, '/', 3) + resizeIdx;
-            var widthEndIdx = getPosition(resizeStr, '/', 4) + resizeIdx;
-            src = src.substring(0, widthStartIdx) + '/' + maxImgSize.toString() + src.substring(widthEndIdx);
-            imgUrls.push(src);
-        }
-    });
-    
-    return {
-        land: land,
-        requiredHeight: requiredHeight,
-        ages: ageArr,
-        thrills: thrillArr,
-        imgUrls: imgUrls
-    }
 }
 
 async function getRideInfos(maxImgSize) {
@@ -103,9 +33,17 @@ async function getRideInfos(maxImgSize) {
         if (entityType != 'entityType=Attraction') {
             return;
         }
+
+
         var rideInfo = {};
         rideInfo.id = parseInt(rideID);
         rideInfo.name = elm.find('.cardName').text();
+
+        var urlElm = elm.find("a[href]");
+        var rideUrl = urlElm.attr('href');
+        var parkUrlNameI = rideUrl.indexOf('/attractions/') + '/attractions/'.length;
+        var parkUrlName = rideUrl.substr(parkUrlNameI);
+        rideInfo.parkUrlName = parkUrlName.substr(0, parkUrlName.indexOf('/'));
 
         //Get image url for maxImageSize
         var imgElm = elm.find('source').first();
@@ -122,7 +60,7 @@ async function getRideInfos(maxImgSize) {
             var lineElm = $(lineRef);
             if (i == 0) {
                 var height = lineElm.text();
-                rideInfo.height = height.substr(height.indexOf(":") + 1);
+                rideInfo.height = height.substr(height.indexOf(":") + 1).trim();
             } else if (i == 1) {
                 rideInfo.labels = lineElm.text();
             } else if (i == 2) {
@@ -136,8 +74,7 @@ async function getRideInfos(maxImgSize) {
     return rideInfos;
 }
 
-//Get all the latest ride times from Disney API
-async function getRideTimes(token, parkID, tz) {
+async function getRideTimesForPark(token, parkID, tz) {
     var options = {
         method: 'GET',
         uri: "https://api.wdpro.disney.go.com/facility-service/theme-parks/" + parkID.toString() + "/wait-times",
@@ -177,6 +114,20 @@ async function getRideTimes(token, parkID, tz) {
             }
             rideTimes.push(rideTime);
         }
+    }
+    return rideTimes;
+}
+
+//Get all the latest ride times from Disney API
+async function getRideTimes(token, parkIDs, tz) {
+    var promises = [];
+    for (var parkID of parkIDs) {
+        promises.push(getRideTimesForPark(token, parkID, tz));
+    }
+    var parkRideTimes = await Promise.all(promises);
+    var rideTimes = parkRideTimes[0];
+    for (var i = 1; i < parkRideTimes.length; i++) {
+        rideTimes.push.apply(rideTimes, parkRideTimes[i]);
     }
     return rideTimes;
 }
