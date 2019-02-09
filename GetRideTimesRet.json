@@ -1,0 +1,702 @@
+[
+	{
+		"status": "Closed",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353291,
+		"name": "Astro Orbitor"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 25,
+		"id": 353293,
+		"name": "Autopia"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": "2019-02-09T20:20:00.000Z",
+		"waitMins": 35,
+		"id": 353295,
+		"name": "Big Thunder Mountain Railroad"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": "2019-02-09T19:10:00.000Z",
+		"waitMins": 15,
+		"id": 353301,
+		"name": "Buzz Lightyear Astro Blasters "
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 5,
+		"id": 353305,
+		"name": "Casey Jr. Circus Train"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353309,
+		"name": "Chip 'n Dale Treehouse"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353311,
+		"name": "Davy Crockett's Explorer Canoes"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 5,
+		"id": 353313,
+		"name": "Disneyland Monorail"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 5,
+		"id": 353315,
+		"name": "Disneyland Railroad"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353321,
+		"name": "Donald's Boat"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 25,
+		"id": 353323,
+		"name": "Dumbo the Flying Elephant"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 10,
+		"id": 353325,
+		"name": "Walt Disney's Enchanted Tiki Room"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 20,
+		"id": 353327,
+		"name": "Finding Nemo Submarine Voyage"
+	},
+	{
+		"status": "Down",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353329,
+		"name": "Main Street Vehicles – Fire Engine"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353335,
+		"name": "Frontierland Shootin' Exposition"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 5,
+		"id": 353337,
+		"name": "Gadget's Go Coaster"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353343,
+		"name": "Goofy's Playhouse"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": "2019-02-09T19:30:00.000Z",
+		"waitMins": 25,
+		"id": 353347,
+		"name": "Haunted Mansion"
+	},
+	{
+		"status": "Down",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353351,
+		"name": "Main Street Vehicles – Horse-Drawn Streetcars"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353353,
+		"name": "Main Street Vehicles – Horseless Carriage"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": "2019-02-09T21:30:00.000Z",
+		"waitMins": 45,
+		"id": 353355,
+		"name": "Indiana Jones Adventure "
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 15,
+		"id": 353363,
+		"name": "Jungle Cruise"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 5,
+		"id": 353365,
+		"name": "King Arthur Carrousel"
+	},
+	{
+		"status": "Down",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353369,
+		"name": "Mad Tea Party "
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353371,
+		"name": "Main Street Cinema"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353375,
+		"name": "Mark Twain Riverboat"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": "2019-02-09T20:25:00.000Z",
+		"waitMins": 60,
+		"id": 353377,
+		"name": "Matterhorn Bobsleds"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 15,
+		"id": 353381,
+		"name": "Mickey's House and Meet Mickey"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353383,
+		"name": "Minnie's House"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 30,
+		"id": 353389,
+		"name": "Mr. Toad's Wild Ride "
+	},
+	{
+		"status": "Down",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353395,
+		"name": "Main Street Vehicles – Omnibus"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 30,
+		"id": 353399,
+		"name": "Peter Pan's Flight "
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 15,
+		"id": 353401,
+		"name": "Pinocchio's Daring Journey"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353403,
+		"name": "Pirate's Lair on Tom Sawyer Island"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 20,
+		"id": 353405,
+		"name": "Pirates of the Caribbean "
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": "2019-02-09T19:10:00.000Z",
+		"waitMins": 30,
+		"id": 353421,
+		"name": "Roger Rabbit's Car Toon Spin"
+	},
+	{
+		"status": "Closed",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353425,
+		"name": "Sailing Ship Columbia"
+	},
+	{
+		"status": "Closed",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353427,
+		"name": "Sleeping Beauty Castle Walkthrough"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 5,
+		"id": 353429,
+		"name": "Snow White's Scary Adventures"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": "2019-02-09T21:55:00.000Z",
+		"waitMins": 55,
+		"id": 353435,
+		"name": "Space Mountain"
+	},
+	{
+		"status": "Closed",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353437,
+		"name": "Splash Mountain"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": "2019-02-09T19:50:00.000Z",
+		"waitMins": 35,
+		"id": 353439,
+		"name": "Star Tours - The Adventures Continue"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 20,
+		"id": 353443,
+		"name": "Storybook Land Canal Boats"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353445,
+		"name": "Tarzan's Treehouse"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 15,
+		"id": 353449,
+		"name": "The Many Adventures of Winnie the Pooh"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353461,
+		"name": "The Disneyland Story presenting Great Moments with Mr. Lincoln"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": "2019-02-09T19:10:00.000Z",
+		"waitMins": 25,
+		"id": 367492,
+		"name": "\"it's a small world\""
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 25,
+		"id": 367495,
+		"name": "Alice in Wonderland"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 393385,
+		"name": "Main Street Vehicles"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 3433651,
+		"name": "Pixie Hollow"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 16204726,
+		"name": "Fantasmic!"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 17734741,
+		"name": "The Disney Gallery"
+	},
+	{
+		"status": "Operates Seasonally",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 18171939,
+		"name": "Trick-or-Treating at Mickey's Halloween Party"
+	},
+	{
+		"status": "Closed",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 18237232,
+		"name": "\"it's a small world\" Holiday"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 18237343,
+		"name": "Star Wars Launch Bay"
+	},
+	{
+		"status": "Operates Seasonally",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 18237368,
+		"name": "Hyperspace Mountain"
+	},
+	{
+		"status": "Closed",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 18249927,
+		"name": "Haunted Mansion Holiday"
+	},
+	{
+		"status": "Operates Seasonally",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 18452199,
+		"name": "Main Street Pumpkin Festival"
+	},
+	{
+		"status": "Operates Seasonally",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 18532806,
+		"name": "Holiday Décor"
+	},
+	{
+		"status": "Closed",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 19063499,
+		"name": "Pixar Shorts Film Festival at Tomorrowland Theater"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 19085473,
+		"name": "Play Disney Parks"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 19094413,
+		"name": "Fortune Tellers"
+	},
+	{
+		"status": "Opening Soon",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 19193459,
+		"name": "Millennium Falcon: Smugglers Run"
+	},
+	{
+		"status": "Opening Soon",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 19193461,
+		"name": "Star Wars: Rise of the Resistance"
+	},
+	{
+		"status": "Opening Soon",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 19262770,
+		"name": "Disney's \"Dumbo\" Sneak Peek"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353289,
+		"name": "Animation Academy"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": "2019-02-09T20:45:00.000Z",
+		"waitMins": 40,
+		"id": 353303,
+		"name": "Incredicoaster"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353339,
+		"name": "Games of Pixar Pier"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353341,
+		"name": "Golden Zephyr"
+	},
+	{
+		"status": "Closed",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353345,
+		"name": "Grizzly River Run"
+	},
+	{
+		"status": "Down",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353361,
+		"name": "Jumpin' Jellyfish"
+	},
+	{
+		"status": "Opening Soon",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353367,
+		"name": "Jessie's Critter Carousel"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 30,
+		"id": 353379,
+		"name": "Pixar Pal-A-Round – Swinging"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 25,
+		"id": 353387,
+		"name": "Monsters, Inc. Mike & Sulley to the Rescue!"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 0,
+		"id": 353413,
+		"name": "Redwood Creek Challenge Trail"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": "2019-02-09T19:45:00.000Z",
+		"waitMins": 40,
+		"id": 353431,
+		"name": "Soarin' Around the World"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353433,
+		"name": "Sorcerer's Workshop"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353447,
+		"name": "The Bakery Tour"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": "2019-02-09T23:00:00.000Z",
+		"waitMins": 60,
+		"id": 353451,
+		"name": "Guardians of the Galaxy – Mission: BREAKOUT!"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": "2019-02-09T21:40:00.000Z",
+		"waitMins": 80,
+		"id": 353453,
+		"name": "Toy Story Midway Mania!"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 5,
+		"id": 353457,
+		"name": "Turtle Talk with Crush"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 353459,
+		"name": "Walt Disney Imagineering Blue Sky Cellar "
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 10,
+		"id": 15510732,
+		"name": "Silly Symphony Swings"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 5,
+		"id": 15575069,
+		"name": "The Little Mermaid - Ariel's Undersea Adventure"
+	},
+	{
+		"status": "Down",
+		"fastPassTime": "2019-02-09T19:20:00.000Z",
+		"waitMins": null,
+		"id": 15822029,
+		"name": "Goofy's Sky School"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 16203280,
+		"name": "World of Color"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": "2019-02-10T00:45:00.000Z",
+		"waitMins": 75,
+		"id": 16514416,
+		"name": "Radiator Springs Racers"
+	},
+	{
+		"status": "Down",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 16514431,
+		"name": "Mater's Junkyard Jamboree"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 16581435,
+		"name": "Red Car Trolley"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 17328049,
+		"name": "Red Car Trolley - Hollywood Land"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 17328050,
+		"name": "Red Car Trolley - Carthay Circle"
+	},
+	{
+		"status": "Down",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 18343088,
+		"name": "Luigi's Rollickin' Roadsters"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 18426726,
+		"name": "Frozen at Disneyland Resort"
+	},
+	{
+		"status": "Closed",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 18752875,
+		"name": "Mater's Graveyard JamBOOree"
+	},
+	{
+		"status": "Closed",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 18752877,
+		"name": "Luigi's Honkin' Haul-O-Ween"
+	},
+	{
+		"status": "Operates Seasonally",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 18755618,
+		"name": "Halloween Time Décor at Disney California Adventure Park"
+	},
+	{
+		"status": "Operates Seasonally",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 18774860,
+		"name": "Guardians of the Galaxy – Monsters After Dark"
+	},
+	{
+		"status": "Closed",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 18848246,
+		"name": "Luigi's Joy to the Whirl"
+	},
+	{
+		"status": "Closed",
+		"fastPassTime": null,
+		"waitMins": null,
+		"id": 18848247,
+		"name": "Mater's Jingle Jamboree"
+	},
+	{
+		"status": "Operating",
+		"fastPassTime": null,
+		"waitMins": 30,
+		"id": 19009994,
+		"name": "Pixar Pal-A-Round – Non-Swinging"
+	}
+]

@@ -51,7 +51,7 @@
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 20,
+                "postedWaitMinutes": 25,
                 "rollUpStatus": "Operating",
                 "rollUpWaitTimeMessage": "Short Wait Times"
             }
@@ -70,15 +70,15 @@
             "type": "Attraction",
             "waitTime": {
                 "fastPass": {
-                    "startTime": "15:05:00",
-                    "endTime": "16:05:00",
+                    "startTime": "12:20:00",
+                    "endTime": "13:20:00",
                     "available": true
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 30,
+                "postedWaitMinutes": 35,
                 "rollUpStatus": "Operating",
-                "rollUpWaitTimeMessage": "Short Wait Times"
+                "rollUpWaitTimeMessage": "Moderate Wait Times"
             }
         },
         {
@@ -95,13 +95,13 @@
             "type": "Attraction",
             "waitTime": {
                 "fastPass": {
-                    "startTime": "14:00:00",
-                    "endTime": "15:00:00",
+                    "startTime": "11:10:00",
+                    "endTime": "12:10:00",
                     "available": true
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 20,
+                "postedWaitMinutes": 15,
                 "rollUpStatus": "Operating",
                 "rollUpWaitTimeMessage": "Short Wait Times"
             }
@@ -124,7 +124,7 @@
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 15,
+                "postedWaitMinutes": 5,
                 "rollUpStatus": "Operating",
                 "rollUpWaitTimeMessage": "Short Wait Times"
             }
@@ -167,10 +167,10 @@
                 "fastPass": {
                     "available": false
                 },
-                "status": "Closed",
+                "status": "Operating",
                 "singleRider": false,
-                "rollUpStatus": "Closed",
-                "rollUpWaitTimeMessage": "Closed"
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
             }
         },
         {
@@ -191,7 +191,7 @@
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 10,
+                "postedWaitMinutes": 5,
                 "rollUpStatus": "Operating",
                 "rollUpWaitTimeMessage": "Short Wait Times"
             }
@@ -214,7 +214,7 @@
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 10,
+                "postedWaitMinutes": 5,
                 "rollUpStatus": "Operating",
                 "rollUpWaitTimeMessage": "Short Wait Times"
             }
@@ -259,7 +259,7 @@
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 30,
+                "postedWaitMinutes": 25,
                 "rollUpStatus": "Operating",
                 "rollUpWaitTimeMessage": "Short Wait Times"
             }
@@ -305,7 +305,7 @@
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 30,
+                "postedWaitMinutes": 20,
                 "rollUpStatus": "Operating",
                 "rollUpWaitTimeMessage": "Short Wait Times"
             }
@@ -326,10 +326,10 @@
                 "fastPass": {
                     "available": false
                 },
-                "status": "Operating",
+                "status": "Down",
                 "singleRider": false,
-                "rollUpStatus": "Operating",
-                "rollUpWaitTimeMessage": "Open Throughout the Day"
+                "rollUpStatus": "Down",
+                "rollUpWaitTimeMessage": "Down"
             }
         },
         {
@@ -372,7 +372,7 @@
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 20,
+                "postedWaitMinutes": 5,
                 "rollUpStatus": "Operating",
                 "rollUpWaitTimeMessage": "Short Wait Times"
             }
@@ -413,15 +413,15 @@
             "type": "Attraction",
             "waitTime": {
                 "fastPass": {
-                    "startTime": "14:45:00",
-                    "endTime": "15:45:00",
+                    "startTime": "11:30:00",
+                    "endTime": "12:30:00",
                     "available": true
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 45,
+                "postedWaitMinutes": 25,
                 "rollUpStatus": "Operating",
-                "rollUpWaitTimeMessage": "Moderate Wait Times"
+                "rollUpWaitTimeMessage": "Short Wait Times"
             }
         },
         {
@@ -482,8 +482,8 @@
             "type": "Attraction",
             "waitTime": {
                 "fastPass": {
-                    "startTime": "17:10:00",
-                    "endTime": "18:10:00",
+                    "startTime": "13:30:00",
+                    "endTime": "14:30:00",
                     "available": true
                 },
                 "status": "Operating",
@@ -534,7 +534,7 @@
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 10,
+                "postedWaitMinutes": 5,
                 "rollUpStatus": "Operating",
                 "rollUpWaitTimeMessage": "Short Wait Times"
             }
@@ -555,11 +555,10 @@
                 "fastPass": {
                     "available": false
                 },
-                "status": "Operating",
+                "status": "Down",
                 "singleRider": false,
-                "postedWaitMinutes": 15,
-                "rollUpStatus": "Operating",
-                "rollUpWaitTimeMessage": "Short Wait Times"
+                "rollUpStatus": "Down",
+                "rollUpWaitTimeMessage": "Down"
             }
         },
         {
@@ -620,15 +619,15 @@
             "type": "Attraction",
             "waitTime": {
                 "fastPass": {
-                    "startTime": "15:40:00",
-                    "endTime": "16:40:00",
+                    "startTime": "12:25:00",
+                    "endTime": "13:25:00",
                     "available": true
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 65,
+                "postedWaitMinutes": 60,
                 "rollUpStatus": "Operating",
-                "rollUpWaitTimeMessage": "Long Wait Times"
+                "rollUpWaitTimeMessage": "Moderate Wait Times"
             }
         },
         {
@@ -649,9 +648,9 @@
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 35,
+                "postedWaitMinutes": 15,
                 "rollUpStatus": "Operating",
-                "rollUpWaitTimeMessage": "Moderate Wait Times"
+                "rollUpWaitTimeMessage": "Short Wait Times"
             }
         },
         {
@@ -694,7 +693,7 @@
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 10,
+                "postedWaitMinutes": 30,
                 "rollUpStatus": "Operating",
                 "rollUpWaitTimeMessage": "Short Wait Times"
             }
@@ -715,10 +714,10 @@
                 "fastPass": {
                     "available": false
                 },
-                "status": "Closed",
+                "status": "Down",
                 "singleRider": false,
-                "rollUpStatus": "Closed",
-                "rollUpWaitTimeMessage": "Closed"
+                "rollUpStatus": "Down",
+                "rollUpWaitTimeMessage": "Down"
             }
         },
         {
@@ -807,7 +806,7 @@
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 30,
+                "postedWaitMinutes": 20,
                 "rollUpStatus": "Operating",
                 "rollUpWaitTimeMessage": "Short Wait Times"
             }
@@ -826,13 +825,13 @@
             "type": "Attraction",
             "waitTime": {
                 "fastPass": {
-                    "startTime": "14:30:00",
-                    "endTime": "15:30:00",
+                    "startTime": "11:10:00",
+                    "endTime": "12:10:00",
                     "available": true
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 25,
+                "postedWaitMinutes": 30,
                 "rollUpStatus": "Operating",
                 "rollUpWaitTimeMessage": "Short Wait Times"
             }
@@ -899,7 +898,7 @@
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 10,
+                "postedWaitMinutes": 5,
                 "rollUpStatus": "Operating",
                 "rollUpWaitTimeMessage": "Short Wait Times"
             }
@@ -918,15 +917,15 @@
             "type": "Attraction",
             "waitTime": {
                 "fastPass": {
-                    "startTime": "16:35:00",
-                    "endTime": "17:35:00",
+                    "startTime": "13:55:00",
+                    "endTime": "14:55:00",
                     "available": true
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 70,
+                "postedWaitMinutes": 55,
                 "rollUpStatus": "Operating",
-                "rollUpWaitTimeMessage": "Long Wait Times"
+                "rollUpWaitTimeMessage": "Moderate Wait Times"
             }
         },
         {
@@ -965,8 +964,8 @@
             "type": "Attraction",
             "waitTime": {
                 "fastPass": {
-                    "startTime": "14:50:00",
-                    "endTime": "15:50:00",
+                    "startTime": "11:50:00",
+                    "endTime": "12:50:00",
                     "available": true
                 },
                 "status": "Operating",
@@ -994,7 +993,7 @@
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 25,
+                "postedWaitMinutes": 20,
                 "rollUpStatus": "Operating",
                 "rollUpWaitTimeMessage": "Short Wait Times"
             }
@@ -1039,7 +1038,7 @@
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 10,
+                "postedWaitMinutes": 15,
                 "rollUpStatus": "Operating",
                 "rollUpWaitTimeMessage": "Short Wait Times"
             }
@@ -1080,15 +1079,15 @@
             "type": "Attraction",
             "waitTime": {
                 "fastPass": {
-                    "startTime": "14:00:00",
-                    "endTime": "15:00:00",
+                    "startTime": "11:10:00",
+                    "endTime": "12:10:00",
                     "available": true
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 35,
+                "postedWaitMinutes": 25,
                 "rollUpStatus": "Operating",
-                "rollUpWaitTimeMessage": "Moderate Wait Times"
+                "rollUpWaitTimeMessage": "Short Wait Times"
             }
         },
         {
@@ -1109,7 +1108,7 @@
                 },
                 "status": "Operating",
                 "singleRider": false,
-                "postedWaitMinutes": 30,
+                "postedWaitMinutes": 25,
                 "rollUpStatus": "Operating",
                 "rollUpWaitTimeMessage": "Short Wait Times"
             }
@@ -1620,28 +1619,6 @@
         {
             "links": {
                 "self": {
-                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401501;entityType=Entertainment/wait-times?region=us"
-                },
-                "entertainments": {
-                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401501;entityType=Entertainment?region=us"
-                }
-            },
-            "id": "401501;entityType=Entertainment",
-            "name": "Jambalaya Jazz",
-            "type": "Entertainment",
-            "waitTime": {
-                "fastPass": {
-                    "available": false
-                },
-                "status": "Operating",
-                "singleRider": false,
-                "rollUpStatus": "Operating",
-                "rollUpWaitTimeMessage": "Open Throughout the Day"
-            }
-        },
-        {
-            "links": {
-                "self": {
                     "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401517;entityType=Entertainment/wait-times?region=us"
                 },
                 "entertainments": {
@@ -1677,10 +1654,10 @@
                 "fastPass": {
                     "available": false
                 },
-                "status": "Operating",
+                "status": "Closed",
                 "singleRider": false,
-                "rollUpStatus": "Operating",
-                "rollUpWaitTimeMessage": "Open Throughout the Day"
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
             }
         },
         {
@@ -1731,14 +1708,36 @@
         {
             "links": {
                 "self": {
-                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401554;entityType=Entertainment/wait-times?region=us"
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401530;entityType=Entertainment/wait-times?region=us"
                 },
                 "entertainments": {
-                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401554;entityType=Entertainment?region=us"
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401530;entityType=Entertainment?region=us"
                 }
             },
-            "id": "401554;entityType=Entertainment",
-            "name": "The Straw Hatters",
+            "id": "401530;entityType=Entertainment",
+            "name": "Pearly Band",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401542;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/401542;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "401542;entityType=Entertainment",
+            "name": "Royal Street Bachelors",
             "type": "Entertainment",
             "waitTime": {
                 "fastPass": {
@@ -1766,10 +1765,10 @@
                 "fastPass": {
                     "available": false
                 },
-                "status": "Operating",
+                "status": "Closed",
                 "singleRider": false,
-                "rollUpStatus": "Operating",
-                "rollUpWaitTimeMessage": "Open Throughout the Day"
+                "rollUpStatus": "Closed",
+                "rollUpWaitTimeMessage": "Closed"
             }
         },
         {
@@ -1783,28 +1782,6 @@
             },
             "id": "422670;entityType=Entertainment",
             "name": "Meet Disney Friends in Town Square",
-            "type": "Entertainment",
-            "waitTime": {
-                "fastPass": {
-                    "available": false
-                },
-                "status": "Operating",
-                "singleRider": false,
-                "rollUpStatus": "Operating",
-                "rollUpWaitTimeMessage": "Open Throughout the Day"
-            }
-        },
-        {
-            "links": {
-                "self": {
-                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/15751758;entityType=Entertainment/wait-times?region=us"
-                },
-                "entertainments": {
-                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/15751758;entityType=Entertainment?region=us"
-                }
-            },
-            "id": "15751758;entityType=Entertainment",
-            "name": "The Bootstrappers",
             "type": "Entertainment",
             "waitTime": {
                 "fastPass": {
@@ -1898,10 +1875,32 @@
                 "fastPass": {
                     "available": false
                 },
-                "status": "Closed",
+                "status": "Operating",
                 "singleRider": false,
-                "rollUpStatus": "Closed",
-                "rollUpWaitTimeMessage": "Closed"
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/17447792;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/17447792;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "17447792;entityType=Entertainment",
+            "name": "The Royal Swing Big Band Ball Featuring The Tim Gill All-Stars",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
             }
         },
         {
@@ -2017,6 +2016,28 @@
         {
             "links": {
                 "self": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/18644903;entityType=Entertainment/wait-times?region=us"
+                },
+                "entertainments": {
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/18644903;entityType=Entertainment?region=us"
+                }
+            },
+            "id": "18644903;entityType=Entertainment",
+            "name": "The Royal Swing Big Band Ball",
+            "type": "Entertainment",
+            "waitTime": {
+                "fastPass": {
+                    "available": false
+                },
+                "status": "Operating",
+                "singleRider": false,
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
+            }
+        },
+        {
+            "links": {
+                "self": {
                     "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/18738682;entityType=Entertainment/wait-times?region=us"
                 },
                 "entertainments": {
@@ -2052,10 +2073,10 @@
                 "fastPass": {
                     "available": false
                 },
-                "status": "Closed",
+                "status": "Operating",
                 "singleRider": false,
-                "rollUpStatus": "Closed",
-                "rollUpWaitTimeMessage": "Closed"
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
             }
         },
         {
@@ -2074,10 +2095,10 @@
                 "fastPass": {
                     "available": false
                 },
-                "status": "Closed",
+                "status": "Operating",
                 "singleRider": false,
-                "rollUpStatus": "Closed",
-                "rollUpWaitTimeMessage": "Closed"
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
             }
         },
         {
@@ -2096,23 +2117,23 @@
                 "fastPass": {
                     "available": false
                 },
-                "status": "Closed",
+                "status": "Operating",
                 "singleRider": false,
-                "rollUpStatus": "Closed",
-                "rollUpWaitTimeMessage": "Closed"
+                "rollUpStatus": "Operating",
+                "rollUpWaitTimeMessage": "Open Throughout the Day"
             }
         },
         {
             "links": {
                 "self": {
-                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/19263037;entityType=Entertainment/wait-times?region=us"
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/19259687;entityType=Entertainment/wait-times?region=us"
                 },
                 "entertainments": {
-                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/19263037;entityType=Entertainment?region=us"
+                    "href": "https://api.wdpro.disney.go.com/global-pool-override-A/facility-service/entertainments/19259687;entityType=Entertainment?region=us"
                 }
             },
-            "id": "19263037;entityType=Entertainment",
-            "name": "Mickey's Mix Magic",
+            "id": "19259687;entityType=Entertainment",
+            "name": "Mickey's Mix Magic with Fireworks",
             "type": "Entertainment",
             "waitTime": {
                 "fastPass": {
