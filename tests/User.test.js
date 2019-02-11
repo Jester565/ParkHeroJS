@@ -9,7 +9,6 @@ var AWS = require('aws-sdk');
 AWS.config.update({region: config.region});
 
 var s3 = new AWS.S3();
-var dynamodb = new AWS.DynamoDB();
 
 const vision = require('@google-cloud/vision');
 
@@ -48,9 +47,9 @@ async function uploadFile(path, key) {
 }
 
 async function initUsers() {
-    await users.createUser('id1', 'joe', query, dynamodb);
-    await users.createUser('id2', null, query, dynamodb);
-    await users.createUser('id3', null, query, dynamodb);
+    await users.createUser('id1', 'joe', query);
+    await users.createUser('id2', null, query);
+    await users.createUser('id3', null, query);
 }
 
 beforeAll(async () => {
@@ -71,14 +70,14 @@ beforeAll(async () => {
 
 describe('Create user tests', () => {
     test('create user - custom name', async () => {
-        await users.createUser('id1', 'joe', query, dynamodb);
+        await users.createUser('id1', 'joe', query);
         expect(await users.getUser('id1', query)).toEqual({ id: 'id1', name: 'joe', profilePicUrl: null });
     });
 
     test('create user - default name', async () => {
-        await users.createUser('id2', null, query, dynamodb);
+        await users.createUser('id2', null, query);
         expect(await users.getUser('id2', query)).toEqual({ id: 'id2', name: 'test0', profilePicUrl: null });
-        await users.createUser('id3', null, query, dynamodb);
+        await users.createUser('id3', null, query);
         expect(await users.getUser('id3', query)).toEqual({ id: 'id3', name: 'test1', profilePicUrl: null });
     });
 

@@ -16,31 +16,6 @@ function getUserFromRow(row) {
     }
 }
 
-//USERS
-function _addUserToDynamo(userID, dynamodb) {
-    return new Promise((resolve, reject) => {
-        var params = {
-            Item: {
-                "userID": {
-                    S: userID
-                }, 
-                "rideFilters": {
-                    M: {}
-                }
-            }, 
-            ReturnConsumedCapacity: "TOTAL", 
-            TableName: "RideFilters"
-        };
-        dynamodb.putItem(params, (err, data) => {
-            if (err) {
-                reject(err);
-                return;
-            }
-            resolve();
-        });
-    });
-}
-
 async function _addUserToMySql(userID, name, isDefaultName, query) {
     await query('INSERT INTO Users VALUES ?', [[[userID, name, isDefaultName]]]);
 }
@@ -53,7 +28,7 @@ async function _getDefaultName(query) {
     return name;
 }
 
-async function createUser(userID, name, query, dynamodb) {
+async function createUser(userID, name, query) {
     var user = await getUser(userID, query);
     if (user != null) {
         throw "User already exists";
@@ -62,19 +37,11 @@ async function createUser(userID, name, query, dynamodb) {
         if (profanity.containsProfanity(name)) {
             throw "Name contains profanity";
         }
-        var dbAddPromises = [
-            _addUserToMySql(userID, name, false, query),
-            _addUserToDynamo(userID, dynamodb)
-        ];
-        await Promise.all(dbAddPromises);
+        await _addUserToMySql(userID, name, false, query)
     }
     else {
         name = await _getDefaultName(query);
-        var dbAddPromises = [
-            _addUserToMySql(userID, name, true, query),
-            _addUserToDynamo(userID, dynamodb)
-        ];
-        await Promise.all(dbAddPromises);
+        await _addUserToMySql(userID, name, true, query);
     }
 }
 
@@ -82,7 +49,7 @@ async function renameUser(userID, name, query) {
     if (profanity.containsProfanity(name)) {
         throw "Name contains profanity";
     }
-    await query(`UPDATE Users SET name=? AND defaultName=?`, [name, false]);
+    await query(`UPDATE Users SET name=? AND defaultName=? WHERE id=?`, [name, false, userID]);
 }
 
 async function _isImageAppropiate(pic, imageAnnotatorClient) {
@@ -117,6 +84,7 @@ async function updateProfilePic(userID, bucket, objKey, query, s3Client, imageAn
     await imageUploader.uploadImageDataOfSizes(pic, IMAGE_SIZES, bucket, newKeyPrefix, s3Client);
 
     await query(`INSERT INTO ProfilePictures VALUES ? ON DUPLICATE KEY UPDATE url=?`, [[[userID, newKeyPrefix]], newKeyPrefix]);
+    return newKeyPrefix;
 }
 
 async function getUsers(userIDs, query) {
@@ -149,17 +117,28 @@ async function searchUsers(prefix, userID, query) {
 
 //INVITES
 async function getInvites(userID, type, query) {
-    var result = await query(`SELECT (i.inviterId=?) AS isOwner, i.type AS type, ${USER_QUERY} 
+    var typeStr = ``;
+    var queryArgs = [userID, userID, userID];
+    if (type != null) {
+        typeStr = `AND i.type=?`;
+        queryArgs.push(type);
+    }
+
+    var result = await query(`SELECT (i.inviterId=?) AS isOwner, i.type AS type, 
+        ${USER_QUERY},
+        f.userId AS friendID
         FROM Invitations i
         INNER JOIN Users u ON i.inviterId=u.id OR i.receiverId=u.id
         LEFT JOIN ProfilePictures pp ON pp.userId=u.id
-        WHERE u.id=? AND i.type=?`, [userID, userID, type]);
+        LEFT JOIN Friends ON (i.inviterId=f.userId OR i.receiverId=f.userId) AND f.userId != ?
+        WHERE u.id=? ${typeStr}`, queryArgs);
     
     var invites = [];
     for (var row of result) {
         var isOwner = (row.isOwner == 1);
+        var isFriend = (row.friendID != null);
         invites.push({
-            isOwner: isOwner, type: row.type, user: getUserFromRow(row)
+            isOwner: isOwner, isFriend: isFriend, type: row.type, user: getUserFromRow(row)
         });
     }
     return invites
@@ -342,6 +321,7 @@ module.exports = {
     getFriends: getFriends,
     addFriend: addFriend,
     removeFriend: removeFriend,
+    areFriends: areFriends,
     getPartyMembers: getPartyMembers,
     inviteToParty: inviteToParty,
     leaveParty: leaveParty,

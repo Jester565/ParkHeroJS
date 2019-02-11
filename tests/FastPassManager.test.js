@@ -5,8 +5,6 @@ var moment = require('moment-timezone');
 var AWS = require('aws-sdk');
 AWS.config.update({region: config.region});
 
-var dynamodb = new AWS.DynamoDB();
-
 const util = require('util');
 const mysql = require('mysql'); // or use import if you use TS
 
@@ -43,9 +41,9 @@ function genPassEntitlement(passID, disID, hasMaxPass=false) {
 };
 
 async function initUsers() {
-    await users.createUser('id1', 'joe', query, dynamodb);
-    await users.createUser('id2', null, query, dynamodb);
-    await users.createUser('id3', null, query, dynamodb);
+    await users.createUser('id1', 'joe', query);
+    await users.createUser('id2', null, query);
+    await users.createUser('id3', null, query);
 }
 
 beforeAll(async () => {
