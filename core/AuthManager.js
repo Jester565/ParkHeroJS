@@ -28,6 +28,17 @@ async function getAccessToken(credID, query) {
     return tokenInfo;
 }
 
+async function getAPIToken(query) {
+    var tokenResults = await query(`SELECT token AS apiToken, lastRefresh AS lastRefresh FROM DisApiTokens`);
+    
+    if (tokenResults.length == 0 || Date.now() - tokenResults[0].lastRefresh.getTime() >= auth.REFRESH_TTL_MILLIS) {
+        tokenResults.apiToken = await auth.refreshAPIToken();
+
+        await query(`INSERT INTO DisApiTokens VALUES ?`, [[[tokenResults.apiToken, Date.now()]]]);
+    }
+    return tokenResults.apiToken;
+}
+
 async function login(credID, username, password, query) {
     var tokenInfo = await auth.login(username, password);
     await _storeLoginTokenInfo(credID, tokenInfo.accessToken, refreshToken, tokenInfo.loginTime, 
@@ -37,5 +48,6 @@ async function login(credID, username, password, query) {
 
 module.exports = {
     getAccessToken: getAccessToken,
+    getAPIToken: getAPIToken,
     login: login
 };
