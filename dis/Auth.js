@@ -127,6 +127,7 @@ async function login(username, password) {
 }
 
 module.exports = {
+    refreshAPIToken: refreshAPIToken,
     getAccessToken: getAccessToken,
     login: login
 };

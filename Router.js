@@ -1,6 +1,8 @@
 var userAPI = require('./api/UserApi');
+var rideAPI = require('./api/RideApi');
 var modules = {
-    users: userAPI
+    users: userAPI,
+    rides: rideAPI
 };
 
 function s3Handler(event, context, callback) {
@@ -14,8 +16,11 @@ function s3Handler(event, context, callback) {
             callback(err); 
         });
     }
+}
 
-    
+function snsHandler(event, context, callback) {
+    var body = JSON.parse(event.Records[0].Sns.Message);
+    rideAPI.updateRides(body);
 }
 
 function graphQLHandler(event, context, callback) {
@@ -35,11 +40,19 @@ function handler(event, context, callback) {
     context.callbackWaitsForEmptyEventLoop = false;
 
     if (event['Records'] != null
-     && event['Records'].length > 0
-     && event['Recrods'][0] == 's3') 
+        && event['Records'].length > 0
+        && event['Recrods'][0] == 's3') 
     {
         s3Handler(event, context, callback);
-    } else {
+    } 
+    else if (event['Records'] != null
+        && event['Records'].length > 0
+        && event['Recrods'][0] == 'sns') 
+    {
+        snsHandler(event, context, callback);    
+    } 
+    else 
+    {
         graphQLHandler(event, context, callback);
     }
 }
