@@ -1,6 +1,3 @@
-var userAPI = require('./api/UserApi');
-var rideAPI = require('./api/RideApi');
-
 var modules = {
     users: () => {
         return require('./api/UserApi');
@@ -13,27 +10,9 @@ var modules = {
     }
 };
 
-function s3Handler(event, context, callback) {
-    var bucket = event['Records'][0]['s3']['bucket']['name'];
-    var objKey = decodeURIComponent(event['Records'][0]['s3']['object']['key']);
-    if (objKey.indexOf('tmpProfileImgs') == 0) {
-        var userAPI = modules['users']();
-        userAPI.updateProfilePic(bucket, objKey).then(() => {
-            callback();
-        }).catch((err) => {
-            console.error("updateProfilePic error occured: ", err);
-            callback(err); 
-        });
-    }
-}
+exports.apiHandler = (event, context, callback) => {
+    context.callbackWaitsForEmptyEventLoop = false;
 
-function snsHandler(event, context, callback) {
-    var body = JSON.parse(event.Records[0].Sns.Message);
-    var rideAPI = modules['rides']();
-    rideAPI.updateRides(body);
-}
-
-function graphQLHandler(event, context, callback) {
     var moduleName = event["module"];
     var methodName = event["method"];
     var body = event.arguments;
@@ -47,23 +26,51 @@ function graphQLHandler(event, context, callback) {
     });
 }
 
-exports.handler = (event, context, callback) => {
+exports.addRides = async (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
+    var rideAPI = modules['rides']();
+    await rideAPI.addRideInformations();
+    callback();
+}
 
-    if (event['Records'] != null
-        && event['Records'].length > 0
-        && event['Recrods'][0] == 's3') 
-    {
-        s3Handler(event, context, callback);
-    } 
-    else if (event['Records'] != null
-        && event['Records'].length > 0
-        && event['Recrods'][0] == 'sns') 
-    {
-        snsHandler(event, context, callback);    
-    } 
-    else 
-    {
-        graphQLHandler(event, context, callback);
-    }
+exports.addSchedules = async (event, context, callback) => {
+    context.callbackWaitsForEmptyEventLoop = false;
+    var resortAPI = modules['resorts']();
+    await resortAPI.addSchedules();
+    callback();
+}
+
+exports.addForecasts = async (event, context, callback) => {
+    context.callbackWaitsForEmptyEventLoop = false;
+    var resortAPI = modules['resorts']();
+
+    await resortAPI.addForecasts();
+    callback();
+}
+
+exports.addHistoricalRideTimes = async (event, context, callback) => {
+    context.callbackWaitsForEmptyEventLoop = false;
+    var rideAPI = modules['rides']();
+
+    await rideAPI.addHistoricalRideTimes();
+    callback();
+}
+
+exports.saveLatestRideTimes = async (event, context, callback) => {
+    context.callbackWaitsForEmptyEventLoop = false;
+    var rideAPI = modules['rides']();
+
+    var body = JSON.parse(event.Records[0].Sns.Message);
+    await rideAPI.updateRides(body);
+    callback();
+}
+
+exports.verifyProfilePic = async (event, context, callback) => {
+    context.callbackWaitsForEmptyEventLoop = false;
+    var userAPI = modules['users']();
+
+    var bucket = event['Records'][0]['s3']['bucket']['name'];
+    var objKey = decodeURIComponent(event['Records'][0]['s3']['object']['key']);
+    await userAPI.updateProfilePic(bucket, objKey);
+    callback();
 }

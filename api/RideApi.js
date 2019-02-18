@@ -144,9 +144,22 @@ async function updateRides(updatedRideTimes) {
     await rideManager.saveLatestRideTimes(updatedRideTimes, tz, query);
 }
 
+async function addHistoricalRideTimes() {
+    var parks = await resortManager.getParks(RESORT_ID, query);
+    var parkIDs = [];
+    for (var park of parks) {
+        parkIDs.push(park.id);
+    }
+    var tz = await resortManager.getResortTimezone(RESORT_ID, query);
+    var token = await authManager.getAPIToken(query);
+    var rideTimes = await disRides.getRideTimes(token, parkIDs, tz);
+    await rideManager.saveToHistoricalRideTimes(rideTimes, tz, query);
+}
+
 module.exports = {
     addRideInformations: addRideInformations,
     getSavedRides: getSavedRides,
     getRides: getRides,
-    updateRides: updateRides
+    updateRides: updateRides,
+    addHistoricalRideTimes: addHistoricalRideTimes
 }

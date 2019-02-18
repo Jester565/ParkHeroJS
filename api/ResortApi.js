@@ -6,6 +6,14 @@ var query = commons.getDatabaseQueryMethod();
 
 var RESORT_ID = 80008297;
 
+async function addForecasts() {
+    await resortManager.addForecasts(config.darksky.secret, RESORT_ID, query);
+}
+
+async function addSchedules() {
+    await resortManager.addSchedules(RESORT_ID, query);
+}
+
 /*
 body: [
     {
@@ -40,6 +48,8 @@ async function getWeather(body) {
 }
 
 module.exports = {
+    addSchedules: addSchedules,
+    addForecasts: addForecasts,
     getSchedules: getSchedules,
     getWeather: getWeather
 }
