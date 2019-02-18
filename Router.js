@@ -1,14 +1,23 @@
 var userAPI = require('./api/UserApi');
 var rideAPI = require('./api/RideApi');
+
 var modules = {
-    users: userAPI,
-    rides: rideAPI
+    users: () => {
+        return require('./api/UserApi');
+    },
+    rides: () => {
+        return require('./api/RideApi');
+    },
+    resorts: () => {
+        return require('./api/ResortApi');
+    }
 };
 
 function s3Handler(event, context, callback) {
     var bucket = event['Records'][0]['s3']['bucket']['name'];
     var objKey = decodeURIComponent(event['Records'][0]['s3']['object']['key']);
     if (objKey.indexOf('tmpProfileImgs') == 0) {
+        var userAPI = modules['users']();
         userAPI.updateProfilePic(bucket, objKey).then(() => {
             callback();
         }).catch((err) => {
@@ -20,6 +29,7 @@ function s3Handler(event, context, callback) {
 
 function snsHandler(event, context, callback) {
     var body = JSON.parse(event.Records[0].Sns.Message);
+    var rideAPI = modules['rides']();
     rideAPI.updateRides(body);
 }
 
@@ -28,7 +38,8 @@ function graphQLHandler(event, context, callback) {
     var methodName = event["method"];
     var body = event.arguments;
     var userID = event.cognitoIdentityId;
-    modules[moduleName][methodName](body, userID).then((data) => {
+    var mod = modules[moduleName]();
+    mod[methodName](body, userID).then((data) => {
         callback(null, data);
     }).catch((err) => {
         console.warn("ERROR OCCURED in " + moduleName + "." + methodName + ": ", err);
