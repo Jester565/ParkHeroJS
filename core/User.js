@@ -130,7 +130,7 @@ async function getInvites(userID, type, query) {
         FROM Invitations i
         INNER JOIN Users u ON i.inviterId=u.id OR i.receiverId=u.id
         LEFT JOIN ProfilePictures pp ON pp.userId=u.id
-        LEFT JOIN Friends ON (i.inviterId=f.userId OR i.receiverId=f.userId) AND f.userId != ?
+        LEFT JOIN Friends f ON (i.inviterId=f.userId OR i.receiverId=f.userId) AND f.userId != ?
         WHERE u.id=? ${typeStr}`, queryArgs);
     
     var invites = [];
