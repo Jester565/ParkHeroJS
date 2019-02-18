@@ -2,13 +2,83 @@ AWSTemplateFormatVersion: '2010-09-09'
 Transform: 'AWS::Serverless-2016-10-31'
 Description: An AWS Serverless Specification template describing your function.
 Resources:
-  ParkHeroFast:
+  Api:
     Type: 'AWS::Serverless::Function'
     Properties:
+      Description: Handles all graphql api requests
       CodeUri: .
-      Handler: Router.handler
+      Handler: Router.apiHandler
       Runtime: nodejs8.10
       Description: ''
       MemorySize: 512
       Timeout: 15
+      Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
+  AddRides:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Description: Adds static ride information to the database
+      CodeUri: .
+      Handler: Router.addRides
+      Runtime: nodejs8.10
+      Description: ''
+      MemorySize: 1024
+      Timeout: 900
+      Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
+  AddSchedules:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Description: Add blackout days, events, and operating times to the database
+      CodeUri: .
+      Handler: Router.addSchedules
+      Runtime: nodejs8.10
+      Description: ''
+      MemorySize: 1024
+      Timeout: 900
+      Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
+  AddForecasts:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Description: Add forecasts for the next 100 hours to the database
+      CodeUri: .
+      Handler: Router.addForecasts
+      Runtime: nodejs8.10
+      Description: ''
+      MemorySize: 512
+      Timeout: 15
+      Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
+
+  AddHistoricalRideTimes:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Description: Add the current rideTimes to the database
+      CodeUri: .
+      Handler: Router.addHistoricalRideTimes
+      Runtime: nodejs8.10
+      Description: ''
+      MemorySize: 512
+      Timeout: 15
+      Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
+
+  SaveLatestRideTimes:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Description: Update current rideTimes in the database
+      CodeUri: .
+      Handler: Router.saveLatestRideTimes
+      Runtime: nodejs8.10
+      Description: ''
+      MemorySize: 512
+      Timeout: 15
+      Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
+  
+  VerifyProfilePic:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Description: Check profile picture for inapporpiate content and copy it if valid
+      CodeUri: .
+      Handler: Router.apiHandler
+      Runtime: nodejs8.10
+      Description: ''
+      MemorySize: 1024
+      Timeout: 30
       Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
