@@ -1,0 +1,14 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An AWS Serverless Specification template describing your function.
+Resources:
+  ParkHeroFast:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      CodeUri: .
+      Handler: Router.handler
+      Runtime: nodejs8.10
+      Description: ''
+      MemorySize: 512
+      Timeout: 15
+      Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'

@@ -36,7 +36,7 @@ function graphQLHandler(event, context, callback) {
     });
 }
 
-function handler(event, context, callback) {
+exports.handler = (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
 
     if (event['Records'] != null
