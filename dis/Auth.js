@@ -106,7 +106,6 @@ async function getAccessToken(lastTokenInfo) {
     var lastLoginMillis = lastTokenInfo.loginTime;
     var loginTimeDif = Date.now() - lastLoginMillis;
     if (loginTimeDif + MAX_RUN_MILLIS >= loginTTLMillis) {
-        //Login token expired, you must login again
         throw "Login token expired";
     }
     var lastRefreshMillis = lastTokenInfo.refreshTime;
