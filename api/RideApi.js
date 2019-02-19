@@ -4,6 +4,7 @@ var rideManager = require('../core/RideManager');
 var resortManager = require('../core/ResortManager');
 var predictionManager = require('../core/Predictions');
 var commons = require('./Commons');
+var config = require('./config');
 
 var query = commons.getDatabaseQueryMethod();
 
@@ -46,6 +47,7 @@ async function addRideInformations() {
 }
 
 async function getSavedRides() {
+    var tz = await resortManager.getResortTimezone(RESORT_ID, query);
     var predictionPromises = [
         predictionManager.getPredictTimeHeuristics(tz, query), 
         predictionManager.getPredictTime(tz, 0, query), 
@@ -73,7 +75,7 @@ async function getSavedRides() {
                 "changedTime": ride["lastChangeTime"],
                 "changedRange": ride["lastChangeRange"],
                 "waitTime": ride["waitMins"],
-                "fastPassTime": rideTime["fastPassTime"]
+                "fastPassTime": ride["fastPassTime"]
             }
         });
     }
@@ -86,6 +88,10 @@ async function getRides(_, userID) {
         resortManager.getResortTimezone(RESORT_ID, query),
         resortManager.getParks(RESORT_ID, query)
     ];
+    
+    var AWS = require('aws-sdk');
+    AWS.config.update({region: config.region});
+    
     var sns = new AWS.SNS();
 
     var rideTimeArgs = await Promise.all(rideTimeArgPromises);

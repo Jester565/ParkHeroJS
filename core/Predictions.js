@@ -1,3 +1,4 @@
+var moment = require('moment');
 
 //Convert array to map given an array element's key
 function indexArray(arrMap, arr, idxName, valName = null) {
@@ -46,7 +47,7 @@ async function getFastPassPrediction(rideID, dateTime, query) {
     }
     //Round down to nearest 5 minutes
     if (predTime != null) {
-        predTime.set({minute: ((int)(predTime.minutes() / 5)) * 5, second: 0, millisecond: 0})
+        predTime.set({minute: (Math.round(predTime.minutes() / 5)) * 5, second: 0, millisecond: 0});
     }
     
     return predTime;
@@ -69,7 +70,7 @@ async function getPredictTimeHeuristics(tz, query) {
 async function getPredictTime(tz, hourOffset, query) {
     var dateTime = moment().tz(tz);
     dateTime.add(hourOffset, 'hour');
-    var dtStr = now.format("YYYY-MM-DD HH:mm:ss");
+    var dtStr = dateTime.format("YYYY-MM-DD HH:mm:ss");
     var results = await query(`SELECT br.rideID AS rideID, br.waitMins AS waitMins FROM BatchResults br, ParkSchedules ps
         WHERE (br.doy=(MONTH(ps.date)*31 + DAYOFMONTH(ps.date)) AND br.year=YEAR(ps.date) 
         AND br.hour=(HOUR(?) + DATEDIFF(DATE(?), ps.date) * 24 - br.openHour)

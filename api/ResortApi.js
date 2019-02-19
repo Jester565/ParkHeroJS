@@ -1,4 +1,5 @@
 var config = require('./config');
+var moment = require('moment');
 var resortManager = require('../core/ResortManager');
 var commons = require('./Commons');
 

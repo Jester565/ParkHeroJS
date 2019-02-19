@@ -24,21 +24,21 @@ exports.apiHandler = (event, context, callback) => {
         console.warn("ERROR OCCURED in " + moduleName + "." + methodName + ": ", err);
         callback(err);
     });
-}
+};
 
 exports.addRides = async (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
     var rideAPI = modules['rides']();
     await rideAPI.addRideInformations();
     callback();
-}
+};
 
 exports.addSchedules = async (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
     var resortAPI = modules['resorts']();
     await resortAPI.addSchedules();
     callback();
-}
+};
 
 exports.addForecasts = async (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
@@ -46,7 +46,7 @@ exports.addForecasts = async (event, context, callback) => {
 
     await resortAPI.addForecasts();
     callback();
-}
+};
 
 exports.addHistoricalRideTimes = async (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
@@ -54,7 +54,7 @@ exports.addHistoricalRideTimes = async (event, context, callback) => {
 
     await rideAPI.addHistoricalRideTimes();
     callback();
-}
+};
 
 exports.saveLatestRideTimes = async (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
@@ -63,7 +63,7 @@ exports.saveLatestRideTimes = async (event, context, callback) => {
     var body = JSON.parse(event.Records[0].Sns.Message);
     await rideAPI.updateRides(body);
     callback();
-}
+};
 
 exports.verifyProfilePic = async (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
@@ -73,4 +73,4 @@ exports.verifyProfilePic = async (event, context, callback) => {
     var objKey = decodeURIComponent(event['Records'][0]['s3']['object']['key']);
     await userAPI.updateProfilePic(bucket, objKey);
     callback();
-}
+};

@@ -20,7 +20,7 @@ async function addParkSchedule(date, parkID, parkInfo, query) {
     var openTime = (parkInfo.operatingHours != null)? parkInfo.operatingHours.startTime.format("HH:mm:ss"): null;
     var closeTime = (parkInfo.operatingHours != null)? parkInfo.operatingHours.endTime.format("HH:mm:ss"): null;
     var magicStartTime = (parkInfo.magicHours != null)? parkInfo.magicHours.startTime.format("HH:mm:ss"): null;
-    var magicEndTime = (parkInfo.magicHours != null)? parkInfo.magicHours.endTime.format("HH:mm:ss"): null
+    var magicEndTime = (parkInfo.magicHours != null)? parkInfo.magicHours.endTime.format("HH:mm:ss"): null;
     await query(`INSERT INTO ParkSchedules VALUES ?
         ON DUPLICATE KEY UPDATE openTime=?, closeTime=?,
         magicHourStartTime=?, magicHourEndTime=?,
@@ -99,7 +99,7 @@ async function addForecast(resortID, forecast, query) {
     await query(`INSERT INTO HourlyWeather VALUES ?
         ON DUPLICATE KEY UPDATE rainStatus=?, feelsLikeF=?`,
         [[[resortID, 
-            forecast.dateTime.format(), 
+            forecast.dateTime.format("YYYY-MM-DD HH:mm:ss"), 
             forecast.rainStatus,
             forecast.feelsLikeF]],
         forecast.rainStatus,

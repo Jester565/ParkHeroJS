@@ -9,7 +9,6 @@ Resources:
       CodeUri: .
       Handler: Router.apiHandler
       Runtime: nodejs8.10
-      Description: ''
       MemorySize: 512
       Timeout: 15
       Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
@@ -20,7 +19,6 @@ Resources:
       CodeUri: .
       Handler: Router.addRides
       Runtime: nodejs8.10
-      Description: ''
       MemorySize: 1024
       Timeout: 900
       Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
@@ -31,7 +29,6 @@ Resources:
       CodeUri: .
       Handler: Router.addSchedules
       Runtime: nodejs8.10
-      Description: ''
       MemorySize: 1024
       Timeout: 900
       Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
@@ -42,7 +39,6 @@ Resources:
       CodeUri: .
       Handler: Router.addForecasts
       Runtime: nodejs8.10
-      Description: ''
       MemorySize: 512
       Timeout: 15
       Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
@@ -54,7 +50,6 @@ Resources:
       CodeUri: .
       Handler: Router.addHistoricalRideTimes
       Runtime: nodejs8.10
-      Description: ''
       MemorySize: 512
       Timeout: 15
       Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
@@ -66,7 +61,6 @@ Resources:
       CodeUri: .
       Handler: Router.saveLatestRideTimes
       Runtime: nodejs8.10
-      Description: ''
       MemorySize: 512
       Timeout: 15
       Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
@@ -76,9 +70,8 @@ Resources:
     Properties:
       Description: Check profile picture for inapporpiate content and copy it if valid
       CodeUri: .
-      Handler: Router.apiHandler
+      Handler: Router.verifyProfilePic
       Runtime: nodejs8.10
-      Description: ''
       MemorySize: 1024
       Timeout: 30
       Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'

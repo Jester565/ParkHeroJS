@@ -144,15 +144,14 @@ async function removeNonExistantRides(rideTimes, query) {
 }
 
 async function saveToHistoricalRideTimes(rideTimes, tz, query) {
-    var existingRideTimes = await removeNonExistantRides(rideTimes, query);
     var nowStr = moment().tz(tz).format("YYYY-MM-DD HH:mm:ss");
     var rows = [];
-    for (var rideTime of existingRideTimes) {
+    for (var rideTime of rideTimes) {
         var fpTimeStr = (rideTime.fastPassTime != null)? rideTime.fastPassTime.format("HH:mm:ss"): null;
         rows.push([rideTime.id, nowStr, rideTime.waitMins, fpTimeStr, rideTime.status]);
     }
     
-    await query(`INSERT INTO RideTimes VALUES ?`, [rows]);
+    await query(`INSERT IGNORE INTO RideTimes VALUES ?`, [rows]);
 }
 
 module.exports = {
