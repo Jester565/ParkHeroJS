@@ -81,7 +81,7 @@ async function updateProfilePic(userID, bucket, objKey, query, s3Client, imageAn
     }
 
     var newKeyPrefix = `profileImgs/${userID}`;
-    await imageUploader.uploadImageDataOfSizes(pic, IMAGE_SIZES, bucket, newKeyPrefix, s3Client);
+    await imageUploader.uploadImageDataOfSizes(pic, IMAGE_SIZES, bucket, newKeyPrefix, s3Client, true);
 
     await query(`INSERT INTO ProfilePictures VALUES ? ON DUPLICATE KEY UPDATE url=?`, [[[userID, newKeyPrefix]], newKeyPrefix]);
     return newKeyPrefix;

@@ -9,7 +9,7 @@ var config = require('./config');
 var query = commons.getDatabaseQueryMethod();
 
 var RESORT_ID = 80008297;
-var RIDE_IMG_SIZES = [100, 1000];
+var RIDE_IMG_SIZES = [200, 350, 500, 1000];
 
 function getWaitRating(rideTime, predictions) {
     var id = rideTime["id"].toString();

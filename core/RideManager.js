@@ -17,7 +17,8 @@ async function uploadRideImage(imgUrl, imgSizes, objKey, bucket, s3Client) {
         imgSizes, 
         bucket,
         objKey,
-        s3Client);
+        s3Client,
+        true);
 }
 
 async function addRideInfo(rideInfo, imgSizes, bucket, s3Client, query) {
