@@ -53,7 +53,7 @@ async function getSavedRides() {
         predictionManager.getPredictTime(tz, 0, query), 
         predictionManager.getPredictTime(tz, 1, query)];
 
-    var savedRides = await rideManager.getSavedRides(query);
+    var savedRides = await rideManager.getSavedRides(query, true);
     
     var predictions = await Promise.all(predictionPromises);
 
@@ -160,6 +160,8 @@ async function addHistoricalRideTimes() {
     var token = await authManager.getAPIToken(query);
     var rideTimes = await disRides.getRideTimes(token, parkIDs, tz);
     await rideManager.saveToHistoricalRideTimes(rideTimes, tz, query);
+    var updatedRideTimes = await disRides.getUpdatedRideTimes(rideTimes, query);
+    await rideManager.saveLatestRideTimes(updatedRideTimes, tz, query);
 }
 
 module.exports = {
@@ -168,4 +170,4 @@ module.exports = {
     getRides: getRides,
     updateRides: updateRides,
     addHistoricalRideTimes: addHistoricalRideTimes
-}
+};

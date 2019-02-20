@@ -54,7 +54,8 @@ async function addRideInformations(resortID, imgSizes, bucket, s3Client, query) 
     }
 }
 
-async function getSavedRides(query) {
+async function getSavedRides(query, onlyActive = false) {
+    var filter = onlyActive? "WHERE (datediff(CURDATE(), DATE(lt.lastChangeTime)) <= 2 OR lt.waitMins IS NOT NULL)": "";
     var savedRideTimes = await query(`SELECT 
         r.id AS id,
         r.parkID AS parkID,
@@ -71,7 +72,8 @@ async function getSavedRides(query) {
         lrt.lastStatusRange AS lastStatusRange,
         lrt.lastChangeTime AS lastChangeTime,
         lrt.lastChangeRange AS lastChangeRange
-        FROM Rides r LEFT JOIN LatestRideTimes lrt ON r.id=lrt.rideID`);
+        FROM Rides r LEFT JOIN LatestRideTimes lrt ON r.id=lrt.rideID
+        ${filter}`);
     return savedRideTimes;
 }
 
@@ -110,7 +112,7 @@ async function saveLatestRideTimes(updatedRideTimes, tz, query) {
     var nowStr = moment().tz(tz).format("YYYY-MM-DD HH:mm:ss");
     
     for (var rideTime of updatedRideTimes) {
-        var fpTimeStr = (rideTime.fastPassTime != null)? `"${rideTime.fastPassTime.format("HH:mm:ss")}"`: `null`;
+        var fpTimeStr = (rideTime.fastPassTime != null)? `"${moment(rideTime.fastPassTime).format("HH:mm:ss")}"`: `null`;
         await query(`INSERT INTO LatestRideTimes VALUES (
             ${rideTime.id}, 
             "${nowStr}", 
