@@ -55,7 +55,7 @@ async function addRideInformations(resortID, imgSizes, bucket, s3Client, query) 
 }
 
 async function getSavedRides(query, onlyActive = false) {
-    var filter = onlyActive? "WHERE (datediff(CURDATE(), DATE(lt.lastChangeTime)) <= 2 OR lt.waitMins IS NOT NULL)": "";
+    var filter = onlyActive? "WHERE (datediff(CURDATE(), DATE(lrt.lastChangeTime)) <= 2 OR lrt.waitMins IS NOT NULL)": "";
     var savedRideTimes = await query(`SELECT 
         r.id AS id,
         r.parkID AS parkID,

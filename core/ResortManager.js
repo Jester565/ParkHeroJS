@@ -150,12 +150,8 @@ async function getSchedules(resortID, startDate, query) {
 
 async function getHourlyWeather(resortID, date, query) {
     var weathers = await query(`SELECT feelsLikeF, rainStatus, dateTime FROM HourlyWeather
-        WHERE resortID=? AND DATE(dateTime)=DATE(?) ORDER BY dateTime`, [resortID, date.format("YYYY-MM-DD")]);
+        WHERE resortID=? AND DATE(dateTime)=? ORDER BY dateTime`, [resortID, date.format("YYYY-MM-DD")]);
     
-    var tz = await getResortTimezone(resortID, query);
-    for (var weather of weathers) {
-        weather.dateTime = moment(weather.dateTime).tz(tz).format("YYYY-MM-DD HH:mm:ss");
-    }
     return weathers;
 }
 
