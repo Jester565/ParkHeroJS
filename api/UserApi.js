@@ -11,7 +11,7 @@ body: {
 */
 async function createUser(body, userID) {
     var name = body["name"];
-    await userManager.createUser(userID, name, query);
+    return await userManager.createUser(userID, name, query);
 }
 
 /*

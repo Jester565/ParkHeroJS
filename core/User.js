@@ -31,18 +31,16 @@ async function _getDefaultName(query) {
 async function createUser(userID, name, query) {
     var user = await getUser(userID, query);
     if (user != null) {
-        throw "User already exists";
+        return user;
     }
-    if (name != null) {
-        if (profanity.containsProfanity(name)) {
-            throw "Name contains profanity";
-        }
-        await _addUserToMySql(userID, name, false, query)
+    if (name != null && !profanity.containsProfanity(name)) {
+        await _addUserToMySql(userID, name, false, query);
     }
     else {
         name = await _getDefaultName(query);
         await _addUserToMySql(userID, name, true, query);
     }
+    return await getUser(userID, query);
 }
 
 async function renameUser(userID, name, query) {
