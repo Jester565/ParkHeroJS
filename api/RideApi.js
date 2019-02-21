@@ -46,28 +46,64 @@ async function addRideInformations() {
     await rideManager.addRideInformations(RESORT_ID, RIDE_IMG_SIZES, 'disneyapp3', s3, query);
 }
 
-async function getSavedRides() {
+async function updateCustomRideInfo(body, userID) {
+    var AWS = require('aws-sdk');
+    AWS.config.update({region: config.region});
+
+    var s3 = new AWS.S3();
+
+    var rideID = body["rideID"];
+    var customName = body["customName"];
+    var pics = body["pics"];
+    var promises = [];
+    promises.push(rideManager.updateCustomRideName(rideID, customName, userID, query));
+    promises.push(rideManager.updateCustomRidePics(rideID, pics, RIDE_IMG_SIZES, userID, s3, query));
+    await Promise.all(promises);
+    var rides = await getSavedRides();
+    for (var ride of rides) {
+        if (ride.id == rideID) {
+            return ride;
+        }
+    }
+    return null;
+}
+
+async function getSavedRides(_, userID) {
     var tz = await resortManager.getResortTimezone(RESORT_ID, query);
     var predictionPromises = [
         predictionManager.getPredictTimeHeuristics(tz, query), 
         predictionManager.getPredictTime(tz, 0, query), 
         predictionManager.getPredictTime(tz, 1, query)];
 
+    var customInfoPromises = [
+        rideManager.getCustomRideNames(userID, query),
+        rideManager.getCustomRidePics(userID, query)
+    ];
+
     var savedRides = await rideManager.getSavedRides(query, true);
     
     var predictions = await Promise.all(predictionPromises);
 
+    var customInfos = await Promise.all(customInfoPromises);
+    var customNames = customInfos[0];
+    var customPics = customInfos[1];
+
     var results = [];
     for (var ride of savedRides) {
         var waitRating = getWaitRating(ride, predictions);
+        var customName = customNames[ride.id];
+        var customRidePics = customPics[ride.id];
         results.push({
             "id": ride.id,
             "info": {
-                "name": ride["name"],
-                "picUrl": ride["imgUrl"],
+                "name": (customName)? customName: ride["name"],
+                "officialName": ride["name"],
+                "picUrl": (customRidePics)? customRidePics[0]: ride["imgUrl"],
+                "officialPicUrl": ride["imgUrl"],
                 "land": ride["land"],
                 "height": ride["height"],
-                "labels": ride["labels"]
+                "labels": ride["labels"],
+                "customPicUrls": customRidePics
             },
             "time": {
                 "status": ride["status"],
@@ -169,5 +205,6 @@ module.exports = {
     getSavedRides: getSavedRides,
     getRides: getRides,
     updateRides: updateRides,
-    addHistoricalRideTimes: addHistoricalRideTimes
+    addHistoricalRideTimes: addHistoricalRideTimes,
+    updateCustomRideInfo: updateCustomRideInfo
 };

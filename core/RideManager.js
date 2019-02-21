@@ -3,6 +3,8 @@ var request = require('request');
 var imgUploader = require('./ImageUploader');
 var resortManager = require('./ResortManager');
 var moment = require('moment-timezone');
+var uuidv4 = require('uuid/v4');
+var commons = require('./Commons');
 
 async function updateRideInfoInDB(rideInfo, imgObjKey, query) {
     await query(`INSERT INTO Rides VALUES ?
@@ -19,6 +21,50 @@ async function uploadRideImage(imgUrl, imgSizes, objKey, bucket, s3Client) {
         objKey,
         s3Client,
         true);
+}
+
+async function updateCustomRideName(rideID, customName, userID, query) {
+    if (customName != null) {
+        await query(`INSERT INTO CustomRideNames VALUES ?
+            ON DUPLICATE KEY UPDATE name=?`, [[[rideID, userID, customName]], customName]);
+    } else {
+        await query(`DELETE FROM CustomRideNames WHERE 
+            rideID=? AND userID=?`, [rideID, userID]);
+    }
+}
+
+async function updateCustomRidePics(rideID, pics, imgSizes, userID, s3Client, query) {
+    await query(`DELETE FROM CustomRidePics WHERE 
+        rideID=? AND userID=?`, [rideID, userID]);
+    var uploadPromises = [];
+    var rows = [];
+    pics.forEach((pic, i) => {
+        var key = pic.url;
+        if (pic.added) {
+            key = `pics/${userID}/${uuidv4()}`;
+            uploadPromises.push(imgUploader.uploadImageDataOfSizes(
+                pic.url, imgSizes, 'disneyapp3', key, s3Client, false
+            ));
+        }
+        rows.push([rideID, userID, i, key]);
+    });
+    if (uploadPromises.length > 0) {
+        await Promise.all(uploadPromises);
+    }
+    await query(`INSERT INTO CustomRidePics VALUES ?`,
+        [rows]);
+}
+
+async function getCustomRideNames(userID, query) {
+    var results = await query(`SELECT rideID, name FROM CustomRideNames WHERE
+        userID=?`, [userID]);
+    return commons.indexArray({}, results, "rideID");
+}
+
+async function getCustomRidePics(userID, query) {
+    var results = await query(`SELECT rideID, url FROM CustomRidePics WHERE
+        userID=? ORDER BY rideID, priority`, [userID]);
+    return commons.indexArray({}, results, "rideID");
 }
 
 async function addRideInfo(rideInfo, imgSizes, bucket, s3Client, query) {
@@ -72,7 +118,8 @@ async function getSavedRides(query, onlyActive = false) {
         lrt.lastStatusRange AS lastStatusRange,
         lrt.lastChangeTime AS lastChangeTime,
         lrt.lastChangeRange AS lastChangeRange
-        FROM Rides r LEFT JOIN LatestRideTimes lrt ON r.id=lrt.rideID
+        FROM Rides r 
+        LEFT JOIN LatestRideTimes lrt ON r.id=lrt.rideID
         ${filter}`);
     return savedRideTimes;
 }
@@ -162,5 +209,9 @@ module.exports = {
     getSavedRides: getSavedRides,
     getUpdatedRideTimes: getUpdatedRideTimes,
     saveLatestRideTimes: saveLatestRideTimes,
-    saveToHistoricalRideTimes: saveToHistoricalRideTimes
+    saveToHistoricalRideTimes: saveToHistoricalRideTimes,
+    updateCustomRideName: updateCustomRideName,
+    updateCustomRidePics: updateCustomRidePics,
+    getCustomRideNames: getCustomRideNames,
+    getCustomRidePics: getCustomRidePics
 };

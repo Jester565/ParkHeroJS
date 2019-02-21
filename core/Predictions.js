@@ -1,24 +1,8 @@
 var moment = require('moment');
+var commons = require('./Commons');
 
 //Convert array to map given an array element's key
-function indexArray(arrMap, arr, idxName, valName = null) {
-    for (var result of arr) {
-        var obj = arrMap[result[idxName]];
-        if (obj == null) {
-            arrMap[result[idxName]] = [];
-            obj = arrMap[result[idxName]];
-        }
-        if (obj != null) {
-            delete result[idxName];
-            if (valName == null) {
-                obj.push(result);
-            } else {
-                obj.push(result[valName]);
-            }
-        }
-    }
-    return arrMap;
-}
+
 
 //TODO: May have to handle unpredictable fpt values after fast passes expire
 async function getFastPassPrediction(rideID, dateTime, query) {
@@ -63,7 +47,7 @@ async function getPredictTimeHeuristics(tz, query) {
         AND br.hour>=(HOUR(?) + DATEDIFF(DATE(?), ps.date) * 24 - br.openHour)
         AND ps.date=DATE(DATE_SUB(?, INTERVAL 4 HOUR))) GROUP BY br.rideID`, 
         [nowStr, nowStr, nowStr]);
-    return indexArray({}, results, "rideID");
+    return commons.indexArray({}, results, "rideID");
 }
 
 //Get upcoming prediction times for the next x hours
@@ -76,7 +60,7 @@ async function getPredictTime(tz, hourOffset, query) {
         AND br.hour=(HOUR(?) + DATEDIFF(DATE(?), ps.date) * 24 - br.openHour)
         AND ps.date=DATE(DATE_SUB(?, INTERVAL 4 HOUR)))`, 
         [dtStr, dtStr, dtStr]);
-    return indexArray({}, results, "rideID");
+    return commons.indexArray({}, results, "rideID");
 }
 
 //Calculates the waitRating from distance from prediction and predicted trends for wait time
