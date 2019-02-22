@@ -59,9 +59,9 @@ async function updateCustomRideInfo(body, userID) {
     promises.push(rideManager.updateCustomRideName(rideID, customName, userID, query));
     promises.push(rideManager.updateCustomRidePics(rideID, pics, RIDE_IMG_SIZES, userID, s3, query));
     await Promise.all(promises);
-    var rides = await getSavedRides();
+    var rides = await getSavedRides(null, userID);
     for (var ride of rides) {
-        if (ride.id == rideID) {
+        if (ride.id.toString() == rideID) {
             return ride;
         }
     }
@@ -91,12 +91,12 @@ async function getSavedRides(_, userID) {
     var results = [];
     for (var ride of savedRides) {
         var waitRating = getWaitRating(ride, predictions);
-        var customName = customNames[ride.id];
+        var customNameArr = customNames[ride.id];
         var customRidePics = customPics[ride.id];
         results.push({
             "id": ride.id,
             "info": {
-                "name": (customName)? customName: ride["name"],
+                "name": (customNameArr)? customNameArr[0]: ride["name"],
                 "officialName": ride["name"],
                 "picUrl": (customRidePics)? customRidePics[0]: ride["imgUrl"],
                 "officialPicUrl": ride["imgUrl"],

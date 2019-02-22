@@ -42,8 +42,11 @@ async function updateCustomRidePics(rideID, pics, imgSizes, userID, s3Client, qu
         var key = pic.url;
         if (pic.added) {
             key = `pics/${userID}/${uuidv4()}`;
+            var base64Img = pic.url;
+            base64Img = base64Img.substr(base64Img.indexOf(',') + 1);
+            var buffer = Buffer.from(base64Img, 'base64');
             uploadPromises.push(imgUploader.uploadImageDataOfSizes(
-                pic.url, imgSizes, 'disneyapp3', key, s3Client, false
+                buffer, imgSizes, 'disneyapp3', key, s3Client, false
             ));
         }
         rows.push([rideID, userID, i, key]);
@@ -58,13 +61,13 @@ async function updateCustomRidePics(rideID, pics, imgSizes, userID, s3Client, qu
 async function getCustomRideNames(userID, query) {
     var results = await query(`SELECT rideID, name FROM CustomRideNames WHERE
         userID=?`, [userID]);
-    return commons.indexArray({}, results, "rideID");
+    return commons.indexArray({}, results, "rideID", "name");
 }
 
 async function getCustomRidePics(userID, query) {
     var results = await query(`SELECT rideID, url FROM CustomRidePics WHERE
         userID=? ORDER BY rideID, priority`, [userID]);
-    return commons.indexArray({}, results, "rideID");
+    return commons.indexArray({}, results, "rideID", "url");
 }
 
 async function addRideInfo(rideInfo, imgSizes, bucket, s3Client, query) {
