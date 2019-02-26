@@ -74,7 +74,7 @@ async function getRideInfos(maxImgSize) {
     return rideInfos;
 }
 
-async function getRideTimesForPark(token, parkID, tz) {
+async function getRideTimesForPark(token, parkID) {
     var options = {
         method: 'GET',
         uri: "https://api.wdpro.disney.go.com/facility-service/theme-parks/" + parkID.toString() + "/wait-times",
@@ -108,7 +108,7 @@ async function getRideTimesForPark(token, parkID, tz) {
                 }
                 var fpObj = entry.waitTime.fastPass;
                 if (fpObj != null && fpObj.available && fpObj.startTime != null && fpObj.startTime[2] == ':') {
-                    rideTime["fastPassTime"] = moment(fpObj["startTime"], 'HH:mm:ss').tz(tz);
+                    rideTime["fastPassTime"] = moment(fpObj["startTime"], 'HH:mm:ss');
                 }
                 rideTime["status"] = entry.waitTime["status"];
             }
@@ -119,10 +119,10 @@ async function getRideTimesForPark(token, parkID, tz) {
 }
 
 //Get all the latest ride times from Disney API
-async function getRideTimes(token, parkIDs, tz) {
+async function getRideTimes(token, parkIDs) {
     var promises = [];
     for (var parkID of parkIDs) {
-        promises.push(getRideTimesForPark(token, parkID, tz));
+        promises.push(getRideTimesForPark(token, parkID));
     }
     var parkRideTimes = await Promise.all(promises);
     var rideTimes = parkRideTimes[0];

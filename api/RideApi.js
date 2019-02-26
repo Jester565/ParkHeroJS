@@ -140,7 +140,7 @@ async function getRides(_, userID) {
     }
 
     var getUpdatedRideTimes = async () => {
-        var rideTimes = await disRides.getRideTimes(apiToken, parkIDs, tz);
+        var rideTimes = await disRides.getRideTimes(apiToken, parkIDs);
         var updatedRideTimes = await rideManager.getUpdatedRideTimes(rideTimes, query);
         return updatedRideTimes;
     };
@@ -194,9 +194,9 @@ async function addHistoricalRideTimes() {
     }
     var tz = await resortManager.getResortTimezone(RESORT_ID, query);
     var token = await authManager.getAPIToken(query);
-    var rideTimes = await disRides.getRideTimes(token, parkIDs, tz);
+    var rideTimes = await disRides.getRideTimes(token, parkIDs);
     await rideManager.saveToHistoricalRideTimes(rideTimes, tz, query);
-    var updatedRideTimes = await disRides.getUpdatedRideTimes(rideTimes, query);
+    var updatedRideTimes = await rideManager.getUpdatedRideTimes(rideTimes, query);
     await rideManager.saveLatestRideTimes(updatedRideTimes, tz, query);
 }
 
