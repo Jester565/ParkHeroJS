@@ -1,0 +1,5690 @@
+[
+  {
+    "rideID": 353293,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 5,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353295,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 11,
+    "fastPassTime": "2019-02-25T09:16:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353301,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 7,
+    "fastPassTime": "2019-02-25T08:35:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353303,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 15,
+    "fastPassTime": "2019-02-25T09:10:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353305,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353311,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 0,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353313,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 5,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353315,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 7,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353323,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353325,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353327,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 0,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353337,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": -6,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353341,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 6,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353347,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 6,
+    "fastPassTime": "2019-02-25T09:31:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353355,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 18,
+    "fastPassTime": "2019-02-25T09:30:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353361,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 8,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353363,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 3,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353365,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 7,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353369,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 8,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353377,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 14,
+    "fastPassTime": "2019-02-25T09:07:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353379,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 4,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353381,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": -4,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353387,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 6,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353389,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 8,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353399,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 30,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353401,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353403,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": -2,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353405,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 1,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353413,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 1,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353421,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": -2,
+    "fastPassTime": "2019-02-25T08:37:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353429,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 7,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353431,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 27,
+    "fastPassTime": "2019-02-25T09:21:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353435,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 25,
+    "fastPassTime": "2019-02-25T09:55:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353437,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": -4,
+    "fastPassTime": "2019-02-25T08:11:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353439,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 16,
+    "fastPassTime": "2019-02-25T09:21:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353443,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353449,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 7,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353451,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 30,
+    "fastPassTime": "2019-02-25T09:48:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353453,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 31,
+    "fastPassTime": "2019-02-25T10:26:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353457,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 6,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 367492,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 3,
+    "fastPassTime": "2019-02-25T08:48:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 367495,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 15510732,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 8,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15575069,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15822029,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 11,
+    "fastPassTime": "2019-02-25T09:00:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514416,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 55,
+    "fastPassTime": "2019-02-25T12:43:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514431,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16581435,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 18343088,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 19009994,
+    "dateTime": "2019-02-25T09:00:00-08:00",
+    "hour": 9,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353293,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353295,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 22,
+    "fastPassTime": "2019-02-25T10:35:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353301,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 19,
+    "fastPassTime": "2019-02-25T09:53:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353303,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 27,
+    "fastPassTime": "2019-02-25T10:24:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353305,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353311,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 8,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353313,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 7,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353315,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353323,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 22,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353325,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353327,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353337,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 5,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353341,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353347,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 17,
+    "fastPassTime": "2019-02-25T10:49:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353355,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 29,
+    "fastPassTime": "2019-02-25T11:16:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353361,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353363,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353365,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353369,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353377,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 26,
+    "fastPassTime": "2019-02-25T10:54:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353379,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353381,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 6,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353387,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353389,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353399,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 33,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353401,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353403,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 4,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353405,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353413,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 3,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353421,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 8,
+    "fastPassTime": "2019-02-25T09:55:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353429,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353431,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 39,
+    "fastPassTime": "2019-02-25T11:08:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353435,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 37,
+    "fastPassTime": "2019-02-25T11:41:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353437,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 7,
+    "fastPassTime": "2019-02-25T09:53:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353439,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 27,
+    "fastPassTime": "2019-02-25T11:08:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353443,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353449,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353451,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 42,
+    "fastPassTime": "2019-02-25T11:31:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353453,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 42,
+    "fastPassTime": "2019-02-25T12:13:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353457,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 8,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 367492,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 14,
+    "fastPassTime": "2019-02-25T10:06:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 367495,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 26,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 15510732,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15575069,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15822029,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 22,
+    "fastPassTime": "2019-02-25T10:15:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514416,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 66,
+    "fastPassTime": "2019-02-25T14:29:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514431,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 20,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16581435,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 18,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 18343088,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 24,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 19009994,
+    "dateTime": "2019-02-25T10:00:00-08:00",
+    "hour": 10,
+    "waitMins": 23,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353293,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353295,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 33,
+    "fastPassTime": "2019-02-25T11:54:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353301,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 27,
+    "fastPassTime": "2019-02-25T11:11:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353303,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 30,
+    "fastPassTime": "2019-02-25T11:38:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353305,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353311,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353313,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 8,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353315,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353323,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 26,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353325,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353327,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 22,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353337,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353341,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353347,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 28,
+    "fastPassTime": "2019-02-25T12:08:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353355,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 39,
+    "fastPassTime": "2019-02-25T13:03:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353361,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353363,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353365,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353369,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353377,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 37,
+    "fastPassTime": "2019-02-25T12:40:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353379,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 27,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353381,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 18,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353387,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 24,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353389,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353399,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 35,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353401,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353403,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 5,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353405,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 23,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353413,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 4,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353421,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 20,
+    "fastPassTime": "2019-02-25T11:14:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353429,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353431,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 48,
+    "fastPassTime": "2019-02-25T12:54:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353435,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 48,
+    "fastPassTime": "2019-02-25T13:28:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353437,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 18,
+    "fastPassTime": "2019-02-25T11:36:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353439,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 33,
+    "fastPassTime": "2019-02-25T12:54:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353443,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 19,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353449,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353451,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 47,
+    "fastPassTime": "2019-02-25T13:15:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353453,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 52,
+    "fastPassTime": "2019-02-25T13:49:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353457,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 367492,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 24,
+    "fastPassTime": "2019-02-25T11:25:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 367495,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 29,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 15510732,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15575069,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15822029,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 33,
+    "fastPassTime": "2019-02-25T11:29:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514416,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 77,
+    "fastPassTime": "2019-02-25T16:14:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514431,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 22,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16581435,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 19,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 18343088,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 25,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 19009994,
+    "dateTime": "2019-02-25T11:00:00-08:00",
+    "hour": 11,
+    "waitMins": 34,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353293,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 19,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353295,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 36,
+    "fastPassTime": "2019-02-25T13:12:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353301,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 29,
+    "fastPassTime": "2019-02-25T12:30:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353303,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 32,
+    "fastPassTime": "2019-02-25T12:51:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353305,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353311,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353313,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 8,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353315,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353323,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 28,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353325,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353327,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 23,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353337,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 22,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353341,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353347,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 38,
+    "fastPassTime": "2019-02-25T13:26:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353355,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 43,
+    "fastPassTime": "2019-02-25T14:44:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353361,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353363,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 18,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353365,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353369,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353377,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 47,
+    "fastPassTime": "2019-02-25T14:00:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353379,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 30,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353381,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 28,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353387,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 26,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353389,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 18,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353399,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 37,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353401,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353403,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 6,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353405,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 25,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353413,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 3,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353421,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 31,
+    "fastPassTime": "2019-02-25T12:32:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353429,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353431,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 50,
+    "fastPassTime": "2019-02-25T14:35:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353435,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 53,
+    "fastPassTime": "2019-02-25T15:15:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353437,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 28,
+    "fastPassTime": "2019-02-25T13:09:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353439,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 36,
+    "fastPassTime": "2019-02-25T14:08:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353443,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 21,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353449,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353451,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 50,
+    "fastPassTime": "2019-02-25T14:57:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353453,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 54,
+    "fastPassTime": "2019-02-25T15:21:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353457,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 8,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 367492,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 27,
+    "fastPassTime": "2019-02-25T12:39:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 367495,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 31,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 15510732,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15575069,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15822029,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 37,
+    "fastPassTime": "2019-02-25T12:42:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514416,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 83,
+    "fastPassTime": "2019-02-25T17:56:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514431,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 24,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16581435,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 19,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 18343088,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 26,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 19009994,
+    "dateTime": "2019-02-25T12:00:00-08:00",
+    "hour": 12,
+    "waitMins": 37,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353293,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 21,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353295,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 38,
+    "fastPassTime": "2019-02-25T14:27:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353301,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 31,
+    "fastPassTime": "2019-02-25T13:48:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353303,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 34,
+    "fastPassTime": "2019-02-25T14:05:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353305,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353311,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353313,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353315,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353323,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 30,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353325,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353327,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 25,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353337,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 24,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353341,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353347,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 40,
+    "fastPassTime": "2019-02-25T14:45:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353355,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 45,
+    "fastPassTime": "2019-02-25T15:58:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353361,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353363,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 20,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353365,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353369,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353377,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 50,
+    "fastPassTime": "2019-02-25T15:14:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353379,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 32,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353381,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 30,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353387,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 28,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353389,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 20,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353399,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 39,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353401,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353403,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 5,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353405,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 26,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353413,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 2,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353421,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 39,
+    "fastPassTime": "2019-02-25T13:50:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353429,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353431,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 52,
+    "fastPassTime": "2019-02-25T15:49:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353435,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 56,
+    "fastPassTime": "2019-02-25T16:49:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353437,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 35,
+    "fastPassTime": "2019-02-25T14:18:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353439,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 38,
+    "fastPassTime": "2019-02-25T15:21:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353443,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 23,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353449,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353451,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 52,
+    "fastPassTime": "2019-02-25T16:40:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353453,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 57,
+    "fastPassTime": "2019-02-25T16:52:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353457,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 7,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 367492,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 29,
+    "fastPassTime": "2019-02-25T13:42:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 367495,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 33,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 15510732,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15575069,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15822029,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 38,
+    "fastPassTime": "2019-02-25T13:56:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514416,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 86,
+    "fastPassTime": "2019-02-25T19:22:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514431,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 25,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16581435,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 19,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 18343088,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 28,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 19009994,
+    "dateTime": "2019-02-25T13:00:00-08:00",
+    "hour": 13,
+    "waitMins": 39,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353293,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 23,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353295,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 40,
+    "fastPassTime": "2019-02-25T15:40:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353301,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 33,
+    "fastPassTime": "2019-02-25T15:03:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353303,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 36,
+    "fastPassTime": "2019-02-25T15:18:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353305,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 18,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353311,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353313,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353315,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353323,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 32,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353325,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 8,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353327,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 26,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353337,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 26,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353341,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353347,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 42,
+    "fastPassTime": "2019-02-25T15:52:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353355,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 46,
+    "fastPassTime": "2019-02-25T17:01:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353361,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353363,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 22,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353365,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353369,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353377,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 52,
+    "fastPassTime": "2019-02-25T16:27:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353379,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 34,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353381,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 32,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353387,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 29,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353389,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 21,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353399,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 41,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353401,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353403,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 6,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353405,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 26,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353413,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 0,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353421,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 41,
+    "fastPassTime": "2019-02-25T14:57:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353429,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 18,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353431,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 53,
+    "fastPassTime": "2019-02-25T16:59:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353435,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 58,
+    "fastPassTime": "2019-02-25T18:06:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353437,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 40,
+    "fastPassTime": "2019-02-25T15:25:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353439,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 40,
+    "fastPassTime": "2019-02-25T16:27:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353443,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 25,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353449,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353451,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 54,
+    "fastPassTime": "2019-02-25T17:37:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353453,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 58,
+    "fastPassTime": "2019-02-25T18:08:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353457,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 5,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 367492,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 30,
+    "fastPassTime": "2019-02-25T14:46:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 367495,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 35,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 15510732,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15575069,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15822029,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 39,
+    "fastPassTime": "2019-02-25T15:09:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514416,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 88,
+    "fastPassTime": "2019-02-25T20:19:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514431,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 23,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16581435,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 18343088,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 28,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 19009994,
+    "dateTime": "2019-02-25T14:00:00-08:00",
+    "hour": 14,
+    "waitMins": 41,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353293,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 23,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353295,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 42,
+    "fastPassTime": "2019-02-25T16:46:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353301,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 34,
+    "fastPassTime": "2019-02-25T16:08:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353303,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 37,
+    "fastPassTime": "2019-02-25T16:27:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353305,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 19,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353311,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353313,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353315,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353323,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 33,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353325,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 8,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353327,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 26,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353337,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 28,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353341,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353347,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 41,
+    "fastPassTime": "2019-02-25T16:50:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353355,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 48,
+    "fastPassTime": "2019-02-25T17:56:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353361,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353363,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 21,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353365,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353369,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353377,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 53,
+    "fastPassTime": "2019-02-25T17:30:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353379,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 36,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353381,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 34,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353387,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 28,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353389,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 22,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353399,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 42,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353401,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 19,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353403,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 6,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353405,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 25,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353413,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 0,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353421,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 41,
+    "fastPassTime": "2019-02-25T16:03:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353429,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 20,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353431,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 53,
+    "fastPassTime": "2019-02-25T18:00:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353435,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 60,
+    "fastPassTime": "2019-02-25T18:50:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353437,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 38,
+    "fastPassTime": "2019-02-25T16:16:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353439,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 40,
+    "fastPassTime": "2019-02-25T17:25:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353443,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 27,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353449,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353451,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 55,
+    "fastPassTime": "2019-02-25T18:33:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353453,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 60,
+    "fastPassTime": "2019-02-25T18:52:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353457,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 4,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 367492,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 31,
+    "fastPassTime": "2019-02-25T15:53:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 367495,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 36,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 15510732,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15575069,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15822029,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 39,
+    "fastPassTime": "2019-02-25T16:21:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514416,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 89,
+    "fastPassTime": "2019-02-25T21:06:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514431,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 21,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16581435,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 18343088,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 27,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 19009994,
+    "dateTime": "2019-02-25T15:00:00-08:00",
+    "hour": 15,
+    "waitMins": 42,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353293,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 22,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353295,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 42,
+    "fastPassTime": "2019-02-25T17:47:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353301,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 32,
+    "fastPassTime": "2019-02-25T17:08:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353303,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 38,
+    "fastPassTime": "2019-02-25T17:17:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353305,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 18,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353311,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353313,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353315,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353323,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 32,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353325,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 8,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353327,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 24,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353337,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 29,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353341,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353347,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 39,
+    "fastPassTime": "2019-02-25T17:42:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353355,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 48,
+    "fastPassTime": "2019-02-25T18:40:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353361,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353363,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 20,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353365,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353369,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353377,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 51,
+    "fastPassTime": "2019-02-25T18:22:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353379,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 35,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353381,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 34,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353387,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 26,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353389,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 21,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353399,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 41,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353401,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 18,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353403,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 4,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353405,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 24,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353413,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 1,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353421,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 39,
+    "fastPassTime": "2019-02-25T17:07:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353429,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 19,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353431,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 50,
+    "fastPassTime": "2019-02-25T18:46:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353435,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 62,
+    "fastPassTime": "2019-02-25T19:34:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353437,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 34,
+    "fastPassTime": "2019-02-25T17:01:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353439,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 38,
+    "fastPassTime": "2019-02-25T18:17:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353443,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 26,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353449,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353451,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 57,
+    "fastPassTime": "2019-02-25T19:20:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353453,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 59,
+    "fastPassTime": "2019-02-25T19:35:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353457,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 5,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 367492,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 32,
+    "fastPassTime": "2019-02-25T16:59:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 367495,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 35,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 15510732,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15575069,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15822029,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 36,
+    "fastPassTime": "2019-02-25T17:26:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514416,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 87,
+    "fastPassTime": "2019-02-25T21:39:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514431,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 19,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16581435,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 18343088,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 25,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 19009994,
+    "dateTime": "2019-02-25T16:00:00-08:00",
+    "hour": 16,
+    "waitMins": 41,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353293,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 19,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353295,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 41,
+    "fastPassTime": "2019-02-25T18:38:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353301,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 29,
+    "fastPassTime": "2019-02-25T18:02:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353303,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 35,
+    "fastPassTime": "2019-02-25T18:05:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353305,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353311,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 6,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353313,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353315,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353323,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 29,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353325,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353327,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 21,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353337,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 26,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353341,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353347,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 37,
+    "fastPassTime": "2019-02-25T18:33:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353355,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 46,
+    "fastPassTime": "2019-02-25T19:22:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353361,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353363,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353365,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353369,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353377,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 48,
+    "fastPassTime": "2019-02-25T19:07:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353379,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 33,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353381,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 32,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353387,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 23,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353389,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 20,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353399,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 40,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353401,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353403,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 0,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353405,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 21,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353413,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 2,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353421,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 36,
+    "fastPassTime": "2019-02-25T18:00:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353429,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 18,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353431,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 46,
+    "fastPassTime": "2019-02-25T19:25:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353435,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 62,
+    "fastPassTime": "2019-02-25T20:11:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353437,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 29,
+    "fastPassTime": "2019-02-25T17:45:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353439,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 36,
+    "fastPassTime": "2019-02-25T19:02:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353443,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 24,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353449,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 8,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353451,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 59,
+    "fastPassTime": "2019-02-25T20:00:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353453,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 56,
+    "fastPassTime": "2019-02-25T20:07:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353457,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 6,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 367492,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 30,
+    "fastPassTime": "2019-02-25T17:55:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 367495,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 33,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 15510732,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15575069,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15822029,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 33,
+    "fastPassTime": "2019-02-25T18:14:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514416,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 83,
+    "fastPassTime": "2019-02-25T22:11:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514431,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 18,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16581435,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 18343088,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 22,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 19009994,
+    "dateTime": "2019-02-25T17:00:00-08:00",
+    "hour": 17,
+    "waitMins": 38,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353293,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353295,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 36,
+    "fastPassTime": "2019-02-25T19:25:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353301,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 25,
+    "fastPassTime": "2019-02-25T18:54:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353303,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 34,
+    "fastPassTime": "2019-02-25T18:51:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353305,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353311,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 2,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353313,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353315,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353323,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 24,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353325,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353327,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353337,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 21,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353341,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353347,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 33,
+    "fastPassTime": "2019-02-25T19:19:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353355,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 43,
+    "fastPassTime": "2019-02-25T19:58:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353361,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353363,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353365,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353369,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353377,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 44,
+    "fastPassTime": "2019-02-25T19:45:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353379,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 28,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353381,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 28,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353387,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 19,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353389,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 19,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353399,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 39,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353401,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353403,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": -2,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353405,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353413,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 3,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353421,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 31,
+    "fastPassTime": "2019-02-25T18:45:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353429,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353431,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 41,
+    "fastPassTime": "2019-02-25T19:56:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353435,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 58,
+    "fastPassTime": "2019-02-25T20:47:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353437,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 22,
+    "fastPassTime": "2019-02-25T18:26:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353439,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 32,
+    "fastPassTime": "2019-02-25T19:37:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353443,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 19,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353449,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353451,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 58,
+    "fastPassTime": "2019-02-25T20:36:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353453,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 52,
+    "fastPassTime": "2019-02-25T20:38:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353457,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 8,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 367492,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 28,
+    "fastPassTime": "2019-02-25T18:48:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 367495,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 31,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 15510732,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15575069,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15822029,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 28,
+    "fastPassTime": "2019-02-25T18:57:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514416,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 76,
+    "fastPassTime": "2019-02-25T22:42:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514431,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16581435,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 18343088,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 20,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 19009994,
+    "dateTime": "2019-02-25T18:00:00-08:00",
+    "hour": 18,
+    "waitMins": 34,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353293,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353295,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 31,
+    "fastPassTime": "2019-02-25T20:04:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353301,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 20,
+    "fastPassTime": "2019-02-25T19:42:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353303,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 32,
+    "fastPassTime": "2019-02-25T19:25:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353305,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353311,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": -1,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353313,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353315,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353323,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 19,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353325,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353327,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353337,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353341,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353347,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 28,
+    "fastPassTime": "2019-02-25T19:57:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353355,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 39,
+    "fastPassTime": "2019-02-25T20:33:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353361,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353363,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353365,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353369,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353377,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 39,
+    "fastPassTime": "2019-02-25T20:21:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353379,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 27,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353381,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 24,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353387,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353389,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 18,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353399,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 37,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353401,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353403,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": -6,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353405,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353413,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 3,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353421,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 25,
+    "fastPassTime": "2019-02-25T19:26:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353429,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353431,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 35,
+    "fastPassTime": "2019-02-25T20:27:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353435,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 54,
+    "fastPassTime": "2019-02-25T21:19:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353437,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 16,
+    "fastPassTime": "2019-02-25T19:07:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353439,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 27,
+    "fastPassTime": "2019-02-25T20:13:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353443,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353449,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 7,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353451,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 57,
+    "fastPassTime": "2019-02-25T21:12:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353453,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 46,
+    "fastPassTime": "2019-02-25T21:09:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353457,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 7,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 367492,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 23,
+    "fastPassTime": "2019-02-25T19:40:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 367495,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 30,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 15510732,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15575069,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15822029,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 22,
+    "fastPassTime": "2019-02-25T19:32:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514416,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 68,
+    "fastPassTime": "2019-02-25T23:05:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514431,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16581435,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 18343088,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 19,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 19009994,
+    "dateTime": "2019-02-25T19:00:00-08:00",
+    "hour": 19,
+    "waitMins": 32,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353293,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353295,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 26,
+    "fastPassTime": "2019-02-25T20:40:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353301,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 15,
+    "fastPassTime": "2019-02-25T20:18:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353303,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 31,
+    "fastPassTime": "2019-02-25T19:57:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353305,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353311,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": -2,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353313,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353315,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353323,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353325,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353327,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353337,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353341,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353347,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 23,
+    "fastPassTime": "2019-02-25T20:33:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353355,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 34,
+    "fastPassTime": "2019-02-25T21:06:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353361,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353363,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353365,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353369,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353377,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 33,
+    "fastPassTime": "2019-02-25T20:55:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353379,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 25,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353381,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 19,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353387,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353389,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 17,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353399,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 36,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353401,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353403,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": -6,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353405,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353413,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 1,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353421,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 20,
+    "fastPassTime": "2019-02-25T20:05:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353429,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353431,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 29,
+    "fastPassTime": "2019-02-25T20:56:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353435,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 50,
+    "fastPassTime": "2019-02-25T21:51:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353437,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 11,
+    "fastPassTime": "2019-02-25T19:50:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353439,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 22,
+    "fastPassTime": "2019-02-25T20:46:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353443,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353449,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 6,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353451,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 56,
+    "fastPassTime": "2019-02-25T21:43:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353453,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 40,
+    "fastPassTime": "2019-02-25T21:36:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353457,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 6,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 367492,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 18,
+    "fastPassTime": "2019-02-25T20:20:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 367495,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 28,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 15510732,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15575069,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 15822029,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 16,
+    "fastPassTime": "2019-02-25T20:04:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514416,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 62,
+    "fastPassTime": "2019-02-25T23:19:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16514431,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 16581435,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 18343088,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 19009994,
+    "dateTime": "2019-02-25T20:00:00-08:00",
+    "hour": 20,
+    "waitMins": 30,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 11
+  },
+  {
+    "rideID": 353293,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353295,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 24,
+    "fastPassTime": "2019-02-25T21:14:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353301,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 10,
+    "fastPassTime": "2019-02-25T20:54:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353305,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353311,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": -3,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353313,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353315,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 11,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353323,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 15,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353325,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 9,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353327,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 7,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353337,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 7,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353347,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 17,
+    "fastPassTime": "2019-02-25T21:07:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353355,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 28,
+    "fastPassTime": "2019-02-25T21:38:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353363,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 7,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353365,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 10,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353369,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 13,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353377,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 27,
+    "fastPassTime": "2019-02-25T21:27:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353381,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353389,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 16,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353399,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 35,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353401,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353403,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": -6,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353405,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 8,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353421,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 14,
+    "fastPassTime": "2019-02-25T20:40:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353429,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 14,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353435,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 46,
+    "fastPassTime": "2019-02-25T22:17:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353437,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 5,
+    "fastPassTime": "2019-02-25T20:33:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353439,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 19,
+    "fastPassTime": "2019-02-25T21:18:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353443,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 12,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 353449,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 5,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 367492,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 13,
+    "fastPassTime": "2019-02-25T20:56:00-08:00",
+    "openHour": 9,
+    "hoursOpen": 12
+  },
+  {
+    "rideID": 367495,
+    "dateTime": "2019-02-25T21:00:00-08:00",
+    "hour": 21,
+    "waitMins": 26,
+    "fastPassTime": null,
+    "openHour": 9,
+    "hoursOpen": 12
+  }
+]

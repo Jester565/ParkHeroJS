@@ -37,6 +37,40 @@ async function getFastPassPrediction(rideID, dateTime, query) {
     return predTime;
 }
 
+async function getPredictions(date, tz, query, rideID=null) {
+    var args = [ date.format("YYYY-MM-DD") ]
+    var rideFilter = "";
+    if (rideID != null) {
+        rideFilter = "AND rideID=?";
+        args.push(rideID);
+    }
+    var results = await query(`SELECT rideID, dateTime, HOUR(dateTime) AS hour, waitMins, fastpassTime AS fastPassTime,
+        openHour AS openHour, hoursOpen AS hoursOpen
+        FROM BatchResults
+        WHERE DATE(DATE_SUB(dateTime, INTERVAL 4 HOUR))=? ${rideFilter} ORDER BY dateTime`, args);
+    for (var result of results) {
+        result.dateTime = moment(result.dateTime, "YYYY-MM-DD HH:mm:ss").tz(tz, true);
+        if (result.fastPassTime != null) {
+            result.fastPassTime = moment(result.fastPassTime, "YYYY-MM-DD HH:mm:ss").tz(tz, true);
+            var predHours = result.fastPassTime.hours();
+            if (predHours < 4) {
+                predHours += 24;
+            }
+            if (predHours >= result.openHour + result.hoursOpen - 1) {
+                if (predHours == result.openHour + result.hoursOpen - 1) {
+                    if (result.fastPassTime.minutes() >= 30) {
+                        result.fastPassTime = null;
+                    }
+                } else {
+                    result.fastPassTime = null;
+                }
+            }
+        }
+    }
+    
+    return commons.indexArray({}, results, 'rideID');   
+}
+
 //Get average of all prediction information for the rest of the day at a resort
 async function getPredictTimeHeuristics(tz, query) {
     var now = moment().tz(tz);
@@ -98,6 +132,7 @@ function getWaitRating(waitTime, avgWaitMins, minWaitMins, maxWaitMins, firstPre
 }
 
 module.exports = {
+    getPredictions: getPredictions,
     getFastPassPrediction: getFastPassPrediction,
     getPredictTimeHeuristics: getPredictTimeHeuristics,
     getPredictTime: getPredictTime,

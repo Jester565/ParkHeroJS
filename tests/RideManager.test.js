@@ -124,6 +124,24 @@ test('Add Latest Ride Times', async() => {
     await rideManager.saveToHistoricalRideTimes(rideTimes, 'America/Los_Angeles', query);
 }, 20000);
 
+describe('RideDPs Test', () => {
+    test('Get RideDPS', async () => {
+        var date = moment('2019-02-25', 'YYYY-MM-DD');
+        var now = moment('2019-02-25 16:02:00', 'YYYY-MM-DD HH:mm:ss').tz('America/Los_Angeles', true);
+        var rideDPs = await rideManager.getRideDPs(date, now, 'America/Los_Angeles', async (queryStr) => {
+            if (queryStr.indexOf("BatchResults") >= 0) {
+                return JSON.parse(await readFileAsync(__dirname + "/BatchResults.json", {encoding: 'utf8'}));
+            } else if (queryStr.indexOf("Rides") >= 0) {
+                return JSON.parse(await readFileAsync(__dirname + "/Rides.json", {encoding: 'utf8'}));
+            } else {
+                return JSON.parse(await readFileAsync(__dirname + "/RideHistory.json", {encoding: 'utf8'}));
+            }
+        });
+        fs.writeFileSync('./RideDPs.json', JSON.stringify(rideDPs, null, 2));
+    });
+
+});
+
 afterEach(async () => {
     await query(`DELETE FROM LatestRideTimes`);
     await query(`DELETE FROM RideTimes`);
