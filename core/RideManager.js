@@ -3,8 +3,97 @@ var request = require('request');
 var imgUploader = require('./ImageUploader');
 var resortManager = require('./ResortManager');
 var moment = require('moment-timezone');
+var predictionManager =require('./Predictions');
 var uuidv4 = require('uuid/v4');
 var commons = require('./Commons');
+
+async function getRideHistory(date, tz, query, rideID=null) {
+    var args = [ date.format("YYYY-MM-DD") ]
+    var rideFilter = "";
+    if (rideID != null) {
+        rideFilter = "AND rideID=?";
+        args.push(rideID);
+    }
+    var results = await query(`SELECT rideID, dateTime, HOUR(dateTime) AS hour, minute(dateTime) AS minute, waitMins, fastPassTime, status
+        FROM RideTimes WHERE DATE(DATE_SUB(dateTime, INTERVAL 4 HOUR))=? ${rideFilter} ORDER BY dateTime`, args);
+    for (var result of results) {
+        if (result.fastPassTime != null) {
+            result.fastPassTime = moment(result.fastPassTime, "HH:mm:ss");
+        }
+        result.dateTime = moment(result.dateTime, "YYYY-MM-DD HH:mm:ss").tz(tz, true);
+    }
+    return commons.indexArray({}, results, 'rideID');
+}
+
+function assignDate(date, time) {
+    var dateClone = date.clone();
+    if (time.hours() < 4) {
+        dateClone.add(1, 'days');
+    }
+    return moment(dateClone.format("YYYY-MM-DD") + " " + time.format("HH:mm:ss"), "YYYY-MM-DD HH:mm:ss");
+}
+
+async function getRideDPs(date, tz, query, rideID = null) {
+    var allRidePredictions = await predictionManager.getPredictions(date, tz, query, rideID);
+    var allRideHistory = await getRideHistory(date, tz, query, rideID);
+    var allRideDPs = [];
+    for (var rideID in allRidePredictions) {
+        var dps = [];
+        var historyI = 0;
+        var lastFpDiff = 0;
+        var ridePredictions = allRidePredictions[rideID];
+        var rideHistory = allRideHistory[rideID];
+        ridePredictions.forEach((prediction, i) => {
+            var hourHistoryPoints = [];
+            while (historyI < rideHistory.length) {
+                var historyPoint = rideHistory[historyI];
+                if (historyPoint.hour > prediction.hour) {
+                    break;
+                } else if (historyPoint.hour == prediction.hour) {
+                    hourHistoryPoints.push(historyPoint);
+                }
+                historyI++;
+            }
+            if (hourHistoryPoints.length > 0) {
+                var nextPrediction = (i + 1 < ridePredictions.length)? ridePredictions[i + 1]: ridePredictions[i];
+
+                var fpTimeDiff = (prediction.fastPassTime)? prediction.fastPassTime.valueOf(): null;
+                if (fpTimeDiff != null) {
+                    //TODO: Handle exceeded fp-time
+                    fpTimeDiff = (nextPrediction.fastPassTime)? (nextPrediction.fastPassTime.valueOf() - fpTimeDiff): lastFpDiff;
+                }
+                for (var hp of hourHistoryPoints) {
+                    var fpPredictTime = (prediction.fastPassTime != null && fpTimeDiff != null)? moment(prediction.fastPassTime.valueOf() + fpTimeDiff * (hp.minute / 60.0)): null;
+                    dps.push({
+                        history: {
+                            waitMins: hp.waitMins,
+                            fastPassTime: (hp.fastPassTime != null)? assignDate(hp.dateTime, hp.fastPassTime).format("YYYY-MM-DD HH:mm:ss"): null,
+                            status: hp.status
+                        },
+                        prediction: {
+                            waitMins: (prediction.waitMins * (1.0 - hp.minute / 60.0)) + (nextPrediction.waitMins * (hp.minute / 60.0)),
+                            fastPassTime: (fpPredictTime != null)? assignDate(hp.dateTime, fpPredictTime).format("YYYY-MM-DD HH:mm:ss"): null
+                        },
+                        dateTime: hp.dateTime.format("YYYY-MM-DD HH:mm:ss")
+                    });
+                }
+            } else {
+                dps.push({
+                    prediction: {
+                        waitMins: prediction.waitMins,
+                        fastPassTime: (prediction.fastPassTime != null)? assignDate(prediction.dateTime, prediction.fastPassTime).format("YYYY-MM-DD HH:mm:ss"): null
+                    },
+                    dateTime: prediction.dateTime.format("YYYY-MM-DD HH:mm:ss")
+                });
+            }
+        });
+        allRideDPs.push({
+            rideID: rideID,
+            dps: dps
+        });
+    }
+    return allRideDPs;
+}
 
 async function updateRideInfoInDB(rideInfo, imgObjKey, query) {
     await query(`INSERT INTO Rides VALUES ?
@@ -210,6 +299,7 @@ async function saveToHistoricalRideTimes(rideTimes, tz, query) {
 module.exports = {
     addRideInformations: addRideInformations,
     getSavedRides: getSavedRides,
+    getRideDPs: getRideDPs,
     getUpdatedRideTimes: getUpdatedRideTimes,
     saveLatestRideTimes: saveLatestRideTimes,
     saveToHistoricalRideTimes: saveToHistoricalRideTimes,
