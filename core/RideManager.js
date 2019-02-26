@@ -16,9 +16,20 @@ async function getRideHistory(date, tz, query, rideID=null) {
     }
     var results = await query(`SELECT rideID, dateTime, HOUR(dateTime) AS hour, minute(dateTime) AS minute, waitMins, fastPassTime, status
         FROM RideTimes WHERE DATE(DATE_SUB(dateTime, INTERVAL 4 HOUR))=? ${rideFilter} ORDER BY dateTime`, args);
+    var reachedLastHourOfDate = false;
+    var dateStr = date.format("YYYY-MM-DD");
     for (var result of results) {
         if (result.fastPassTime != null) {
-            result.fastPassTime = moment(result.fastPassTime, "HH:mm:ss");
+            result.fastPassTime = moment(dateStr + " " + result.fastPassTime, "YYYY-MM-DD HH:mm:ss").tz(tz, true);
+            if (result.fastPassTime.hours() < 4) {
+                result.fastPassTime.add(1, 'days');
+            }
+        }
+        if (result.hour == 23) {
+            reachedLastHourOfDate = true;
+        }
+        if (result.hour < 4 && reachedLastHourOfDate) {
+            result.hour += 24;
         }
         result.dateTime = moment(result.dateTime, "YYYY-MM-DD HH:mm:ss").tz(tz, true);
     }
@@ -33,55 +44,125 @@ function assignDate(date, time) {
     return moment(dateClone.format("YYYY-MM-DD") + " " + time.format("HH:mm:ss"), "YYYY-MM-DD HH:mm:ss");
 }
 
-async function getRideDPs(date, tz, query, rideID = null) {
-    var allRidePredictions = await predictionManager.getPredictions(date, tz, query, rideID);
-    var allRideHistory = await getRideHistory(date, tz, query, rideID);
+function diffDateTimes(dt1, dt2) {
+    if (dt1 != null && dt2 != null) {
+        return dt1.valueOf() - dt2.valueOf();
+    }
+    return null;
+}
+
+async function getRideDPs(date, now, tz, query, rideID = null) {
+    var queryPromises = [
+        predictionManager.getPredictions(date, tz, query, rideID),
+        getRideHistory(date, tz, query, rideID),
+        getSavedRides(query, true)
+    ];
+    var queryResults = await Promise.all(queryPromises);
+    var allRidePredictions = queryResults[0];
+    var allRideHistory = queryResults[1];
+    var rides = queryResults[2];
+
+    var isToday = now.clone().subtract(4, 'hours').format("YYYY-MM-DD") == date.format("YYYY-MM-DD");
+
     var allRideDPs = [];
-    for (var rideID in allRidePredictions) {
-        var dps = [];
-        var historyI = 0;
-        var lastFpDiff = 0;
+    
+    for (var ride of rides) {
+        var rideID = ride.id;
         var ridePredictions = allRidePredictions[rideID];
         var rideHistory = allRideHistory[rideID];
-        ridePredictions.forEach((prediction, i) => {
-            var hourHistoryPoints = [];
-            while (historyI < rideHistory.length) {
-                var historyPoint = rideHistory[historyI];
-                if (historyPoint.hour > prediction.hour) {
-                    break;
-                } else if (historyPoint.hour == prediction.hour) {
-                    hourHistoryPoints.push(historyPoint);
-                }
-                historyI++;
-            }
-            if (hourHistoryPoints.length > 0) {
-                var nextPrediction = (i + 1 < ridePredictions.length)? ridePredictions[i + 1]: ridePredictions[i];
+        if (ridePredictions == null) {
+            continue;
+        }
+        console.log("RUNNING RIDEID: ", rideID);
 
-                var fpTimeDiff = (prediction.fastPassTime)? prediction.fastPassTime.valueOf(): null;
-                if (fpTimeDiff != null) {
-                    //TODO: Handle exceeded fp-time
-                    fpTimeDiff = (nextPrediction.fastPassTime)? (nextPrediction.fastPassTime.valueOf() - fpTimeDiff): lastFpDiff;
+        var firstDateTime = (ridePredictions.length > 0)? ridePredictions[0].dateTime: null;
+        var maxFastPassAvailableDiff = diffDateTimes(now, firstDateTime);
+
+        if (isToday && ride.fastPassTime != null) {
+            allRideHistory[rideID].push({
+                fastPassTime: moment(now.format("YYYY-MM-DD") + " " + ride.fastPassTime, "YYYY-MM-DD HH:mm:ss").tz(tz, true),
+                dateTime: now.clone()
+            });
+        }
+        var prevHistoryPoint = null;
+        var prevFastPassPrediction = null;
+        var prevPredictFpDiff = null;
+
+        var historicalAdjustFactor = 1;
+
+        var historyI = 0;
+
+        var dps = [];
+        ridePredictions.forEach((prediction, i) => {
+            if (historyI < rideHistory.length) {
+                var nextPrediction = (i + 1 < ridePredictions.length)? ridePredictions[i + 1]: null;
+
+                var historyPointsInHour = [];
+                while (historyI < rideHistory.length) {
+                    var historyPoint = rideHistory[historyI];
+                    if (historyPoint.hour > prediction.hour) {
+                        break;
+                    } else if (historyPoint.hour == prediction.hour) {
+                        historyPointsInHour.push(historyPoint);
+                    }
+                    historyI++;
                 }
-                for (var hp of hourHistoryPoints) {
-                    var fpPredictTime = (prediction.fastPassTime != null && fpTimeDiff != null)? moment(prediction.fastPassTime.valueOf() + fpTimeDiff * (hp.minute / 60.0)): null;
+                
+                var predictFastPassDiff = (nextPrediction != null)? diffDateTimes(nextPrediction.fastPassTime, prediction.fastPassTime): null;
+                if (predictFastPassDiff == null) {
+                    predictFastPassDiff = prevPredictFpDiff;
+                }
+                prevPredictFpDiff = predictFastPassDiff;
+                for (var historyPoint of historyPointsInHour) {
+                    var fastPassPrediction = (prediction.fastPassTime != null && predictFastPassDiff != null)? moment(prediction.fastPassTime.valueOf() + predictFastPassDiff * (historyPoint.minute / 60.0)): null;
+                    var predictFpDiff = diffDateTimes(fastPassPrediction, prevFastPassPrediction);
+
+                    if (prevHistoryPoint != null && fpDiff != null) {
+                        var historicalFpDiff = diffDateTimes(hp.fastPassPrediction, prevHistoryPoint.fastPassPrediction);
+                        var dtDiff = diffDateTimes(historyPoint.dateTime, prevHistoryPoint.dateTime);
+                        
+                        var historyM = historicalFpDiff / dtDiff;
+                        var predictionM = predictFpDiff / dtDiff;
+                        var fpAvailableDiff = diffDateTimes(now, historyPoint.dateTime);
+                        historicalAdjustFactor += ((historyM / predictionM) - 1) * (dtDiff / ellapsedFastPassAvailableDiff) * (1.3 - (fpAvailableDiff / maxFastPassAvailableDiff));
+                    }
+                    prevFastPassPrediction = fastPassPrediction;
+                    prevHistoryPoint = historyPoint;
+                    
                     dps.push({
                         history: {
-                            waitMins: hp.waitMins,
-                            fastPassTime: (hp.fastPassTime != null)? assignDate(hp.dateTime, hp.fastPassTime).format("YYYY-MM-DD HH:mm:ss"): null,
-                            status: hp.status
+                            waitMins: historyPoint.waitMins,
+                            fastPassTime: (historyPoint.fastPassTime != null)? historyPoint.fastPassTime.format("YYYY-MM-DD HH:mm:ss"): null,
+                            status: historyPoint.status
                         },
                         prediction: {
-                            waitMins: (prediction.waitMins * (1.0 - hp.minute / 60.0)) + (nextPrediction.waitMins * (hp.minute / 60.0)),
-                            fastPassTime: (fpPredictTime != null)? assignDate(hp.dateTime, fpPredictTime).format("YYYY-MM-DD HH:mm:ss"): null
+                            waitMins: (prediction.waitMins * (1.0 - historyPoint.minute / 60.0)) + (nextPrediction.waitMins * (historyPoint.minute / 60.0))
                         },
-                        dateTime: hp.dateTime.format("YYYY-MM-DD HH:mm:ss")
+                        dateTime: historyPoint.dateTime.format("YYYY-MM-DD HH:mm:ss")
                     });
                 }
             } else {
+                var dtDiff = diffDateTimes(prediction.dateTime, now);
+                if (historicalAdjustFactor > 1.25) {
+                    historicalAdjustFactor = 1.25;
+                } else if (historicalAdjustFactor < 0.75) {
+                    historicalAdjustFactor = 0.75;
+                }
+                var fpDiff = diffDateTimes(prediction.fastPassTime, prevFastPassPrediction);
+                var fpDateTime = (prevHistoryPoint != null && prevHistoryPoint.fastPassTime != null)? prevHistoryPoint.fastPassTime.clone(): null;
+                if (fpDateTime == null && prediction.fastPassTime != null) {
+                    fpDateTime = prediction.fastPassTime.clone();
+                }
+                if (fpDateTime != null) {
+                    var fpDiffFactor = (prevHistoryPoint != null)? ((historicalAdjustFactor - 1) * (1 - (dtDiff / (2 * 60 * 60 * 1000))) + 1): 1;
+                    fpDateTime.add(fpDiff * fpDiffFactor, 'milliseconds');
+                    prevHistoryPoint.fastPassTime = fpDateTime;
+                }
+                
                 dps.push({
                     prediction: {
                         waitMins: prediction.waitMins,
-                        fastPassTime: (prediction.fastPassTime != null)? assignDate(prediction.dateTime, prediction.fastPassTime).format("YYYY-MM-DD HH:mm:ss"): null
+                        fastPassTime: (fpDateTime != null)? fpDateTime.format("YYYY-MM-DD HH:mm:ss"): null
                     },
                     dateTime: prediction.dateTime.format("YYYY-MM-DD HH:mm:ss")
                 });
