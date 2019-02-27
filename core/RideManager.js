@@ -88,6 +88,7 @@ async function getRideDPs(date, now, tz, query, filterRideID = null) {
         
         var rideOpenDateTime = (ridePredictions.length > 0)? ridePredictions[0].dateTime: null;
         var rideCloseDateTime = (ridePredictions.length > 0)? ridePredictions[ridePredictions.length - 1].dateTime: null;
+        var fastPassesGone = false;
         var dps = [];
         ridePredictions.forEach((prediction, i) => {
             if (rideHistory != null && historyI < rideHistory.length) {
@@ -111,16 +112,19 @@ async function getRideDPs(date, now, tz, query, filterRideID = null) {
                 prevPredictFpDiff = predictFastPassDiff;
                 for (var historyPoint of historyPointsInHour) {
                     var fastPassPrediction = (prediction.fastPassTime != null && predictFastPassDiff != null)? moment(prediction.fastPassTime.valueOf() + predictFastPassDiff * (historyPoint.minute / 60.0)): null;
-                    var predictFpDiff = diffDateTimes(fastPassPrediction, prevFastPassPrediction);
-
-                    if (prevHistoryPoint != null && fpDiff != null) {
-                        var historicalFpDiff = diffDateTimes(historyPoint.fastPassPrediction, prevHistoryPoint.fastPassPrediction);
+                    var prevFpDiff = diffDateTimes(fastPassPrediction, prevFastPassPrediction);
+            
+                    if (prevHistoryPoint != null && prevFpDiff != null && historyPoint.fastPassTime != null && prevHistoryPoint.fastPassTime != null) {
+                        var historicalFpDiff = diffDateTimes(historyPoint.fastPassTime, prevHistoryPoint.fastPassTime);
                         var dtDiff = diffDateTimes(historyPoint.dateTime, prevHistoryPoint.dateTime);
                         
                         var historyM = historicalFpDiff / dtDiff;
-                        var predictionM = predictFpDiff / dtDiff;
+                        var predictionM = prevFpDiff / dtDiff;
                         var fpAvailableDiff = diffDateTimes(now, historyPoint.dateTime);
-                        historicalAdjustFactor += ((historyM / predictionM) - 1) * (dtDiff / maxFastPassAvailableDiff) * (1.3 - (fpAvailableDiff / maxFastPassAvailableDiff));
+                        var delta = ((historyM / predictionM) - 1) * (dtDiff / maxFastPassAvailableDiff) * (1.3 - (fpAvailableDiff / maxFastPassAvailableDiff));
+                        historicalAdjustFactor += delta;
+                    } else if (historyPoint.fastPassTime == null && prevHistoryPoint != null) {
+                        fastPassesGone = true;
                     }
                     prevFastPassPrediction = fastPassPrediction;
                     prevHistoryPoint = historyPoint;
@@ -140,32 +144,30 @@ async function getRideDPs(date, now, tz, query, filterRideID = null) {
                     });
                 }
             } else {
-                var dtDiff = diffDateTimes(prediction.dateTime, now);
-                if (historicalAdjustFactor > 1.25) {
-                    historicalAdjustFactor = 1.25;
-                } else if (historicalAdjustFactor < 0.75) {
-                    historicalAdjustFactor = 0.75;
-                }
-                var fpDiff = diffDateTimes(prediction.fastPassTime, prevFastPassPrediction);
-                if (fpDiff == null) {
-                    fpDiff = prevPredictFpDiff;
-                }
-                prevFastPassPrediction = prediction.fastPassTime;
-                prevPredictFpDiff = fpDiff;
-                var fpDateTime = (prevHistoryPoint != null && prevHistoryPoint.fastPassTime != null)? prevHistoryPoint.fastPassTime.clone(): null;
-                if (fpDateTime == null && prediction.fastPassTime != null) {
-                    fpDateTime = prediction.fastPassTime.clone();
-                }
-                if (fpDateTime != null) {
-                    var fpDiffFactor = (prevHistoryPoint != null)? ((historicalAdjustFactor - 1) * (1 - (dtDiff / (2 * 60 * 60 * 1000))) + 1): 1;
-                    fpDateTime.add(fpDiff * fpDiffFactor, 'milliseconds');
-                    if (fpDateTime < prediction.dateTime) {
-                        fpDateTime = prediction.dateTime;
+                var fpDateTime = null;
+                if (!fastPassesGone) {
+                    var dtDiff = diffDateTimes(prediction.dateTime, now);
+                    var fpDiff = diffDateTimes(prediction.fastPassTime, prevFastPassPrediction);
+                    if (fpDiff == null) {
+                        fpDiff = prevPredictFpDiff;
                     }
-                    if (prevHistoryPoint == null) {
-                        prevHistoryPoint = {};
+                    prevFastPassPrediction = prediction.fastPassTime;
+                    prevPredictFpDiff = fpDiff;
+                    fpDateTime = (prevHistoryPoint != null && prevHistoryPoint.fastPassTime != null)? prevHistoryPoint.fastPassTime.clone(): null;
+                    if (fpDateTime == null && prediction.fastPassTime != null) {
+                        fpDateTime = prediction.fastPassTime.clone();
                     }
-                    prevHistoryPoint.fastPassTime = fpDateTime;
+                    if (fpDateTime != null) {
+                        var fpDiffFactor = (prevHistoryPoint != null && dtDiff <= 3 * 60 * 60 * 1000)? ((historicalAdjustFactor - 1) * (1 - (dtDiff / (2 * 60 * 60 * 1000))) + 1): 1;
+                        fpDateTime.add(fpDiff * fpDiffFactor, 'milliseconds');
+                        if (fpDateTime < prediction.dateTime) {
+                            fpDateTime = prediction.dateTime;
+                        }
+                        if (prevHistoryPoint == null) {
+                            prevHistoryPoint = {};
+                        }
+                        prevHistoryPoint.fastPassTime = fpDateTime;
+                    }
                 }
                 
                 dps.push({
