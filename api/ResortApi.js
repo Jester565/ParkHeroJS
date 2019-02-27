@@ -29,7 +29,9 @@ body: [
 */
 async function getSchedules() {
     var tz = await resortManager.getResortTimezone(RESORT_ID, query);
-    var parkSchedules = await resortManager.getSchedules(RESORT_ID, moment().tz(tz), query);
+    var date = moment().tz(tz);
+    date.subtract(4, 'hours');
+    var parkSchedules = await resortManager.getSchedules(RESORT_ID, date, query);
     return parkSchedules;
 }
 
