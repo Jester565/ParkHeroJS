@@ -4,6 +4,7 @@ var rideManager = require('../core/RideManager');
 var resortManager = require('../core/ResortManager');
 var predictionManager = require('../core/Predictions');
 var commons = require('./Commons');
+var moment = require('moment-timezone');
 var config = require('./config');
 
 var query = commons.getDatabaseQueryMethod();
@@ -181,6 +182,16 @@ async function getRides(_, userID) {
     return results;
 }
 
+async function getRideDPs(body, _) {
+    var rideID = body["rideID"];
+    var dateStr = body["date"];
+    var date = moment(dateStr, "YYYY-MM-DD");
+    var tz = await resortManager.getResortTimezone(RESORT_ID, query);
+    var now = moment().tz(tz);
+    var rideDPs = await rideManager.getRideDPs(date, now, tz, query, rideID);
+    return rideDPs;
+}
+
 async function updateRides(updatedRideTimes) {
     var tz = await resortManager.getResortTimezone(RESORT_ID, query);
     await rideManager.saveLatestRideTimes(updatedRideTimes, tz, query);
@@ -204,6 +215,7 @@ module.exports = {
     addRideInformations: addRideInformations,
     getSavedRides: getSavedRides,
     getRides: getRides,
+    getRideDPs: getRideDPs,
     updateRides: updateRides,
     addHistoricalRideTimes: addHistoricalRideTimes,
     updateCustomRideInfo: updateCustomRideInfo
