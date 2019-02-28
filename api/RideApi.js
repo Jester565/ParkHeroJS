@@ -211,6 +211,22 @@ async function addHistoricalRideTimes() {
     await rideManager.saveLatestRideTimes(updatedRideTimes, tz, query);
 }
 
+async function getFilters(_, userID) {
+    return await rideManager.getFilters(userID, query);
+}
+
+async function updateFilter(body, userID) {
+    var filterName = body["filterName"];
+    var rideIDs = body["rideIDs"];
+    var watchConfig = body["watchConfig"];
+    await rideManager.updateFilter(filterName, rideIDs, watchConfig, userID, query);
+}
+
+async function deleteFilters(body, userID) {
+    var filterNames = body["filterNames"];
+    await rideManager.deleteFilters(filterNames, userID, query);
+}
+
 module.exports = {
     addRideInformations: addRideInformations,
     getSavedRides: getSavedRides,
@@ -218,5 +234,8 @@ module.exports = {
     getRideDPs: getRideDPs,
     updateRides: updateRides,
     addHistoricalRideTimes: addHistoricalRideTimes,
-    updateCustomRideInfo: updateCustomRideInfo
+    updateCustomRideInfo: updateCustomRideInfo,
+    getFilters: getFilters,
+    updateFilter: updateFilter, 
+    deleteFilters: deleteFilters
 };

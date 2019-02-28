@@ -392,6 +392,66 @@ async function saveToHistoricalRideTimes(rideTimes, tz, query) {
     await query(`INSERT IGNORE INTO RideTimes VALUES ?`, [rows]);
 }
 
+async function getFilters(userID, query) {
+    var nowStr = moment().subtract(4, 'hours').format("YYYY-MM-DD");
+    var results = await query(`SELECT fr.rideID AS rideID, wf.name AS name, wf.waitMins AS waitMins, wf.waitRating AS waitRating, wf.fastPassTime AS fastPassTime, wf.watchDate AS watchDate
+        FROM FilterRides fr INNER JOIN WatchFilters wf ON wf.name=fr.name AND wf.userID=fr.userID WHERE wf.userID=? ORDER BY wf.name`, [userID]);
+
+    var filters = [];
+    var lastRow = null;
+    var rideIDs = [];
+    var addFilter = () => {
+        var filter = {
+            name: lastRow.name,
+            rideIDs: rideIDs
+        }
+        if (moment(lastRow.watchDate).format("YYYY-MM-DD") == nowStr) {
+            filter.watchConfig = {
+                waitTime: lastRow.waitMins,
+                waitRating: lastRow.waitRating,
+                fastPassTime: lastRow.fastPassTime,
+            };
+        }
+        filters.push(filter);
+    }
+    for (var result of results) {
+        if (lastRow != null && result.name != lastRow.name) {
+            addFilter();
+            rideIDs = [];
+        }
+        rideIDs.push(result.rideID);
+        lastRow = result;
+    }
+    if (lastRow != null) {
+        addFilter();
+    }
+    return filters;
+}
+
+async function updateFilter(filterName, rideIDs, watchConfig, userID, query) {
+    await query(`DELETE FROM WatchFilters WHERE name=? AND userID=?`, filterName, userID);
+    var filterRides = [];
+    for (var rideID of rideIDs) {
+        filterRides.push([
+            filterName, 
+            userID, 
+            rideID
+        ]);
+    }
+    await query(`INSERT INTO WatchFilters VALUES ?`, [
+        filterName, 
+        userID, 
+        (watchConfig != null)? watchConfig.waitTime: null,
+        (watchConfig != null)? watchConfig.waitRating: null,
+        (watchConfig != null)? watchConfig.fastPassTime: null,
+        (watchConfig != null)? moment().subtract(4, 'hours').format("YYYY-MM-DD"): null]);
+    await query(`INSERT INTO FilterRides VALUES ?`, [filterRides]);
+}
+
+async function deleteFilters(filterNames, userID, query) {
+    await query(`DELETE FROM WatchFilters WHERE name IN ? AND userID=?`, [filterNames, userID]);
+}
+
 module.exports = {
     addRideInformations: addRideInformations,
     getSavedRides: getSavedRides,
@@ -402,5 +462,8 @@ module.exports = {
     updateCustomRideName: updateCustomRideName,
     updateCustomRidePics: updateCustomRidePics,
     getCustomRideNames: getCustomRideNames,
-    getCustomRidePics: getCustomRidePics
+    getCustomRidePics: getCustomRidePics,
+    getFilters: getFilters,
+    updateFilter: updateFilter,
+    deleteFilters: deleteFilters
 };
