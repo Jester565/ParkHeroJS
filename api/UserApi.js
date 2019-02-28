@@ -259,6 +259,58 @@ async function deleteInvite(body, userID) {
     }, sns);
 }
 
+async function verifySns(body, userID) {
+    var AWS = require('aws-sdk');
+    AWS.config.update({region: config.region});
+    var sns = new AWS.SNS();
+
+    var token = body["token"];
+    var endpointArn = body["endpointArn"];
+    if (endpointArn == null) {
+        endpointArn = await createSnsComponents(userID, token, sns);
+    }
+    try {
+        var getEndpointResult = await sns.getEndpointAttributes({
+            endpointArn: endpointArn
+        }).promise();
+        if (getEndpointResult["Token"] != token || getEndpointResult["Enabled"]) {
+            await sns.setEndpointAttributes({
+                EndpointArn: endpointArn,
+                Attributes: {
+                    "Token": token,
+                    "Enabled": "true"
+                }
+            });
+        }
+    } catch (err) {
+        console.log("GET ENDPOINT ERR: ", err);
+        endpointArn = await createSnsComponents(userID, token, sns);
+    }
+    return endpointArn;
+}
+
+async function createSnsComponents(userID, token, sns) {
+    var topicName = userID.substr(userID.indexOf(':') + 1);
+    var createTopicResult = await sns.createTopic({
+        Name: topicName
+    }).promise();
+    var topicArn = createTopicResult.topicArn;
+
+    var createEndpointResult = await sns.createPlatformEndpoint({
+        PlatformApplicationArn: config.sns.platformArn,
+        Token: token
+    }).promise();
+    var endpointArn = createEndpointResult.endpointArn;
+
+    await sns.subscribe({
+        Endpoint: endpointArn,
+        Protocol: 'application',
+        TopicArn: topicArn
+    })
+
+    return endpointArn;
+}
+
 module.exports = {
     createUser: createUser,
     renameUser: renameUser,
@@ -272,5 +324,6 @@ module.exports = {
     inviteToParty: inviteToParty,
     acceptPartyInvite: acceptPartyInvite,
     leaveParty: leaveParty,
-    deleteInvite: deleteInvite
+    deleteInvite: deleteInvite,
+    verifySns: verifySns
 }
