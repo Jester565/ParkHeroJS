@@ -263,7 +263,6 @@ async function verifySns(body, userID) {
     var AWS = require('aws-sdk');
     AWS.config.update({region: config.region});
     var sns = new AWS.SNS();
-
     var token = body["token"];
     var endpointArn = body["endpointArn"];
     if (endpointArn == null) {
@@ -271,9 +270,9 @@ async function verifySns(body, userID) {
     }
     try {
         var getEndpointResult = await sns.getEndpointAttributes({
-            endpointArn: endpointArn
+            EndpointArn: endpointArn
         }).promise();
-        if (getEndpointResult["Token"] != token || getEndpointResult["Enabled"]) {
+        if (getEndpointResult.Attributes["Token"] != token || getEndpointResult.Attributes["Enabled"] != "true") {
             await sns.setEndpointAttributes({
                 EndpointArn: endpointArn,
                 Attributes: {
@@ -294,19 +293,19 @@ async function createSnsComponents(userID, token, sns) {
     var createTopicResult = await sns.createTopic({
         Name: topicName
     }).promise();
-    var topicArn = createTopicResult.topicArn;
+    var topicArn = createTopicResult.TopicArn;
 
     var createEndpointResult = await sns.createPlatformEndpoint({
         PlatformApplicationArn: config.sns.platformArn,
         Token: token
     }).promise();
-    var endpointArn = createEndpointResult.endpointArn;
+    var endpointArn = createEndpointResult.EndpointArn;
 
     await sns.subscribe({
         Endpoint: endpointArn,
         Protocol: 'application',
         TopicArn: topicArn
-    })
+    });
 
     return endpointArn;
 }
