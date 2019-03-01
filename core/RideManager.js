@@ -423,7 +423,7 @@ async function getFilters(userID, query) {
             name: lastRow.name,
             rideIDs: rideIDs
         }
-        if (moment(lastRow.watchDate).format("YYYY-MM-DD") == nowStr) {
+        if (lastRow.watchDate != null && moment(lastRow.watchDate).format("YYYY-MM-DD") == nowStr) {
             filter.watchConfig = {
                 waitTime: lastRow.waitMins,
                 waitRating: lastRow.waitRating,
@@ -447,7 +447,7 @@ async function getFilters(userID, query) {
 }
 
 async function updateFilter(filterName, rideIDs, watchConfig, userID, query) {
-    await query(`DELETE FROM WatchFilters WHERE name=? AND userID=?`, filterName, userID);
+    await query(`DELETE FROM WatchFilters WHERE name=? AND userID=?`, [filterName, userID]);
     var filterRides = [];
     for (var rideID of rideIDs) {
         filterRides.push([
@@ -456,13 +456,13 @@ async function updateFilter(filterName, rideIDs, watchConfig, userID, query) {
             rideID
         ]);
     }
-    await query(`INSERT INTO WatchFilters VALUES ?`, [
+    await query(`INSERT INTO WatchFilters VALUES ?`, [[[
         filterName, 
         userID, 
         (watchConfig != null)? watchConfig.waitTime: null,
         (watchConfig != null)? watchConfig.waitRating: null,
         (watchConfig != null)? watchConfig.fastPassTime: null,
-        (watchConfig != null)? moment().subtract(4, 'hours').format("YYYY-MM-DD"): null]);
+        (watchConfig != null)? moment().subtract(4, 'hours').format("YYYY-MM-DD"): null]]]);
     await query(`INSERT INTO FilterRides VALUES ?`, [filterRides]);
 }
 
