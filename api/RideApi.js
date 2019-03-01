@@ -12,32 +12,6 @@ var query = commons.getDatabaseQueryMethod();
 var RESORT_ID = 80008297;
 var RIDE_IMG_SIZES = [200, 350, 500, 1000];
 
-function getWaitRating(rideTime, predictions) {
-    var id = rideTime["id"].toString();
-    var predictTimeHeuristic = predictions[0][id];
-    var avgWaitMins = null;
-    var minWaitMins = null;
-    var maxWaitMins = null;
-    if (predictTimeHeuristic != null) {
-        avgWaitMins = predictTimeHeuristic[0]["avgWaitMins"];
-        minWaitMins = predictTimeHeuristic[0]["minWaitMins"];
-        maxWaitMins = predictTimeHeuristic[0]["maxWaitMins"];
-    }
-    var firstPrediction = predictions[1][id];
-    var secondPrediction = predictions[2][id];
-    var firstPredictionWaitMins = null;
-    var secondPredictionWaitMins = null;
-    
-    if (firstPrediction != null) {
-        firstPredictionWaitMins = firstPrediction[0]["waitMins"];
-    }
-    if (secondPrediction != null) {
-        secondPredictionWaitMins = secondPrediction[0]["waitMins"];
-    }
-    var waitRating = predictionManager.getWaitRating(rideTime["waitMins"], avgWaitMins, minWaitMins, maxWaitMins, firstPredictionWaitMins, secondPredictionWaitMins);
-    return waitRating;
-}
-
 async function addRideInformations() {
     var AWS = require('aws-sdk');
     AWS.config.update({region: config.region});
@@ -91,7 +65,7 @@ async function getSavedRides(_, userID) {
 
     var results = [];
     for (var ride of savedRides) {
-        var waitRating = getWaitRating(ride, predictions);
+        var waitRating = rideManager.getWaitRating(ride, predictions);
         var customNameArr = customNames[ride.id];
         var customRidePics = customPics[ride.id];
         results.push({
@@ -146,11 +120,13 @@ async function getRides(_, userID) {
         return updatedRideTimes;
     };
     var getUpdatedRideTimesPromise = getUpdatedRideTimes();
- 
+    
+    var now = moment().tz(tz);
+    var nextHourDateTime = now.clone().add(1, 'hours');
     var predictionPromises = [
-        predictionManager.getPredictTimeHeuristics(tz, query), 
-        predictionManager.getPredictTime(tz, 0, query), 
-        predictionManager.getPredictTime(tz, 1, query)];
+        predictionManager.getPredictTimeHeuristics(now, query), 
+        predictionManager.getPredictTime(now, query), 
+        predictionManager.getPredictTime(nextHourDateTime, query)];
 
     var updatedRideTimes = await getUpdatedRideTimesPromise;
     
@@ -166,7 +142,7 @@ async function getRides(_, userID) {
 
     var results = [];
     for (var rideTime of updatedRideTimes) {
-        var waitRating = getWaitRating(rideTime, predictions);
+        var waitRating = rideManager.getWaitRating(rideTime, predictions);
         results.push({
             "id": rideTime.id,
             "time": {
@@ -194,7 +170,19 @@ async function getRideDPs(body, _) {
 
 async function updateRides(updatedRideTimes) {
     var tz = await resortManager.getResortTimezone(RESORT_ID, query);
+    var watchUpdates = await rideManager.getWatchUpdates(updatedRideTimes, tz, query);
     await rideManager.saveLatestRideTimes(updatedRideTimes, tz, query);
+    if (watchUpdates.length > 0) {
+        var AWS = require('aws-sdk');
+        AWS.config.update({region: config.region});
+        
+        var sns = new AWS.SNS();
+        var snsPromises = [];
+        for (var userUpdate of watchUpdates) {
+            snsPromises.push(commons.sendSNS(userUpdate.userID, 'watchUpdate', userUpdate, sns));
+        }
+        await Promise.all(snsPromises);
+    }
 }
 
 async function addHistoricalRideTimes() {

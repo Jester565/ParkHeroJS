@@ -7,6 +7,9 @@ var modules = {
     },
     resorts: () => {
         return require('./api/ResortApi');
+    },
+    multi: () => {
+        return require('./api/MultiApi');
     }
 };
 
@@ -74,3 +77,10 @@ exports.verifyProfilePic = async (event, context, callback) => {
     await userAPI.updateProfilePic(bucket, objKey);
     callback();
 };
+
+exports.pollUpdates = async (event, context, callback) => {
+    context.callbackWaitsForEmptyEventLoop = false;
+    var multiAPI = module['multi']();
+
+    await multiAPI.pollUpdates();
+}

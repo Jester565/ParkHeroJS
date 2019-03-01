@@ -7,6 +7,8 @@ var predictionManager =require('./Predictions');
 var uuidv4 = require('uuid/v4');
 var commons = require('./Commons');
 
+var NOTIFY_CLOSE_MINS = 15;
+
 async function getRideHistory(date, tz, query, rideID=null) {
     var args = [ date.format("YYYY-MM-DD") ];
     var rideFilter = "";
@@ -289,7 +291,7 @@ async function addRideInformations(resortID, imgSizes, bucket, s3Client, query) 
 }
 
 async function getSavedRides(query, onlyActive = false) {
-    var filter = onlyActive? "WHERE (datediff(CURDATE(), DATE(lrt.lastChangeTime)) <= 2 OR lrt.waitMins IS NOT NULL)": "";
+    var filter = onlyActive? "WHERE (datediff(CURDATE(), DATE(lrt.lastWaitChangeDateTime)) <= 2 OR lrt.waitMins IS NOT NULL)": "";
     var savedRideTimes = await query(`SELECT 
         r.id AS id,
         r.parkID AS parkID,
@@ -302,18 +304,20 @@ async function getSavedRides(query, onlyActive = false) {
         lrt.waitMins AS waitMins,
         lrt.fastPassTime AS fastPassTime,
         lrt.status AS status,
-        lrt.lastStatusTime AS lastStatusTime,
-        lrt.lastStatusRange AS lastStatusRange,
-        lrt.lastChangeTime AS lastChangeTime,
-        lrt.lastChangeRange AS lastChangeRange
+        lrt.lastStatusChangeDateTime AS lastStatusChangeDateTime,
+        lrt.lastWaitChangeDateTime AS lastWaitChangeDateTime,
+        lrt.lastStatusChangeOffset AS lastStatusChangeOffset,
+        lrt.lastWaitChangeOffset AS lastWaitChangeOffset
         FROM Rides r 
         LEFT JOIN LatestRideTimes lrt ON r.id=lrt.rideID
         ${filter}`);
     return savedRideTimes;
 }
 
-async function getUpdatedRideTimes(rideTimes, query) {
-    var savedRideTimes = await getSavedRides(query);
+async function getUpdatedRideTimes(rideTimes, query, savedRideTimes = null) {
+    if (savedRideTimes == null) {
+        savedRideTimes = await getSavedRides(query);
+    }
 
     var rideIDToSavedRides = {};
     for (var savedRT of savedRideTimes) {
@@ -344,7 +348,16 @@ async function getUpdatedRideTimes(rideTimes, query) {
 }
 
 async function saveLatestRideTimes(updatedRideTimes, tz, query) {
-    var nowStr = moment().tz(tz).format("YYYY-MM-DD HH:mm:ss");
+    var now = moment().tz(tz);
+    var nowStr = now.format("YYYY-MM-DD HH:mm:ss");
+
+    var savedRideDateTimeResult = await query(`SELECT dateTime FROM LatestRideUpdateDateTimes ORDER BY dateTime DESC LIMIT 1`);
+    var savedRideDateTime = moment().tz(tz);
+    if (savedRideDateTimeResult != null && savedRideDateTimeResult.length > 0) {
+        savedRideDateTime = moment(savedRideDateTimeResult[0].dateTime).tz(tz, true);   
+    }
+
+    var savedTimeDiff = now.valueOf() - savedRideDateTime.valueOf();
     
     for (var rideTime of updatedRideTimes) {
         var fpTimeStr = (rideTime.fastPassTime != null)? `"${moment(rideTime.fastPassTime).format("HH:mm:ss")}"`: `null`;
@@ -354,16 +367,21 @@ async function saveLatestRideTimes(updatedRideTimes, tz, query) {
             ${rideTime.waitMins}, 
             ${fpTimeStr}, 
             "${rideTime.status}", 
-            0, 
             "${nowStr}",
             "${nowStr}", 
-            0) 
+            ${savedTimeDiff},
+            ${savedTimeDiff}) 
             ON DUPLICATE KEY UPDATE 
-            lastChangeRange=IF(${rideTime.waitMinsUpdated}=1, IF(DAY("${nowStr}") - DAY(dateTime) < 2, TIMEDIFF("${nowStr}", dateTime), 0), lastChangeRange), 
-            lastChangeTime=IF(${rideTime.waitMinsUpdated}=1, "${nowStr}", lastChangeTime), fastPassTime=${fpTimeStr},
-            lastStatusRange=IF(${rideTime.statusUpdated}, lastStatusRange, IF(DAY("${nowStr}") - DAY(dateTime) < 2, TIMEDIFF("${nowStr}", dateTime), 0)), lastStatusTime=IF(status="${rideTime.status}", 
-            lastStatusTime, "${nowStr}"), waitMins=${rideTime.waitMins}, status="${rideTime.status}", dateTime="${nowStr}"`);
+            lastWaitChangeDateTime=IF(${rideTime.waitMinsUpdated}=1, "${nowStr}", lastWaitChangeDateTime), 
+            lastWaitChangeOffset=IF(${rideTime.waitMinsUpdated}=1, ${savedTimeDiff}, lastWaitChangeOffset), 
+            lastStatusChangeDateTime=IF(${rideTime.statusUpdated}=1, "${nowStr}", lastStatusChangeDateTime), 
+            lastStatusChangeOffset=IF(${rideTime.statusUpdated}=1, ${savedTimeDiff}, lastStatusChangeOffset), 
+            waitMins=${rideTime.waitMins}, 
+            fastPassTime=${fpTimeStr},
+            status="${rideTime.status}", 
+            dateTime="${nowStr}"`);
     }
+    await query(`INSERT INTO LatestRideUpdateDateTimes VALUES ?`, [[[nowStr]]]);
 }
 
 async function removeNonExistantRides(rideTimes, query) {
@@ -449,7 +467,153 @@ async function updateFilter(filterName, rideIDs, watchConfig, userID, query) {
 }
 
 async function deleteFilters(filterNames, userID, query) {
-    await query(`DELETE FROM WatchFilters WHERE name IN ? AND userID=?`, [filterNames, userID]);
+    await query(`DELETE FROM WatchFilters WHERE name IN (?) AND userID=?`, [filterNames, userID]);
+}
+
+function getWaitRating(rideTime, predictions) {
+    var id = rideTime["id"].toString();
+    var predictTimeHeuristic = predictions[0][id];
+    var avgWaitMins = null;
+    var minWaitMins = null;
+    var maxWaitMins = null;
+    if (predictTimeHeuristic != null) {
+        avgWaitMins = predictTimeHeuristic[0]["avgWaitMins"];
+        minWaitMins = predictTimeHeuristic[0]["minWaitMins"];
+        maxWaitMins = predictTimeHeuristic[0]["maxWaitMins"];
+    }
+    var firstPrediction = predictions[1][id];
+    var secondPrediction = predictions[2][id];
+    var firstPredictionWaitMins = null;
+    var secondPredictionWaitMins = null;
+    
+    if (firstPrediction != null) {
+        firstPredictionWaitMins = firstPrediction[0]["waitMins"];
+    }
+    if (secondPrediction != null) {
+        secondPredictionWaitMins = secondPrediction[0]["waitMins"];
+    }
+    var waitRating = predictionManager.getWaitRating(rideTime["waitMins"], avgWaitMins, minWaitMins, maxWaitMins, firstPredictionWaitMins, secondPredictionWaitMins);
+    return waitRating;
+}
+
+async function getWatchUpdates(updatedRides, tz, query) {
+    if (updatedRides == null || updatedRides.length == 0) {
+        return [];
+    }
+    var dateStr = now.subtract(4, 'hours').format("YYYY-MM-DD");
+    var now = moment().tz(tz);
+    var nowStr = now.format("YYYY-MM-DD HH:mm:ss");
+    var nowNextHourDateTime = now.clone().add(1, 'hours');
+
+    var nowPredictionPromises = [
+        predictionManager.getPredictTimeHeuristics(now, query), 
+        predictionManager.getPredictTime(now, query), 
+        predictionManager.getPredictTime(nowNextHourDateTime, query)];
+    
+    var savedRideDateTimeResult = await query(`SELECT dateTime FROM LatestRideUpdateDateTimes ORDER BY dateTime DESC LIMIT 1`);
+    var savedRideDateTime = moment(savedRideDateTimeResult[0].dateTime).tz(tz, true);
+    var savedRideDateTimeNextHour = savedRideDateTime.clone().add(1, 'hours');
+    var savedRideDateTimeStr = savedRideDateTime.format("YYYY-MM-DD HH:mm:ss");
+    var savedPredictionPromises = [
+        predictionManager.getPredictTimeHeuristics(savedRideDateTime, query),
+        predictionManager.getPredictTime(savedRideDateTime, query),
+        predictionManager.getPredictTime(savedRideDateTimeNextHour, query)];
+    
+    var savedRides = await getSavedRides(query);
+    var savedRidesMap = commons.indexArray({}, savedRides, 'id');
+    var updatedRidesMap = commons.indexArray({}, updatedRides, 'id');
+
+    var updatedRideIDs = [];
+    for (var ride of updatedRides) {
+        updatedRideIDs.push(ride.id);
+    }
+    var filters = await query(`SELECT wf.userID AS userID, fr.rideID AS rideID, wf.waitMins AS waitMins, wf.waitRating AS waitRating, wf.fastPassTime
+        FROM WatchFilters wf
+        INNER JOIN FilterRides fr ON wf.name=fr.name AND wf.userID=fr.userID
+        WHERE wf.watchDate=? AND fr.rideID IN (?) ORDER BY wf.userID`, [dateStr, updatedRideIDs]);
+
+    var nowPredictionResults = Promise.all(nowPredictionPromises);
+    var savedPredictionResults = Promise.all(savedPredictionPromises);
+    var prevUserID = null;
+    var userUpdates = [];
+    for (var filter of filters) {
+        if (filter.userID != prevUserID && userUpdates.length > 0) {
+            allUpdates.push({
+                userID: prevUserID,
+                updates: userUpdates
+            });
+            userUpdates = [];
+        }
+        prevUserID = filter.userID;
+        if (savedRidesMap[filter.rideID] == null) {
+            continue;
+        }
+        var savedRide = savedRidesMap[filter.rideID][0];
+        var updatedRide = updatedRidesMap[filter.rideID][0];
+        var update = {};
+        if (filter.waitMins != null && updatedRide.waitMins != null && updatedRide.waitMins <= filter.waitMins && (savedRide.waitMins == null || savedRide.waitMins > filter.waitMins)) {
+            if (update == null) {
+                update = {};
+            }
+            update.waitMins = {
+                updated: updatedRide.waitMins,
+                old: savedRide.waitMins
+            }
+        }
+        if (filter.waitRating != null) {
+            var updatedWaitRaiting = getWaitRating(updatedRide, nowPredictionResults);
+            var savedWaitRating = getWaitRating(savedRide, savedPredictionResults);
+            
+            if (updatedWaitRaiting >= filter.waitRating && (savedWaitRating == null || savedWaitRating < filter.waitRating)) {
+                if (update == null) {
+                    update = {};
+                }
+                update.waitRating = {
+                    updated: updatedRide.waitMins,
+                    old: savedRide.waitMins
+                };
+            }
+        }
+        if (filter.fastPassTime != null) {
+            var fastPassTime = moment(filter.fastPassTime).tz(tz, true);
+            var updatedFastPassTime = moment(updatedRide.fastPassTime, "YYYY-MM-DD HH:mm:ss").tz(tz, true);
+            var savedFastPassTime = moment(savedRide.fastPassTime).tz(tz, true);
+            if (updatedFastPassTime >= fastPassTime && savedFastPassTime < fastPassTime) {
+                if (update == null) {
+                    update = {};
+                }
+                update.fastPassTime = {
+                    updated: updatedFastPassTime.format("YYYY-MM-DD HH:mm:ss"),
+                    old: savedFastPassTime.format("YYYY-MM-DD HH:mm:ss")
+                }
+            }
+        }
+        //Send notification if the ride has reopened after
+        if (updatedRide.status != savedRide.status && updatedRide.status == "Operating") {
+            var closeDateTime = moment(savedRide.lastStatusChangeDateTime).tz(tz, true);
+            closeDateTime.subtract(savedRide.lastStatusChangeOffset, 'milliseconds');
+            var closedDuration = now.valueOf() - closeDateTime.valueOf();
+            var closedMins = Math.round(closedDuration / (60 * 1000));
+            if (closedMins >= NOTIFY_CLOSE_MINS) {
+                if (update == null) {
+                    update = {};
+                }
+                update.closedMins = closedMins;
+            }
+        }
+        if (update != null) {
+            userUpdates.push(update);
+        }
+    }
+    if (userUpdates.length > 0) {
+        allUpdates.push({
+            userID: prevUserID,
+            updates: userUpdates,
+            dateTime: nowStr,
+            prevCheckDateTime: savedRideDateTimeStr
+        });
+    }
+    return allUpdates;
 }
 
 module.exports = {
@@ -465,5 +629,6 @@ module.exports = {
     getCustomRidePics: getCustomRidePics,
     getFilters: getFilters,
     updateFilter: updateFilter,
-    deleteFilters: deleteFilters
+    deleteFilters: deleteFilters,
+    getWatchUpdates: getWatchUpdates
 };

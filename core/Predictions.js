@@ -72,22 +72,19 @@ async function getPredictions(date, tz, query, rideID=null) {
 }
 
 //Get average of all prediction information for the rest of the day at a resort
-async function getPredictTimeHeuristics(tz, query) {
-    var now = moment().tz(tz);
-    var nowStr = now.format("YYYY-MM-DD HH:mm:ss");
+async function getPredictTimeHeuristics(dateTime, query) {
+    var dateTimeStr = dateTime.format("YYYY-MM-DD HH:mm:ss");
     var results =await query(`SELECT br.rideID AS rideID, AVG(br.waitMins) AS avgWaitMins, MIN(br.waitMins) AS minWaitMins, MAX(br.waitMins) AS maxWaitMins 
         FROM BatchResults br, ParkSchedules ps
         WHERE (br.doy=(MONTH(ps.date)*31 + DAYOFMONTH(ps.date)) AND br.year=YEAR(ps.date) 
         AND br.hour>=(HOUR(?) + DATEDIFF(DATE(?), ps.date) * 24 - br.openHour)
         AND ps.date=DATE(DATE_SUB(?, INTERVAL 4 HOUR))) GROUP BY br.rideID`, 
-        [nowStr, nowStr, nowStr]);
+        [dateTimeStr, dateTimeStr, dateTimeStr]);
     return commons.indexArray({}, results, "rideID");
 }
 
 //Get upcoming prediction times for the next x hours
-async function getPredictTime(tz, hourOffset, query) {
-    var dateTime = moment().tz(tz);
-    dateTime.add(hourOffset, 'hour');
+async function getPredictTime(dateTime, query) {
     var dtStr = dateTime.format("YYYY-MM-DD HH:mm:ss");
     var results = await query(`SELECT br.rideID AS rideID, br.waitMins AS waitMins FROM BatchResults br, ParkSchedules ps
         WHERE (br.doy=(MONTH(ps.date)*31 + DAYOFMONTH(ps.date)) AND br.year=YEAR(ps.date) 
