@@ -45,10 +45,13 @@ async function updateCustomRideInfo(body, userID) {
 
 async function getSavedRides(_, userID) {
     var tz = await resortManager.getResortTimezone(RESORT_ID, query);
+    var now = moment().tz(tz);
+    var nextHourDateTime = now.clone().add(1, 'hours');
+    
     var predictionPromises = [
-        predictionManager.getPredictTimeHeuristics(tz, query), 
-        predictionManager.getPredictTime(tz, 0, query), 
-        predictionManager.getPredictTime(tz, 1, query)];
+        predictionManager.getPredictTimeHeuristics(now, query), 
+        predictionManager.getPredictTime(now, query), 
+        predictionManager.getPredictTime(nextHourDateTime, query)];
 
     var customInfoPromises = [
         rideManager.getCustomRideNames(userID, query),
@@ -179,6 +182,7 @@ async function updateRides(updatedRideTimes) {
         var sns = new AWS.SNS();
         var snsPromises = [];
         for (var userUpdate of watchUpdates) {
+            console.log("SEND SNS: ", userUpdate.userID, " BODY: ", JSON.stringify(userUpdate, null, 2));
             snsPromises.push(commons.sendSNS(userUpdate.userID, 'watchUpdate', userUpdate, sns));
         }
         await Promise.all(snsPromises);
@@ -200,14 +204,16 @@ async function addHistoricalRideTimes() {
 }
 
 async function getFilters(_, userID) {
-    return await rideManager.getFilters(userID, query);
+    var tz = await resortManager.getResortTimezone(RESORT_ID, query);
+    return await rideManager.getFilters(userID, tz, query);
 }
 
 async function updateFilter(body, userID) {
     var filterName = body["filterName"];
     var rideIDs = body["rideIDs"];
     var watchConfig = body["watchConfig"];
-    await rideManager.updateFilter(filterName, rideIDs, watchConfig, userID, query);
+    var tz = await resortManager.getResortTimezone(RESORT_ID, query);
+    await rideManager.updateFilter(filterName, rideIDs, watchConfig, userID, tz, query);
 }
 
 async function deleteFilters(body, userID) {

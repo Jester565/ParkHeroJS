@@ -410,8 +410,8 @@ async function saveToHistoricalRideTimes(rideTimes, tz, query) {
     await query(`INSERT IGNORE INTO RideTimes VALUES ?`, [rows]);
 }
 
-async function getFilters(userID, query) {
-    var nowStr = moment().subtract(4, 'hours').format("YYYY-MM-DD");
+async function getFilters(userID, tz, query) {
+    var nowStr = moment().tz(tz).subtract(4, 'hours').format("YYYY-MM-DD");
     var results = await query(`SELECT fr.rideID AS rideID, wf.name AS name, wf.waitMins AS waitMins, wf.waitRating AS waitRating, wf.fastPassTime AS fastPassTime, wf.watchDate AS watchDate
         FROM FilterRides fr INNER JOIN WatchFilters wf ON wf.name=fr.name AND wf.userID=fr.userID WHERE wf.userID=? ORDER BY wf.name`, [userID]);
 
@@ -422,7 +422,7 @@ async function getFilters(userID, query) {
         var filter = {
             name: lastRow.name,
             rideIDs: rideIDs
-        }
+        };
         if (lastRow.watchDate != null && moment(lastRow.watchDate).format("YYYY-MM-DD") == nowStr) {
             filter.watchConfig = {
                 waitTime: lastRow.waitMins,
@@ -431,7 +431,7 @@ async function getFilters(userID, query) {
             };
         }
         filters.push(filter);
-    }
+    };
     for (var result of results) {
         if (lastRow != null && result.name != lastRow.name) {
             addFilter();
@@ -446,7 +446,7 @@ async function getFilters(userID, query) {
     return filters;
 }
 
-async function updateFilter(filterName, rideIDs, watchConfig, userID, query) {
+async function updateFilter(filterName, rideIDs, watchConfig, userID, tz, query) {
     await query(`DELETE FROM WatchFilters WHERE name=? AND userID=?`, [filterName, userID]);
     var filterRides = [];
     for (var rideID of rideIDs) {
@@ -462,7 +462,7 @@ async function updateFilter(filterName, rideIDs, watchConfig, userID, query) {
         (watchConfig != null)? watchConfig.waitTime: null,
         (watchConfig != null)? watchConfig.waitRating: null,
         (watchConfig != null)? watchConfig.fastPassTime: null,
-        (watchConfig != null)? moment().subtract(4, 'hours').format("YYYY-MM-DD"): null]]]);
+        (watchConfig != null)? moment().tz(tz).subtract(4, 'hours').format("YYYY-MM-DD"): null]]]);
     await query(`INSERT INTO FilterRides VALUES ?`, [filterRides]);
 }
 
@@ -500,10 +500,11 @@ async function getWatchUpdates(updatedRides, tz, query) {
     if (updatedRides == null || updatedRides.length == 0) {
         return [];
     }
-    var dateStr = now.subtract(4, 'hours').format("YYYY-MM-DD");
     var now = moment().tz(tz);
     var nowStr = now.format("YYYY-MM-DD HH:mm:ss");
     var nowNextHourDateTime = now.clone().add(1, 'hours');
+    
+    var dateStr = now.subtract(4, 'hours').format("YYYY-MM-DD");
 
     var nowPredictionPromises = [
         predictionManager.getPredictTimeHeuristics(now, query), 
@@ -521,7 +522,7 @@ async function getWatchUpdates(updatedRides, tz, query) {
     
     var savedRides = await getSavedRides(query);
     var savedRidesMap = commons.indexArray({}, savedRides, 'id');
-    var updatedRidesMap = commons.indexArray({}, updatedRides, 'id');
+    var updatedRidesMap = commons.indexArray({}, updatedRides, 'id', null, false);
 
     var updatedRideIDs = [];
     for (var ride of updatedRides) {
@@ -535,6 +536,7 @@ async function getWatchUpdates(updatedRides, tz, query) {
     var nowPredictionResults = Promise.all(nowPredictionPromises);
     var savedPredictionResults = Promise.all(savedPredictionPromises);
     var prevUserID = null;
+    var allUpdates = [];
     var userUpdates = [];
     for (var filter of filters) {
         if (filter.userID != prevUserID && userUpdates.length > 0) {
@@ -558,7 +560,7 @@ async function getWatchUpdates(updatedRides, tz, query) {
             update.waitMins = {
                 updated: updatedRide.waitMins,
                 old: savedRide.waitMins
-            }
+            };
         }
         if (filter.waitRating != null) {
             var updatedWaitRaiting = getWaitRating(updatedRide, nowPredictionResults);
@@ -585,11 +587,11 @@ async function getWatchUpdates(updatedRides, tz, query) {
                 update.fastPassTime = {
                     updated: updatedFastPassTime.format("YYYY-MM-DD HH:mm:ss"),
                     old: savedFastPassTime.format("YYYY-MM-DD HH:mm:ss")
-                }
+                };
             }
         }
         //Send notification if the ride has reopened after
-        if (updatedRide.status != savedRide.status && updatedRide.status == "Operating") {
+        if (updatedRide.status != savedRide.status && savedRide.status == "Down" && updatedRide.status == "Operating") {
             var closeDateTime = moment(savedRide.lastStatusChangeDateTime).tz(tz, true);
             closeDateTime.subtract(savedRide.lastStatusChangeOffset, 'milliseconds');
             var closedDuration = now.valueOf() - closeDateTime.valueOf();
@@ -630,5 +632,6 @@ module.exports = {
     getFilters: getFilters,
     updateFilter: updateFilter,
     deleteFilters: deleteFilters,
+     getWaitRating: getWaitRating,
     getWatchUpdates: getWatchUpdates
 };
