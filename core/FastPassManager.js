@@ -426,7 +426,7 @@ async function pollMaxPassOrders(resortID, accessToken, now, parkDate, tz, query
     var transaction = null;
     var transactionID = null;
     for (var transactionPass of transactionPasses) {
-        if (transaction == null || transactionID != transactionPass.transactionID) {
+        if (transactionID != transactionPass.transactionID) {
             if (transaction != null) {
                 transactions.push(transaction);
             }
@@ -466,7 +466,6 @@ async function pollMaxPassOrders(resortID, accessToken, now, parkDate, tz, query
     //Maps usersID to array of fastpasses
     var updates = {};
     var orderResults = await Promise.all(orderPromises);
-    console.log("ORDER RESULTS: ", JSON.stringify(orderResults));
     orderResults.forEach((orderResult, transactionI) => {
         var transaction = transactions[transactionI];
         if (orderResult == "Conflict") {
@@ -518,14 +517,14 @@ async function pollMaxPassOrders(resortID, accessToken, now, parkDate, tz, query
         }
         dbUpdatePromises.push(query(`DELETE FROM PlannedFpTransactions WHERE id=?`, [transaction.id]));
     });
-    console.log("PASSIDS: ", JSON.stringify(passIDs));
     if (passIDs.length > 0) {
         dbUpdatePromises.push(query(`UPDATE FpTransactionPasses SET 
             priority=priority-1 
             WHERE passID IN (?)`, [passIDs]));
     }
+    
     await Promise.all(dbUpdatePromises);
-
+    
     return updates;
 }
 

@@ -161,7 +161,7 @@ async function getParkSchedule(parkID, date, tz, query) {
         }
         var time = moment(schedule[timeKey], "HH:mm:ss").tz(tz, true);
         var dt = date.clone();
-        console.log("HOURS: ", time.hours());
+
         if (time.hours() < 4) {
             dt.add(1, 'days');
         }

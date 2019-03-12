@@ -976,8 +976,8 @@ test('multiple fast passes & multiple passes', async () => {
     //Test poll: Should return an update for pass 0 because earliestSelectionTime=currentTime
     var now = moment().tz(TIMEZONE);
     var parkDate = moment().tz(TIMEZONE).subtract(4, 'hours');
-    passes.getEarliestPossibleSelectionDateTime.mockImplementation((selectionDateTime) => {
-        return selectionDateTime.clone();
+    passes.getEarliestPossibleSelectionDateTime.mockImplementation((sdt) => {
+        return sdt.clone();
     });
     var orderPassResults = {
         "100": {
@@ -1032,16 +1032,6 @@ test('multiple fast passes & multiple passes', async () => {
     var updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now.clone(), parkDate.clone(), TIMEZONE, query);
     console.log("UPDATES 1: ", JSON.stringify(updates));
 
-    first102Prediction = false;
-    fps = await fastPassManager.getFastPasses([
-        'id1', 'id2', 'id3'
-    ], 'accessToken', moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
-    trans = fps.plannedTransactions;
-    trans.sort((t1, t2) => {
-        return t1.id.localeCompare(t2.id);
-    });
-    console.log("TRANS 1: ", JSON.stringify(trans));
-
     orderPassResults = {
         "104": {
             "parkID": 336894,
@@ -1075,17 +1065,7 @@ test('multiple fast passes & multiple passes', async () => {
     };
     updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now.clone().add(122, 'minutes'), parkDate.clone(), TIMEZONE, query);
     console.log("UPDATES 2: ", JSON.stringify(updates));
-    first102Prediction = false;
-    fps = await fastPassManager.getFastPasses([
-        'id1', 'id2', 'id3'
-    ], 'accessToken', moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
-    trans = fps.plannedTransactions;
-    trans.sort((t1, t2) => {
-        return t1.id.localeCompare(t2.id);
-    });
-    console.log("TRANS 2: ", JSON.stringify(trans));
     
-    //After 84 minutes
     orderPassResults = {
         "102": {
             "parkID": 330339,
@@ -1100,42 +1080,12 @@ test('multiple fast passes & multiple passes', async () => {
     };
     updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now.clone().add(123, 'minutes'), parkDate.clone(), TIMEZONE, query);
     console.log("UPDATES 3: ", JSON.stringify(updates));
-    first102Prediction = false;
-    fps = await fastPassManager.getFastPasses([
-        'id1', 'id2', 'id3'
-    ], 'accessToken', moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
-    trans = fps.plannedTransactions;
-    trans.sort((t1, t2) => {
-        return t1.id.localeCompare(t2.id);
-    });
-    console.log("TRANS 3: ", JSON.stringify(trans));
 
     //After 84 minutes
-    orderPassResults = {
-        "102": {
-            "parkID": 330339,
-            "parkDate": parkDate.format("YYYY-MM-DD"),
-            "parkCloseDateTime": `${parkDate.clone().add(1, 'days').format("YYYY-MM-DD")} 00:00:00`,
-            "passIDs": ['0'],
-            "disIDs": ['disID0'],
-            //result
-            "fastPassDateTime": r102FpTime1.clone(),
-            "selectionDateTime": moment().tz(TIMEZONE).add(243, 'minutes')
-        }
-    };
-    updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now.add(123, 'minutes'), parkDate.clone(), TIMEZONE, query);
-    console.log("UPDATES 3: ", JSON.stringify(updates));
-    first102Prediction = false;
-    fps = await fastPassManager.getFastPasses([
-        'id1', 'id2', 'id3'
-    ], 'accessToken', moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
-    trans = fps.plannedTransactions;
-    trans.sort((t1, t2) => {
-        return t1.id.localeCompare(t2.id);
-    });
-    console.log("TRANS 3: ", JSON.stringify(trans));
+    orderPassResults = {};
+    updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now.clone().add(123, 'minutes'), parkDate.clone(), TIMEZONE, query);
+    console.log("UPDATES 4: ", JSON.stringify(updates));
 
-    //After 84 minutes
     orderPassResults = {
         "102": {
             "parkID": 330339,
@@ -1145,20 +1095,44 @@ test('multiple fast passes & multiple passes', async () => {
             "disIDs": ['disID0'],
             //result
             "fastPassDateTime": r103FpTime.clone(),
-            "selectionDateTime": moment().tz(TIMEZONE).add(243, 'minutes')
+            "selectionDateTime": moment().tz(TIMEZONE).add(300, 'minutes')
         }
     };
-    updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now.add(130, 'minutes'), parkDate.clone(), TIMEZONE, query);
-    console.log("UPDATES 4: ", JSON.stringify(updates));
-    first102Prediction = false;
-    fps = await fastPassManager.getFastPasses([
-        'id1', 'id2', 'id3'
-    ], 'accessToken', moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
-    trans = fps.plannedTransactions;
-    trans.sort((t1, t2) => {
-        return t1.id.localeCompare(t2.id);
-    });
-    console.log("TRANS 4: ", JSON.stringify(trans));
+    updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now.clone().add(245, 'minutes'), parkDate.clone(), TIMEZONE, query);
+    console.log("UPDATES 5: ", JSON.stringify(updates));
+
+    orderPassResults = {
+        "102": {
+            "parkID": 330339,
+            "parkDate": parkDate.format("YYYY-MM-DD"),
+            "parkCloseDateTime": `${parkDate.clone().add(1, 'days').format("YYYY-MM-DD")} 00:00:00`,
+            "passIDs": ['0', '1'],
+            "disIDs": ['disID0'],
+            //result
+            "fastPassDateTime": r103FpTime.clone(),
+            "selectionDateTime": moment().tz(TIMEZONE).add(300, 'minutes')
+        }
+    };
+    updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now.clone().add(245, 'minutes'), parkDate.clone(), TIMEZONE, query);
+
+    orderPassResults = {
+        "103": {
+            "parkID": 330339,
+            "parkDate": parkDate.format("YYYY-MM-DD"),
+            "parkCloseDateTime": `${parkDate.clone().add(1, 'days').format("YYYY-MM-DD")} 00:00:00`,
+            "passIDs": ['0', '1', '2', '3'],
+            "disIDs": ['disID0', 'disID1', 'disID2', 'disID3'],
+            //result
+            "fastPassDateTime": r103FpTime.clone(),
+            "selectionDateTime": moment().tz(TIMEZONE).add(400, 'minutes')
+        }
+    };
+    updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now.clone().add(302, 'minutes'), parkDate.clone(), TIMEZONE, query);
+    console.log("UPDATES 6: ", JSON.stringify(updates));
+
+    orderPassResults = {};
+    updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now.clone().add(401, 'minutes'), parkDate.clone(), TIMEZONE, query);
+    console.log("UPDATES 7: ", JSON.stringify(updates));
 });
 
 afterEach(async () => {
