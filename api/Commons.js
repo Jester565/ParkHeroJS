@@ -27,7 +27,7 @@ async function sendSNS(userID, type, payload, sns) {
         }).promise();
     } catch (e) {
         //Failed to publish, likely to user not linking endpoint
-        console.warn("Failed to publish to ", userID, ": ", e);
+        console.log("Failed to publish to ", userID, ": ", e);
     }
 }
 

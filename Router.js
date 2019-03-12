@@ -80,7 +80,7 @@ exports.verifyProfilePic = async (event, context, callback) => {
 
 exports.pollUpdates = async (event, context, callback) => {
     context.callbackWaitsForEmptyEventLoop = false;
-    var multiAPI = module['multi']();
+    var multiAPI = modules['multi']();
 
     await multiAPI.pollUpdates();
-}
+};

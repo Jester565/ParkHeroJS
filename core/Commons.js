@@ -1,11 +1,13 @@
-function indexArray(arrMap, arr, idxName, valName = null) {
+function indexArray(arrMap, arr, idxName, valName = null, deleteIdx = true) {
     for (var result of arr) {
         var obj = arrMap[result[idxName]];
         if (obj == null) {
             arrMap[result[idxName]] = [];
             obj = arrMap[result[idxName]];
         }
-        delete result[idxName];
+        if (deleteIdx) {
+            delete result[idxName];
+        }
         if (valName == null) {
             obj.push(result);
         } else {

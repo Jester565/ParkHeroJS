@@ -25,7 +25,7 @@ Resources:
   AddSchedules:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Description: Add blackout days, events, and operating times to the database
+      Description: 'Add blackout days, events, and operating times to the database'
       CodeUri: .
       Handler: Router.addSchedules
       Runtime: nodejs8.10
@@ -42,7 +42,6 @@ Resources:
       MemorySize: 512
       Timeout: 15
       Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
-
   AddHistoricalRideTimes:
     Type: 'AWS::Serverless::Function'
     Properties:
@@ -53,7 +52,6 @@ Resources:
       MemorySize: 512
       Timeout: 15
       Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
-
   SaveLatestRideTimes:
     Type: 'AWS::Serverless::Function'
     Properties:
@@ -64,7 +62,6 @@ Resources:
       MemorySize: 512
       Timeout: 15
       Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
-  
   VerifyProfilePic:
     Type: 'AWS::Serverless::Function'
     Properties:
@@ -74,4 +71,14 @@ Resources:
       Runtime: nodejs8.10
       MemorySize: 1024
       Timeout: 30
+      Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'
+  UpdatePoller:
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      Description: Poll database and disney api periodically for all updates at a higher rate
+      CodeUri: .
+      Handler: Router.pollUpdates
+      Runtime: nodejs8.10
+      MemorySize: 1024
+      Timeout: 250
       Role: 'arn:aws:iam::387396130957:role/DAP_Lambda'

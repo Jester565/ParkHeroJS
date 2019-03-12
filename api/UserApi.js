@@ -265,8 +265,39 @@ async function verifySns(body, userID) {
     var sns = new AWS.SNS();
     var token = body["token"];
     var endpointArn = body["endpointArn"];
+    var subscriptionArn = body["subscriptionArn"];
+    var endpointUserID = body["endpointUserID"];
+    
     if (endpointArn == null) {
-        endpointArn = await createSnsComponents(userID, token, sns);
+        var createEndpointResult = await sns.createPlatformEndpoint({
+            PlatformApplicationArn: config.sns.platformArn,
+            Token: token
+        }).promise();
+        endpointArn = createEndpointResult.EndpointArn;
+        console.log("EP ARN: ", endpointArn);
+    }
+    if (userID != endpointUserID && subscriptionArn != null) {
+        await sns.unsubscribe({
+            SubscriptionArn: subscriptionArn
+        }).promise();
+        console.log("UNSUBSCRIBED: ", subscriptionArn);
+    }
+    if (userID != endpointUserID || endpointArn == null) {
+        var topicName = userID.substr(userID.indexOf(':') + 1);
+        var createTopicResult = await sns.createTopic({
+            Name: topicName
+        }).promise();
+        var topicArn = createTopicResult.TopicArn;
+        console.log("TOPIC ARN: ", topicArn);
+        
+        var subscribeResult = await sns.subscribe({
+            Endpoint: endpointArn,
+            Protocol: 'application',
+            TopicArn: topicArn,
+            ReturnSubscriptionArn: true
+        }).promise();
+        subscriptionArn = subscribeResult.SubscriptionArn;
+        console.log("SUB ARN: ", subscriptionArn);
     }
     try {
         var getEndpointResult = await sns.getEndpointAttributes({
@@ -279,35 +310,15 @@ async function verifySns(body, userID) {
                     "Token": token,
                     "Enabled": "true"
                 }
-            });
+            }).promise();
         }
     } catch (err) {
         console.log("GET ENDPOINT ERR: ", err);
-        endpointArn = await createSnsComponents(userID, token, sns);
     }
-    return endpointArn;
-}
-
-async function createSnsComponents(userID, token, sns) {
-    var topicName = userID.substr(userID.indexOf(':') + 1);
-    var createTopicResult = await sns.createTopic({
-        Name: topicName
-    }).promise();
-    var topicArn = createTopicResult.TopicArn;
-
-    var createEndpointResult = await sns.createPlatformEndpoint({
-        PlatformApplicationArn: config.sns.platformArn,
-        Token: token
-    }).promise();
-    var endpointArn = createEndpointResult.EndpointArn;
-
-    await sns.subscribe({
-        Endpoint: endpointArn,
-        Protocol: 'application',
-        TopicArn: topicArn
-    });
-
-    return endpointArn;
+    return {
+        endpointArn: endpointArn,
+        subscriptionArn: subscriptionArn
+    };
 }
 
 module.exports = {
