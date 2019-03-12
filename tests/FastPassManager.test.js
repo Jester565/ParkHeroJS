@@ -24,6 +24,8 @@ var passManager = require('../core/PassManager');
 var predictions = require('../core/Predictions');
 var TIMEZONE = "America/Los_Angeles";
 
+var RESORT_ID = "80008297";
+
 jest.mock('../dis/Pass');
 jest.mock('../core/Predictions');
 
@@ -47,6 +49,11 @@ async function initUsers() {
 }
 
 beforeAll(async () => {
+    await query(`CREATE TABLE IF NOT EXISTS Resorts (id int(11), name varchar(50), zipcode int(11), longitude decimal(9, 5), latitude decimal(9,5), timezone varchar(50), PRIMARY KEY(id))`);
+    await query(`CREATE TABLE IF NOT EXISTS Parks (id int(11), name varchar(50), resortID int(11), urlName varchar(100), iconUrl varchar(255), PRIMARY KEY(id), FOREIGN KEY(resortID) REFERENCES Resorts(id))`);
+    await query(`CREATE TABLE IF NOT EXISTS ParkSchedules (date DATE, parkID int(11), openTime TIME, closeTime TIME, magicHourStartTime TIME, magicHourEndTime TIME, crowdLevel int(1), blockLevel int(1), PRIMARY KEY(date, parkID), FOREIGN KEY(parkID) REFERENCES Parks(id))`); 
+    await query(`CREATE TABLE IF NOT EXISTS Rides (id int(11), parkID int(11), name varchar(100), imgUrl varchar(255), height varchar(50), labels varchar(255), land varchar(100), valid tinyint(1), PRIMARY KEY (id), FOREIGN KEY (parkID) REFERENCES Parks(id))`);
+    
     await query(`CREATE TABLE IF NOT EXISTS Users (id varchar(50), name varchar(50) UNIQUE, defaultName tinyint(1), PRIMARY KEY(id))`);
     await query(`CREATE TABLE IF NOT EXISTS ProfilePictures (userId varchar(50), url varchar(100), PRIMARY KEY(userId))`)
     await query(`CREATE TABLE IF NOT EXISTS Invitations (inviterId varchar(50), receiverId varchar(50), type tinyint(1), PRIMARY KEY(inviterId, receiverId), FOREIGN KEY (inviterId) REFERENCES Users(id), FOREIGN KEY (receiverId) REFERENCES Users(id))`);
@@ -54,9 +61,10 @@ beforeAll(async () => {
     await query(`CREATE TABLE IF NOT EXISTS Parties (id varchar(50), userID varchar(50), PRIMARY KEY(id, userID), FOREIGN KEY(userID) REFERENCES Users(id))`);
     await query(`CREATE TABLE IF NOT EXISTS DefaultNames (name varchar(50), count INT)`);
     await query(`CREATE TABLE IF NOT EXISTS ParkPasses (id varchar(200), ownerID varchar(50), name varchar(200), disID varchar(200), type varchar(200), expirationDT DATETIME, isPrimary tinyint(1), isEnabled tinyint(1), maxPassDate DATE, PRIMARY KEY(id, ownerID), FOREIGN KEY(ownerID) REFERENCES Users(id))`);
-    await query(`CREATE TABLE IF NOT EXISTS PlannedFpTransactions (id varchar(100), rideID int(11), PRIMARY KEY(id))`);
-    await query(`CREATE TABLE IF NOT EXISTS FpTransactionPasses (transactionID varchar(100), userID varchar(50), passID varchar(200), priority int(11), PRIMARY KEY (transactionID, passID), FOREIGN KEY (transactionID) REFERENCES PlannedFpTransactions(id), FOREIGN KEY (userID) REFERENCES Users(id), FOREIGN KEY (passID) REFERENCES ParkPasses(id))`);
+    await query(`CREATE TABLE IF NOT EXISTS PlannedFpTransactions (id varchar(100), rideID int(11), date DATE, PRIMARY KEY(id), FOREIGN KEY (rideID) REFERENCES Rides(id))`);
+    await query(`CREATE TABLE IF NOT EXISTS FpTransactionPasses (transactionID varchar(100), userID varchar(50), passID varchar(200), priority int(11), PRIMARY KEY (transactionID, passID), FOREIGN KEY (transactionID) REFERENCES PlannedFpTransactions(id) ON DELETE CASCADE, FOREIGN KEY (userID) REFERENCES Users(id), FOREIGN KEY (passID) REFERENCES ParkPasses(id))`);
     await query(`CREATE TABLE IF NOT EXISTS PassSelectionTimes (passID varchar(200), selectionTime DATETIME, earliestSelectionTime DATETIME, PRIMARY KEY(passID))`);
+
     await query(`DELETE FROM PassSelectionTimes`);
     await query(`DELETE FROM FpTransactionPasses`);
     await query(`DELETE FROM PlannedFpTransactions`);
@@ -67,7 +75,36 @@ beforeAll(async () => {
     await query(`DELETE FROM Invitations`);
     await query(`DELETE FROM ProfilePictures`);
     await query(`DELETE FROM Users`);
+
+    await query(`DELETE FROM Rides`);
+    await query(`DELETE FROM ParkSchedules`);
+    await query(`DELETE FROM Parks`);
+    await query(`DELETE FROM Resorts`);
+    await query(`DELETE FROM ParkPasses`);
+
     await query(`INSERT INTO DefaultNames VALUES ?`, [[['test', 0]]]);
+
+    await query(`INSERT INTO Resorts VALUES ?`,
+            [[[80008297, 'Disneyland', 92802, 33.81011, -117.91897, 'America/Los_Angeles']]]);
+    await query(`INSERT INTO Parks VALUES ?`,
+        [[[330339, 'Disneyland', 80008297, 'disneyland', 'picUrl'],
+        [336894, 'California Adventures', 80008297, 'disney-california-adventure', 'picUrl']]]);
+
+    var parkDate = moment().tz(TIMEZONE).subtract(4, 'hours');
+    await query(`INSERT INTO ParkSchedules VALUES ?`,
+    [[
+        [parkDate.format("YYYY-MM-DD"), 330339, "08:00:00", "00:00:00", null, null, 4, 4],
+        [parkDate.format("YYYY-MM-DD"), 336894, "09:00:00", "22:00:00", null, null, 4, 4]
+    ]]);
+
+    await query(`INSERT INTO Rides VALUES ?`,
+    [[
+        [100, 330339, "Ride0", null, null, null, null, true],
+        [101, 330339, "Ride1", null, null, null, null, true],
+        [102, 330339, "Ride2", null, null, null, null, true],
+        [103, 330339, "Ride3", null, null, null, null, true],
+        [104, 336894, "Ride4", null, null, null, null, true]
+    ]]);
 });
 
 /*
@@ -149,7 +186,7 @@ test('empty fast passes', async () => {
     
     var fps = await fastPassManager.getFastPasses([
         'id1', 'id2'
-    ], 'accessToken',"America/Los_Angeles", query);
+    ], 'accessToken', moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
     expect(fps.selectionDateTime).toBeTruthy();
     expect(fps.earliestSelectionDateTime).toBeTruthy();
     expect(fps.transactions.length).toBe(0);
@@ -218,7 +255,7 @@ test('get one fastpass', async () => {
     }));
     var fps = await fastPassManager.getFastPasses([
         'id1', 'id2'
-    ], 'accessToken',"America/Los_Angeles", query);
+    ], 'accessToken', moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
     
     expect(fps.selectionDateTime).toBeTruthy();
     expect(fps.earliestSelectionDateTime).toBeTruthy();
@@ -286,7 +323,7 @@ test('one planned fast pass', async () => {
                 }
             ]
         }
-    ], ["id1", "id2"], TIMEZONE, query);
+    ], ["id1", "id2"], moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
 
     var fpDateTime = earliestSelectionDateTime.clone();
     fpDateTime.add(40, 'minutes');
@@ -301,8 +338,7 @@ test('one planned fast pass', async () => {
 
     var fps = await fastPassManager.getFastPasses([
         'id1', 'id2'
-    ], 'accessToken',"America/Los_Angeles", query);
-
+    ], 'accessToken', moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
     
     expect(fps.selectionDateTime).toBeTruthy();
     expect(fps.earliestSelectionDateTime).toBeTruthy();
@@ -316,6 +352,82 @@ test('one planned fast pass', async () => {
     expect(trans.passes.length).toBe(1);
     expect(trans.passes[0].id).toBe('0');
     expect(trans.passes[0].priority).toBe(0);
+
+
+    //Test poll: Should return an update for pass 0 because earliestSelectionTime=currentTime
+    var now = moment().tz(TIMEZONE);
+    var parkDate = moment().tz(TIMEZONE).subtract(4, 'hours');
+    passes.getEarliestPossibleSelectionDateTime.mockImplementationOnce(() => {
+        return selectionDateTime.clone();
+    });
+    passes.orderPartyMaxPass.mockImplementationOnce((parkID, rideID, pDate, parkCloseDateTime, passIDs, disID, accessToken, tz) => {
+        expect(parkID).toBe(330339);
+        expect(rideID).toBe(100);
+        expect(parkDate.format("YYYY-MM-DD")).toBe(pDate.format("YYYY-MM-DD"));
+        expect(parkCloseDateTime.format("YYYY-MM-DD HH:mm:ss")).toBe(`${pDate.add(1, 'days').format("YYYY-MM-DD")} 00:00:00`);
+        expect(passIDs[0]).toBe('0');
+        expect(disID).toBe('disID0');
+        expect(accessToken).toBe('accessToken');
+        expect(tz).toBe(TIMEZONE);
+        return new Promise((resolve, reject) => {
+            resolve({
+                "fastPassDateTime": moment().tz(TIMEZONE).add(1, 'hours'),
+                "passes": [
+                    {
+                        "passID": "0",
+                        "selectionDateTime": moment().tz(TIMEZONE).add(1, 'hours')
+                    }
+                ]
+            });    
+        });
+    });
+    var updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now, parkDate.clone(), TIMEZONE, query);
+    console.log("UPDATES: ", JSON.stringify(updates));
+    var keys = Object.keys(updates);
+    expect(keys.length).toBe(1);
+    var update = updates[keys[0]];
+    expect(update[0].passID).toBe("0");
+    expect(update[0].rideID).toBe(100);
+
+    var nextUpdates = await await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now, parkDate.clone(), TIMEZONE, query);
+    expect(Object.keys(nextUpdates).length).toBe(0);
+
+    passes.aggregateFastPassesForPassIDs.mockResolvedValueOnce(new Promise((resolve) => {
+        resolve({
+            selectionDateTime: moment().tz(TIMEZONE),
+            earliestSelectionDateTime: moment().tz(TIMEZONE),
+            transactions: [],
+            individualResps: [
+                {
+                    passID: '0',
+                    disID: 'disID0',
+                    entitlements: [],
+                    selectionDateTime: selectionDateTime,
+                    earliestSelectionDateTime: earliestSelectionDateTime
+                },
+                {
+                    passID: '1',
+                    disID: 'disID1',
+                    entitlements: [],
+                    selectionDateTime: selectionDateTime,
+                    earliestSelectionDateTime: earliestSelectionDateTime
+                },
+                {
+                    passID: '2',
+                    disID: 'disID2',
+                    entitlements: [],
+                    selectionDateTime: selectionDateTime,
+                    earliestSelectionDateTime: earliestSelectionDateTime
+                }
+            ]
+        });
+    }));
+
+    var fps = await fastPassManager.getFastPasses([
+        'id1', 'id2'
+    ], 'accessToken', moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
+
+    expect(fps.plannedTransactions.length).toBe(0);
 });
 
 
@@ -335,8 +447,8 @@ test('null fast pass prediction', async () => {
     }));
     await passManager.updatePass('id2', '2', null, true, 'accessToken', TIMEZONE, query);
 
-    var earliestSelectionDateTime = moment().tz(TIMEZONE);
-    var selectionDateTime = moment().tz(TIMEZONE).add(25, 'minutes');
+    var earliestSelectionDateTime = moment().tz(TIMEZONE).add(5, 'minutes');
+    var selectionDateTime = moment().tz(TIMEZONE).add(30, 'minutes');
 
     passes.aggregateFastPassesForPassIDs.mockResolvedValueOnce(new Promise((resolve) => {
         resolve({
@@ -378,7 +490,7 @@ test('null fast pass prediction', async () => {
                 }
             ]
         }
-    ], ["id1", "id2"], TIMEZONE, query);
+    ], ["id1", "id2"], moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
 
     var fpDateTime = null;
 
@@ -392,7 +504,7 @@ test('null fast pass prediction', async () => {
 
     var fps = await fastPassManager.getFastPasses([
         'id1', 'id2'
-    ], 'accessToken',"America/Los_Angeles", query);
+    ], 'accessToken',moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
 
     var nextSelectionDateTime = earliestSelectionDateTime.clone().add(2, 'hours');
     
@@ -408,6 +520,38 @@ test('null fast pass prediction', async () => {
     expect(trans.passes[0].id).toBe('0');
     expect(trans.passes[0].priority).toBe(0);
     expect(Math.abs(moment.duration(trans.passes[0].nextSelectionDateTime.diff(nextSelectionDateTime)).asMinutes()) <= 2).toBeTruthy();
+
+    //Get current updates: Since FastPass is 5 minutes from now, there should be no updates
+    var now = moment().tz(TIMEZONE);
+    var parkDate = moment().tz(TIMEZONE).subtract(4, 'hours');
+
+    var updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now, parkDate.clone(), TIMEZONE, query);
+    expect(Object.keys(updates).length).toBe(0);
+
+    //Get updates five mins from now: Now the update should be returned
+    var fiveMinsLater = now.clone().add(5, 'minutes');
+    passes.getEarliestPossibleSelectionDateTime.mockImplementationOnce((selectionDateTime) => {
+        return selectionDateTime.clone();
+    });
+    passes.orderPartyMaxPass.mockImplementationOnce(() => {
+        return new Promise((resolve, reject) => {
+            resolve({
+                "fastPassDateTime": moment().tz(TIMEZONE).add(2, 'hours'),
+                "passes": [
+                    {
+                        "passID": "0",
+                        "selectionDateTime": moment().tz(TIMEZONE).add(2, 'hours')
+                    }
+                ]
+            });    
+        });
+    });
+    var nextUpdates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', fiveMinsLater, parkDate.clone(), TIMEZONE, query);
+    var keys = Object.keys(nextUpdates);
+    expect(keys.length).toBe(1);
+    var update = nextUpdates[keys[0]];
+    expect(update[0].passID).toBe("0");
+    expect(update[0].rideID).toBe(100);
 });
 
 test('one planned fast passes w/ multiple passes', async () => {
@@ -477,7 +621,7 @@ test('one planned fast passes w/ multiple passes', async () => {
                 }
             ]
         }
-    ], ["id1", "id2"], TIMEZONE, query);
+    ], ["id1", "id2"], moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
 
     var fpDateTime = earliestSelectionDateTime.clone();
     fpDateTime.add(140, 'minutes');
@@ -492,7 +636,7 @@ test('one planned fast passes w/ multiple passes', async () => {
 
     var fps = await fastPassManager.getFastPasses([
         'id1', 'id2'
-    ], 'accessToken',"America/Los_Angeles", query);
+    ], 'accessToken', moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
 
     var nextSelectionDateTimeMaxPass = earliestSelectionDateTime.clone().add(90, 'minutes');
     var nextSelectionDateTimeNonMaxPass = earliestSelectionDateTime.clone().add(2, 'hours');
@@ -518,6 +662,59 @@ test('one planned fast passes w/ multiple passes', async () => {
     expect(trans.passes[2].id).toBe('2');
     expect(trans.passes[2].priority).toBe(0);
     expect(Math.abs(moment.duration(trans.passes[2].nextSelectionDateTime.diff(nextSelectionDateTimeNonMaxPass)).asMinutes()) <= 2).toBeTruthy();
+    
+    //Poll FastPasses for group: Should return 2 users being updated.
+    var now = moment().tz(TIMEZONE);
+    var parkDate = moment().tz(TIMEZONE).subtract(4, 'hours');
+    passes.getEarliestPossibleSelectionDateTime.mockImplementation((selectionDateTime) => {
+        return selectionDateTime.clone();
+    });
+    passes.orderPartyMaxPass.mockImplementationOnce((parkID, rideID, date, parkCloseDateTime, passIDs, disID) => {
+        expect(parkID).toBe(330339);
+        expect(rideID).toBe(100);
+        var sortedPassIDs = passIDs.slice().sort((a, b) => {
+            return a.localeCompare(b);
+        });
+        expect(sortedPassIDs.length).toBe(3);
+        expect(sortedPassIDs[0]).toBe('0');
+        expect(sortedPassIDs[1]).toBe('1');
+        expect(sortedPassIDs[2]).toBe('2');
+        expect(disID == 'disID0' || disID == 'disID1' || disID == 'disID2').toBeTruthy();
+        return new Promise((resolve) => {
+            resolve({
+                "fastPassDateTime": moment().tz(TIMEZONE).add(2, 'hours'),
+                "passes": [
+                    {
+                        "passID": "0",
+                        "selectionDateTime": moment().tz(TIMEZONE).add(2, 'hours')
+                    },
+                    {
+                        "passID": "1",
+                        "selectionDateTime": moment().tz(TIMEZONE).add(2, 'hours')
+                    },
+                    {
+                        "passID": "2",
+                        "selectionDateTime": moment().tz(TIMEZONE).add(2, 'hours')
+                    }
+                ]
+            });    
+        });
+    });
+
+    var updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now, parkDate.clone(), TIMEZONE, query);
+    var keys = Object.keys(updates);
+    expect(keys.length).toBe(2);
+    var update1 = updates["id1"];
+    expect(update1.length).toBe(1);
+    expect(update1[0].passID).toBe("0");
+    expect(update1[0].rideID).toBe(100);
+    var update2 = updates["id2"];
+    expect(update2.length).toBe(2);
+    var sortedUpdate2Passes = update2.slice().sort((a, b) => {
+        return a.passID.localeCompare(b.passID);
+    });
+    expect(sortedUpdate2Passes[0].passID == "1");
+    expect(sortedUpdate2Passes[1].passID == "2");
 });
 
 test('multiple fast passes & multiple passes', async () => {
@@ -558,7 +755,7 @@ test('multiple fast passes & multiple passes', async () => {
         }]
     };
 
-    passes.aggregateFastPassesForPassIDs.mockResolvedValueOnce(new Promise((resolve) => {
+    passes.aggregateFastPassesForPassIDs.mockResolvedValue(new Promise((resolve) => {
         resolve({
             selectionDateTime: selectionDateTime,
             earliestSelectionDateTime: earliestSelectionDateTime,
@@ -686,7 +883,7 @@ test('multiple fast passes & multiple passes', async () => {
                 }
             ]
         }
-    ], ["id1", "id2", "id3"], TIMEZONE, query);
+    ], ["id1", "id2", "id3"], moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
 
     var r100FpTime = earliestSelectionDateTime.clone().add(129, 'minutes');
     var r101FpTime = earliestSelectionDateTime.clone().add(125, 'minutes');
@@ -715,6 +912,7 @@ test('multiple fast passes & multiple passes', async () => {
                     resolve(r102FpTime1);
                 });
             } else {
+                console.log("DIFF: ", Math.round(moment.duration(earliestSelectionDateTime.diff(dateTime)).asMinutes()));
                 expect(Math.abs(Math.round(moment.duration(earliestSelectionDateTime.diff(dateTime)).asMinutes())) == 219).toBeTruthy();
                 return new Promise((resolve) => {
                     resolve(r102FpTime2);
@@ -734,7 +932,7 @@ test('multiple fast passes & multiple passes', async () => {
 
     var fps = await fastPassManager.getFastPasses([
         'id1', 'id2', 'id3'
-    ], 'accessToken',"America/Los_Angeles", query);
+    ], 'accessToken', moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
 
     expect(fps.selectionDateTime).toBeTruthy();
     expect(fps.earliestSelectionDateTime).toBeTruthy();
@@ -768,6 +966,199 @@ test('multiple fast passes & multiple passes', async () => {
     checkTransaction(trans[3], 102, 219, r102FpTime2, ['0', '1']);
     checkTransaction(trans[4], 103, 339, r103FpTime, ['0', '1', '2', '3']);
     checkTransaction(trans[5], 104, 84, r104FpTime, ['3']);
+
+    predictions.getFastPassPrediction.mockImplementation((rideID, dateTime, query) => {
+        return new Promise((resolve) => {
+            resolve(r100FpTime);
+        });
+    });
+    
+    //Test poll: Should return an update for pass 0 because earliestSelectionTime=currentTime
+    var now = moment().tz(TIMEZONE);
+    var parkDate = moment().tz(TIMEZONE).subtract(4, 'hours');
+    passes.getEarliestPossibleSelectionDateTime.mockImplementation((selectionDateTime) => {
+        return selectionDateTime.clone();
+    });
+    var orderPassResults = {
+        "100": {
+            "parkID": 330339,
+            "parkDate": parkDate.format("YYYY-MM-DD"),
+            "parkCloseDateTime": `${parkDate.clone().add(1, 'days').format("YYYY-MM-DD")} 00:00:00`,
+            "passIDs": ['0', '1', '2'],
+            "disIDs": ['disID0', 'disID1', 'disID2'],
+            //result
+            "fastPassDateTime": r100FpTime.clone(),
+            "selectionDateTime": moment().tz(TIMEZONE).add(120, 'minutes')
+        }
+    };
+    passes.orderPartyMaxPass.mockImplementation((parkID, rideID, pDate, parkCloseDateTime, passIDs, disID, accessToken, tz) => {
+        var passResult = orderPassResults[rideID];
+        expect(passResult).toBeTruthy();
+
+        expect(parkID).toBe(passResult.parkID);
+        expect(parkDate.format("YYYY-MM-DD")).toBe(passResult.parkDate);
+        expect(parkCloseDateTime.format("YYYY-MM-DD HH:mm:ss")).toBe(passResult.parkCloseDateTime);
+        
+        expect(passIDs.length).toBe(passResult.passIDs.length);
+        expect(passIDs).toEqual(
+            expect.arrayContaining(passResult.passIDs)
+        );
+        expect(passResult.disIDs.indexOf(disID) >= 0).toBeTruthy();
+        
+        expect(accessToken).toBe('accessToken');
+        expect(tz).toBe(TIMEZONE);
+        return new Promise((resolve, reject) => {
+            //Indicates the transaction failed but not due to fastPass availability
+            if (passResult.error != null) {
+                throw passResult.error;
+            }
+            //Null means fastPasses are no longer available
+            if (passResult.fastPassDateTime == null) {
+                resolve(null);
+            }
+            var passes = [];
+            for (var passID of passIDs) {
+                passes.push({
+                    "passID": passID,
+                    "selectionDateTime": passResult.selectionDateTime
+                });
+            }
+            resolve({
+                "fastPassDateTime": passResult.fastPassDateTime,
+                "passes": passes
+            });    
+        });
+    });
+    var updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now.clone(), parkDate.clone(), TIMEZONE, query);
+    console.log("UPDATES 1: ", JSON.stringify(updates));
+
+    first102Prediction = false;
+    fps = await fastPassManager.getFastPasses([
+        'id1', 'id2', 'id3'
+    ], 'accessToken', moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
+    trans = fps.plannedTransactions;
+    trans.sort((t1, t2) => {
+        return t1.id.localeCompare(t2.id);
+    });
+    console.log("TRANS 1: ", JSON.stringify(trans));
+
+    orderPassResults = {
+        "104": {
+            "parkID": 336894,
+            "parkDate": parkDate.format("YYYY-MM-DD"),
+            "parkCloseDateTime": `${parkDate.format("YYYY-MM-DD")} 22:00:00`,
+            "passIDs": ['3'],
+            "disIDs": ['disID3'],
+            //result
+            "fastPassDateTime": null,
+            "selectionDateTime": null
+        },
+        "101": {
+            "parkID": 330339,
+            "parkDate": parkDate.format("YYYY-MM-DD"),
+            "parkCloseDateTime": `${parkDate.clone().add(1, 'days').format("YYYY-MM-DD")} 00:00:00`,
+            "passIDs": ['1', '2'],
+            "disIDs": ['disID1', 'disID2'],
+            //result
+            "fastPassDateTime": r101FpTime.clone(),
+            "selectionDateTime": r101FpTime.clone()
+        },
+        "102": {
+            "parkID": 330339,
+            "parkDate": parkDate.format("YYYY-MM-DD"),
+            "parkCloseDateTime": `${parkDate.clone().add(1, 'days').format("YYYY-MM-DD")} 00:00:00`,
+            "passIDs": ['0'],
+            "disIDs": ['disID0'],
+            //result
+            "error": "Conflict"
+        }
+    };
+    updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now.clone().add(122, 'minutes'), parkDate.clone(), TIMEZONE, query);
+    console.log("UPDATES 2: ", JSON.stringify(updates));
+    first102Prediction = false;
+    fps = await fastPassManager.getFastPasses([
+        'id1', 'id2', 'id3'
+    ], 'accessToken', moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
+    trans = fps.plannedTransactions;
+    trans.sort((t1, t2) => {
+        return t1.id.localeCompare(t2.id);
+    });
+    console.log("TRANS 2: ", JSON.stringify(trans));
+    
+    //After 84 minutes
+    orderPassResults = {
+        "102": {
+            "parkID": 330339,
+            "parkDate": parkDate.format("YYYY-MM-DD"),
+            "parkCloseDateTime": `${parkDate.clone().add(1, 'days').format("YYYY-MM-DD")} 00:00:00`,
+            "passIDs": ['0'],
+            "disIDs": ['disID0'],
+            //result
+            "fastPassDateTime": r102FpTime1.clone(),
+            "selectionDateTime": moment().tz(TIMEZONE).add(243, 'minutes')
+        }
+    };
+    updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now.clone().add(123, 'minutes'), parkDate.clone(), TIMEZONE, query);
+    console.log("UPDATES 3: ", JSON.stringify(updates));
+    first102Prediction = false;
+    fps = await fastPassManager.getFastPasses([
+        'id1', 'id2', 'id3'
+    ], 'accessToken', moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
+    trans = fps.plannedTransactions;
+    trans.sort((t1, t2) => {
+        return t1.id.localeCompare(t2.id);
+    });
+    console.log("TRANS 3: ", JSON.stringify(trans));
+
+    //After 84 minutes
+    orderPassResults = {
+        "102": {
+            "parkID": 330339,
+            "parkDate": parkDate.format("YYYY-MM-DD"),
+            "parkCloseDateTime": `${parkDate.clone().add(1, 'days').format("YYYY-MM-DD")} 00:00:00`,
+            "passIDs": ['0'],
+            "disIDs": ['disID0'],
+            //result
+            "fastPassDateTime": r102FpTime1.clone(),
+            "selectionDateTime": moment().tz(TIMEZONE).add(243, 'minutes')
+        }
+    };
+    updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now.add(123, 'minutes'), parkDate.clone(), TIMEZONE, query);
+    console.log("UPDATES 3: ", JSON.stringify(updates));
+    first102Prediction = false;
+    fps = await fastPassManager.getFastPasses([
+        'id1', 'id2', 'id3'
+    ], 'accessToken', moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
+    trans = fps.plannedTransactions;
+    trans.sort((t1, t2) => {
+        return t1.id.localeCompare(t2.id);
+    });
+    console.log("TRANS 3: ", JSON.stringify(trans));
+
+    //After 84 minutes
+    orderPassResults = {
+        "102": {
+            "parkID": 330339,
+            "parkDate": parkDate.format("YYYY-MM-DD"),
+            "parkCloseDateTime": `${parkDate.clone().add(1, 'days').format("YYYY-MM-DD")} 00:00:00`,
+            "passIDs": ['0', '1'],
+            "disIDs": ['disID0'],
+            //result
+            "fastPassDateTime": r103FpTime.clone(),
+            "selectionDateTime": moment().tz(TIMEZONE).add(243, 'minutes')
+        }
+    };
+    updates = await fastPassManager.pollMaxPassOrders(RESORT_ID, 'accessToken', now.add(130, 'minutes'), parkDate.clone(), TIMEZONE, query);
+    console.log("UPDATES 4: ", JSON.stringify(updates));
+    first102Prediction = false;
+    fps = await fastPassManager.getFastPasses([
+        'id1', 'id2', 'id3'
+    ], 'accessToken', moment().tz(TIMEZONE).subtract(4, 'hours'), TIMEZONE, query);
+    trans = fps.plannedTransactions;
+    trans.sort((t1, t2) => {
+        return t1.id.localeCompare(t2.id);
+    });
+    console.log("TRANS 4: ", JSON.stringify(trans));
 });
 
 afterEach(async () => {
@@ -789,5 +1180,9 @@ afterAll(async () => {
     await query(`DROP TABLe Invitations`);
     await query(`DROP TABLE ProfilePictures`);
     await query(`DROP TABLE Users`);
+    await query(`DROP TABLE Rides`);
+    await query(`DROP TABLE ParkSchedules`);
+    await query(`DROP TABLE Parks`);
+    await query(`DROP TABLE Resorts`);
     connection.end();
 });

@@ -42,8 +42,10 @@ beforeAll(async () => {
         await query(`CREATE TABLE IF NOT EXISTS Parks (id int(11), name varchar(50), resortID int(11), urlName varchar(100), iconUrl varchar(255), PRIMARY KEY(id), FOREIGN KEY(resortID) REFERENCES Resorts(id))`);
         await query(`CREATE TABLE IF NOT EXISTS Rides (id int(11), parkID int(11), name varchar(100), imgUrl varchar(255), height varchar(50), labels varchar(255), land varchar(100), valid tinyint(1), PRIMARY KEY (id), FOREIGN KEY (parkID) REFERENCES Parks(id))`);
         await query(`CREATE TABLE IF NOT EXISTS RideTimes (rideID int(11), dateTime DATETIME, waitMins int(4), fastPassTime TIME, status varchar(50), PRIMARY KEY (rideID, dateTime), FOREIGN KEY(rideID) REFERENCES Rides(id))`);
-        await query(`CREATE TABLE IF NOT EXISTS LatestRideTimes (rideID int(11), dateTime DATETIME, waitMins int(4), fastPassTime TIME, status varchar(50), lastStatusRange TIME, lastStatusTime DATETIME, lastChangeTime DATETIME, lastChangeRange TIME, PRIMARY KEY(rideID), FOREIGN KEY (rideID) REFERENCES Rides(id))`);
-        
+        await query(`CREATE TABLE IF NOT EXISTS LatestRideTimes (rideID int(11), dateTime DATETIME, waitMins int(4), fastPassTime TIME, status varchar(50), lastStatusChangeDateTime DATETIME, lastWaitChangeDateTime DATETIME, lastStatusChangeOffset INT, lastWaitChangeOffset INT, PRIMARY KEY(rideID), FOREIGN KEY (rideID) REFERENCES Rides(id))`);
+        await query(`CREATE TABLE IF NOT EXISTS LatestRideUpdateDateTimes (dateTime DATETIME)`)
+
+        await query(`DELETE FROM LatestRideUpdateDateTimes`);
         await query(`DELETE FROM LatestRideTimes`);
         await query(`DELETE FROM RideTimes`);
         await query(`DELETE FROM Rides`);
@@ -143,12 +145,14 @@ describe('RideDPs Test', () => {
 });
 
 afterEach(async () => {
+    await query(`DELETE FROM LatestRideUpdateDateTimes`);
     await query(`DELETE FROM LatestRideTimes`);
     await query(`DELETE FROM RideTimes`);
     await query(`DELETE FROM Rides`);
 });
 
 afterAll(async () => {
+    await query(`DROP TABLE LatestRideUpdateDateTimes`);
     await query(`DROP TABLE LatestRideTimes`);
     await query(`DROP TABLE RideTimes`);
     await query(`DROP TABLE Rides`);

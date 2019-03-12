@@ -241,11 +241,14 @@ async function getUserIDsForParty(partyID, query) {
 
 async function getPartyMembers(userID, query) {
     var partyID = await(getPartyID(userID, query));
+    if (partyID == null) {
+        return [];
+    }
     return await getPartyMembersForParty(partyID, query);
 }
 
 async function getPartyMembersForParty(partyID, query) {
-    var userIDs = await(getUserIDsForParty(partyID, query));
+    var userIDs = await getUserIDsForParty(partyID, query);
     var getUserPromises = [];
     for (var userID of userIDs) {
         getUserPromises.push(getUser(userID, query));
@@ -292,7 +295,6 @@ async function acceptPartyInvite(userID, inviterID, query) {
     await leaveParty(userID, query);
     var partyID = await getPartyID(inviterID, query);
     if (partyID == null) {
-        var result = await query(`SELECT * FROM Parties`);
         //Should never hit
         throw "User is not in a party";
     }

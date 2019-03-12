@@ -26,11 +26,11 @@ async function updatePass(userID, passID, isPrimary, isEnabled, accesssToken, tz
     }
     var maxPassDateStr = null;
     if (passInfo.hasMaxPass) {
-        maxPassDateStr = moment().tz(tz).format("YYYY-MM-DD HH:mm:ss");
+        maxPassDateStr = moment().tz(tz).subtract(4, 'hours').format("YYYY-MM-DD HH:mm:ss");
     }
     await query(`INSERT INTO ParkPasses VALUES ?
         ON DUPLICATE KEY UPDATE
-        isPrimary=?, isEnabled=?, expirationDT=?, maxPassDate=?`, 
+        isPrimary=?, isEnabled=?, expirationDT=?, maxPassDate=?`,
         [[[passInfo.passID, userID, passInfo.name, passInfo.disID, passInfo.type, passInfo.expireDT, isPrimary, isEnabled, maxPassDateStr]]
         , isPrimary, isEnabled, passInfo.expireDT, maxPassDateStr]);
 }
@@ -67,7 +67,6 @@ async function getPassesForUsers(userIDs, showDisabled, tz, query) {
         p.type AS type, p.expirationDT AS expirationDT, p.isPrimary AS isPrimary, p.isEnabled AS isEnabled, p.maxPassDate=? AS hasMaxPass
         FROM ParkPasses p
         WHERE p.ownerID in (?) ${enabledCondition} ORDER BY p.isPrimary DESC, p.ownerID, p.id`, [dateTime.format('YYYY-MM-DD'), userIDs]);
-    console.log("PASSES: ", JSON.stringify(passes));
     
     //Map passID to primary status
     var foundPasses = {};
@@ -87,7 +86,7 @@ async function getPassesForUsers(userIDs, showDisabled, tz, query) {
                 name: pass.name,
                 disID: pass.disID,
                 type: pass.type,
-                expirationDT: pass.expirationDT,
+                expirationDT: moment(pass.expirationDT).tz(tz, true).format("YYYY-MM-DD HH:mm:ss"),
                 isPrimary: pass.isPrimary,
                 isEnabled: pass.isEnabled,
                 hasMaxPass: pass.hasMaxPass

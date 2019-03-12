@@ -12,7 +12,9 @@ async function addForecasts() {
 }
 
 async function addSchedules() {
-    await resortManager.addSchedules(RESORT_ID, query);
+    var tz = await resortManager.getResortTimezone(RESORT_ID, query);
+    var now = moment().tz(tz);
+    await resortManager.addSchedules(RESORT_ID, now, tz, query);
 }
 
 /*

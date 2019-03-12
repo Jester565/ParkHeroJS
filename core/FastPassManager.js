@@ -1,5 +1,5 @@
 /*
-    CREATE TABLE PlannedFpTransactions(id varchar(100), userID varchar(50), rideID int(11), partyID varchar(200), PRIMARY KEY(id), FOREIGN KEY (userID) REFERENCES Users(id), FOREIGN KEY (rideID) REFERENCES Rides(id), FOREIGN KEY (partyID) REFERENCES Parties(id));
+    CREATE TABLE PlannedFpTransactions(id varchar(100), userID varchar(50), rideID int(11), date DATE, partyID varchar(200), PRIMARY KEY(id), FOREIGN KEY (userID) REFERENCES Users(id), FOREIGN KEY (rideID) REFERENCES Rides(id), FOREIGN KEY (partyID) REFERENCES Parties(id));
     CREATE TABLE FpTransactionPasses(transactionID varchar(100), userID varchar(50), passID varchar(200), priority INT, PRIMARY KEY(transactionID, passID), FOREIGN KEY(transactionID) REFERENCES PlannedFpTransactions(id), FOREIGN KEY (passID, userID) REFERENCES ParkPasses(id, ownerID));
 */
 var moment = require('moment-timezone');
@@ -9,6 +9,7 @@ var uuidv4 = require('uuid/v4');
 var passes = require('../dis/Pass');
 var passManager = require('./PassManager');
 var predictionManager = require('./Predictions');
+var resortManager = require('./ResortManager');
 
 function getLatestSelectionTime(selectionTimes, tz) {
     var latestSelectionTime = moment().tz(tz);
@@ -82,12 +83,12 @@ async function processPlannedTransaction(transactionID, passID, priority,
         }
     ]
 */
-async function getPlannedTransactions(userIDs, passes, tz, query) {
+async function getPlannedTransactions(userIDs, passes, parkDate, tz, query) {
     var transactionPasses = await query(`SELECT tp.transactionID AS transactionID, t.rideID AS rideID, p.id AS passID, p.ownerID AS userID, tp.priority
         FROM FpTransactionPasses tp 
         INNER JOIN PlannedFpTransactions t ON tp.transactionID=t.id
         INNER JOIN ParkPasses p ON tp.passID=p.id AND tp.userID=p.ownerID
-        WHERE p.isEnabled=1 AND tp.userID IN (?) ORDER BY tp.priority`, [userIDs]);
+        WHERE p.isEnabled=1 AND t.date=? AND tp.userID IN (?) ORDER BY tp.priority`, [parkDate.format("YYYY-MM=DD"), userIDs]);
     
     //{ rideID, passCount, passesToPriorities: <passID, priority>, selectionTime, fpTime }
     var transactions = { };
@@ -164,7 +165,7 @@ async function getPlannedTransactions(userIDs, passes, tz, query) {
         }]
     }]
 */
-async function updatePlannedTransactions(plannedTransactions, userIDs, tz, query) {
+async function updatePlannedTransactions(plannedTransactions, userIDs, parkDate, tz, query) {
     //<passID, <priority, transactionID>>
     var passIDsToTransactionIDs = {};
     for (var transaction of plannedTransactions) {
@@ -219,7 +220,7 @@ async function updatePlannedTransactions(plannedTransactions, userIDs, tz, query
     var insertTransactionPromises = [];
     for (var transaction of plannedTransactions) {
         insertTransactionPromises.push(
-            query(`INSERT INTO PlannedFpTransactions VALUES ?`, [[[transaction.id, transaction.rideID]]])
+            query(`INSERT INTO PlannedFpTransactions VALUES ?`, [[[transaction.id, transaction.rideID, parkDate.format("YYYY-MM-DD HH:mm:ss")]]])
         );
     }
     await Promise.all(insertTransactionPromises);
@@ -288,7 +289,7 @@ async function updatePlannedTransactions(plannedTransactions, userIDs, tz, query
         ]
     }
 */
-async function getFastPasses(userIDs, accessToken, tz, query) {
+async function getFastPasses(userIDs, accessToken, parkDate, tz, query) {
     var userPassesArr = await passManager.getPassesForUsers(userIDs, false, tz, query);
 
     var passIDsToUserPass = {};
@@ -342,7 +343,7 @@ async function getFastPasses(userIDs, accessToken, tz, query) {
                 passInfo.latestSelectionTime.format("YYYY-MM-DD HH:mm:ss"), passInfo.selectionTime.format("YYYY-MM-DD HH:mm:ss")]));
     }
 
-    var plannedTransactions = await getPlannedTransactions(userIDs, passIDsToInfo, tz, query);
+    var plannedTransactions = await getPlannedTransactions(userIDs, passIDsToInfo, parkDate, tz, query);
 
     var allUserPasses = [];
     for (var userID in userIDsToAllUserPasses) {
@@ -359,7 +360,191 @@ async function getFastPasses(userIDs, accessToken, tz, query) {
     return result;
 }
 
+async function deleteInvalidPlannedFastPasses(query) {
+    var transactionPasses = await query(`SELECT t.transactionID, ftp.passID, ftp.priority
+        FROM PlannedFpTransactions t
+        INNER JOIN FpTransactionPasses ftp ON t.id=ftp.transactionID
+        INNER JOIN LatestRideTimes lrt ON t.rideID=lrt.rideID
+        WHERE lrt.fastPassTime IS NULL
+        ORDER BY ftp.priority DESC`);
+    var transactionIDs = {};
+    for (var transactionPass of transactionPasses) {
+        transactionIDs[transactionPass.id] = true;
+        await query(`UPDATE FpTransactionPasses SET priority=priority-1
+        WHERE priority > ? AND passID=?`, 
+        [transactionPass.priority, transactionPass.passID]);
+    }
+    await query(`DELETE FROM PlannedFpTransactions WHERE id IN (?)`, [Object.keys(transactionIDs)]);
+}
+
+async function pollSelectionUpdates(parkDate, now, lastCheckDateTime, query) {
+    var updates = {};
+    var passes = await query(`SELECT p.id AS passID, p.ownerID AS ownerID,
+        (MAX(pst.earliestSelectionTime) < MAX(pst.selectionTime)) AS isEarliest 
+        FROM ParkPasses p
+        LEFT JOIN PassSelectionTimes pst ON pst.passID=p.id
+        LEFT JOIN FpTransactionPasses ftp ON ftp.passID=p.id AND ftp.userID=p.ownerID
+        LEFT JOIN PlannedFpTransactions t ON t.id=ftp.transactionID
+        GROUP BY p.id, p.ownerID
+        HAVING (MAX(t.date) IS NULL OR MAX(t.date) < ?) 
+        AND MAX(pst.earliestSelectionTime) <= ? AND MAX(pst.earliestSelectionTime) > ?`,
+        [parkDate.format("YYYY-MM-DD"), now.format("YYYY-MM-DD HH:mm:ss"), lastCheckDateTime.format("YYYY-MM-DD HH:mm:ss")]);
+    for (var pass of passes) {
+        if (updates[pass.ownerID] == null) {
+            updates[pass.ownerID] = [];
+        }
+        updates[pass.ownerID].push({
+            passID: pass.passID,
+            isEarliest: pass.isEarliest
+        });
+    }
+    return updates;
+}
+
+//Consider calling this until updates is empty
+async function pollMaxPassOrders(resortID, accessToken, now, parkDate, tz, query) {
+    var parks = await resortManager.getParks(resortID, query);
+    var parkSchedules = [];
+    for (var park of parks) {
+        parkSchedules[park.id] = await resortManager.getParkSchedule(park.id, parkDate, tz, query);
+    }
+
+    var transactionPasses = await query(`SELECT 
+        t.id AS transactionID, r.id AS rideID, r.parkID AS parkID,
+        fp.priority AS priority, fp.userID AS userID,
+        p.id AS passID, p.disID AS disID, 
+        pst.earliestSelectionTime AS selectionDateTime
+        FROM PlannedFpTransactions t
+        INNER JOIN Rides r ON t.rideID=r.id
+        INNER JOIN FpTransactionPasses fp ON t.id=fp.transactionID
+        INNER JOIN ParkPasses p ON fp.passID=p.id
+        LEFT JOIN PassSelectionTimes pst ON fp.passID=pst.passID
+        WHERE t.date=?
+        ORDER BY t.id, fp.priority DESC`, [parkDate.format("YYYY-MM-DD")]);
+    
+    var transactions = [];
+    var transaction = null;
+    var transactionID = null;
+    for (var transactionPass of transactionPasses) {
+        if (transaction == null || transactionID != transactionPass.transactionID) {
+            if (transaction != null) {
+                transactions.push(transaction);
+            }
+            transaction = {
+                id: transactionPass.transactionID,
+                rideID: transactionPass.rideID,
+                parkID: transactionPass.parkID,
+                passes: {}
+            }
+            transactionID = transactionPass.transactionID
+        }
+        if (transaction != null) {
+            if (transactionPass.priority == 0 && (transactionPass.selectionDateTime == null || moment(transactionPass.selectionDateTime).tz(tz, true) <= now)) {
+                transaction.passes[transactionPass.passID] = {
+                    "passID": transactionPass.passID,
+                    "disID": transactionPass.disID,
+                    "userID": transactionPass.userID
+                };
+            } else {
+                transaction = null;
+            }
+        }
+    }
+    if (transaction != null) {
+        transactions.push(transaction);
+    }
+    var orderPromises = [];
+    for (var transaction of transactions) {
+        var passIDs = Object.keys(transaction.passes);
+        var disID = transaction.passes[passIDs[0]].disID;
+        var parkCloseDateTime = parkSchedules[transaction.parkID].closeDateTime;
+        orderPromises.push(orderMaxPass(transaction.parkID, transaction.rideID, parkDate, parkCloseDateTime, passIDs, disID, accessToken, tz));
+    }
+
+    var dbUpdatePromises = [];
+    var passIDs = [];
+    //Maps usersID to array of fastpasses
+    var updates = {};
+    var orderResults = await Promise.all(orderPromises);
+    console.log("ORDER RESULTS: ", JSON.stringify(orderResults));
+    orderResults.forEach((orderResult, transactionI) => {
+        var transaction = transactions[transactionI];
+        if (orderResult == "Conflict") {
+            return;
+        }
+        if (orderResult == "NoMaxPass") {
+            for (var passID in transaction.passes) {
+                var pass = transaction.passes[passID];
+                if (updates[pass.userID] == null) {
+                    updates[pass.userID] = [];
+                }
+                updates[pass.userID].push({
+                    passID: pass.passID,
+                    rideID: transaction.rideID,
+                    err: "FastPasses no longer available"
+                });
+                passIDs.push(passID);
+            }
+            dbUpdatePromises.push(query(`DELETE FROM PlannedFpTransactions WHERE id=?`, [transaction.id]));
+
+            return;
+        }
+
+        var fastPassDateTime = orderResult["fastPassDateTime"];
+        var entitlements = [];
+        entitlements.push({
+            "startDateTime": fastPassDateTime
+        });
+        for (var passSelectionTime of orderResult.passes) {
+            var passID = passSelectionTime["passID"];
+            var selectionDateTime = passSelectionTime["selectionDateTime"];
+            var earliestSelectionDateTime = passes.getEarliestPossibleSelectionDateTime(selectionDateTime, entitlements);
+            dbUpdatePromises.push(query(`INSERT INTO PassSelectionTimes VALUES ?
+                ON DUPLICATE KEY UPDATE selectionTime=?, earliestSelectionTime=?`, [
+                [[passID, selectionDateTime.format("YYYY-MM-DD HH:mm:ss"), earliestSelectionDateTime.format("YYYY-MM-DD HH:mm:ss")]],
+                selectionDateTime.format("YYYY-MM-DD HH:mm:ss"), earliestSelectionDateTime.format("YYYY-MM-DD HH:mm:ss")
+            ]));
+            passIDs.push(passID);
+
+            var pass = transaction.passes[passID];
+            if (updates[pass.userID] == null) {
+                updates[pass.userID] = [];
+            }
+            updates[pass.userID].push({
+                passID: pass.passID,
+                rideID: transaction.rideID,
+                fastPassDateTime: fastPassDateTime
+            });
+        }
+        dbUpdatePromises.push(query(`DELETE FROM PlannedFpTransactions WHERE id=?`, [transaction.id]));
+    });
+    console.log("PASSIDS: ", JSON.stringify(passIDs));
+    if (passIDs.length > 0) {
+        dbUpdatePromises.push(query(`UPDATE FpTransactionPasses SET 
+            priority=priority-1 
+            WHERE passID IN (?)`, [passIDs]));
+    }
+    await Promise.all(dbUpdatePromises);
+
+    return updates;
+}
+
+async function orderMaxPass(parkID, rideID, date, parkCloseDateTime, passIDs, disID, accessToken, tz) {
+    try {
+        var result = await passes.orderPartyMaxPass(parkID, rideID, date, parkCloseDateTime, passIDs, disID, accessToken, tz);
+        if (result == null) {
+            return "NoMaxPass";
+        }
+        return result;
+    } catch (ex) {
+        console.log("EX: ", ex);
+        return "Conflict";
+    }
+}
+
 module.exports = {
     getFastPasses: getFastPasses,
-    updatePlannedTransactions: updatePlannedTransactions
+    updatePlannedTransactions: updatePlannedTransactions,
+    pollSelectionUpdates: pollSelectionUpdates,
+    pollMaxPassOrders: pollMaxPassOrders
 };
