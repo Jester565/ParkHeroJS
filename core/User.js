@@ -3,7 +3,8 @@ var imageUploader = require('./ImageUploader');
 
 var uuidv4 = require('uuid/v4');
 
-var USER_QUERY = `u.id AS id, u.name AS name, pp.url AS profilePicUrl`;
+var DEFAULT_PROFILE_PIC = "profileImgs/blank-profile-picture-973460_640.png";
+var USER_QUERY = `u.id AS id, u.name AS name, COALESCE(pp.url, "${DEFAULT_PROFILE_PIC}") AS profilePicUrl `;
 var FRIEND_INVITE_TYPE = 0;
 var PARTY_INVITE_TYPE = 1;
 var IMAGE_SIZES = [250, 500, 750, 1000];
@@ -13,7 +14,7 @@ function getUserFromRow(row) {
         id: row["id"],
         name: row["name"],
         profilePicUrl: row["profilePicUrl"]
-    }
+    };
 }
 
 async function _addUserToMySql(userID, name, isDefaultName, query) {

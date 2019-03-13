@@ -264,6 +264,7 @@ async function verifySns(body, userID) {
     AWS.config.update({region: config.region});
     var sns = new AWS.SNS();
     var token = body["token"];
+    var givenEndpointArn = body["endpointArn"];
     var endpointArn = body["endpointArn"];
     var subscriptionArn = body["subscriptionArn"];
     var endpointUserID = body["endpointUserID"];
@@ -274,21 +275,18 @@ async function verifySns(body, userID) {
             Token: token
         }).promise();
         endpointArn = createEndpointResult.EndpointArn;
-        console.log("EP ARN: ", endpointArn);
     }
     if (userID != endpointUserID && subscriptionArn != null) {
         await sns.unsubscribe({
             SubscriptionArn: subscriptionArn
         }).promise();
-        console.log("UNSUBSCRIBED: ", subscriptionArn);
     }
-    if (userID != endpointUserID || endpointArn == null) {
+    if (userID != endpointUserID || givenEndpointArn == null) {
         var topicName = userID.substr(userID.indexOf(':') + 1);
         var createTopicResult = await sns.createTopic({
             Name: topicName
         }).promise();
         var topicArn = createTopicResult.TopicArn;
-        console.log("TOPIC ARN: ", topicArn);
         
         var subscribeResult = await sns.subscribe({
             Endpoint: endpointArn,
@@ -297,7 +295,6 @@ async function verifySns(body, userID) {
             ReturnSubscriptionArn: true
         }).promise();
         subscriptionArn = subscribeResult.SubscriptionArn;
-        console.log("SUB ARN: ", subscriptionArn);
     }
     try {
         var getEndpointResult = await sns.getEndpointAttributes({
@@ -336,4 +333,4 @@ module.exports = {
     leaveParty: leaveParty,
     deleteInvite: deleteInvite,
     verifySns: verifySns
-}
+};
