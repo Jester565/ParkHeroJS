@@ -427,7 +427,7 @@ async function getFilters(userID, tz, query) {
             filter.watchConfig = {
                 waitTime: lastRow.waitMins,
                 waitRating: lastRow.waitRating,
-                fastPassTime: lastRow.fastPassTime,
+                fastPassTime: lastRow.fastPassTime
             };
         }
         filters.push(filter);
@@ -528,9 +528,12 @@ async function getWatchUpdates(updatedRides, tz, query) {
     for (var ride of updatedRides) {
         updatedRideIDs.push(ride.id);
     }
-    var filters = await query(`SELECT wf.userID AS userID, fr.rideID AS rideID, wf.waitMins AS waitMins, wf.waitRating AS waitRating, wf.fastPassTime
+    var filters = await query(`SELECT wf.userID AS userID, fr.rideID AS rideID, crn.name AS customRideName,
+        wf.waitMins AS waitMins, wf.waitRating AS waitRating, wf.fastPassTime AS fastPassTime
         FROM WatchFilters wf
         INNER JOIN FilterRides fr ON wf.name=fr.name AND wf.userID=fr.userID
+        INNER JOIN Rides r ON fr.rideID=r.id
+        LEFT JOIN CustomRideNames crn ON crn.rideID=fr.rideID AND crn.userID=wf.userID
         WHERE wf.watchDate=? AND fr.rideID IN (?) ORDER BY wf.userID`, [dateStr, updatedRideIDs]);
 
     var nowPredictionResults = Promise.all(nowPredictionPromises);
@@ -552,7 +555,11 @@ async function getWatchUpdates(updatedRides, tz, query) {
         }
         var savedRide = savedRidesMap[filter.rideID][0];
         var updatedRide = updatedRidesMap[filter.rideID][0];
-        var update = {};
+        
+        console.log("FILTER: ", JSON.stringify(filter, null, 2));
+        console.log("SAVED RIDE: ", JSON.stringify(savedRide, null, 2));
+        console.log("UPDATED RIDE: ", JSON.stringify(updatedRide, null, 2));
+        var update = null;
         if (filter.waitMins != null && updatedRide.waitMins != null && updatedRide.waitMins <= filter.waitMins && (savedRide.waitMins == null || savedRide.waitMins > filter.waitMins)) {
             if (update == null) {
                 update = {};
@@ -578,8 +585,8 @@ async function getWatchUpdates(updatedRides, tz, query) {
         }
         if (filter.fastPassTime != null) {
             var fastPassTime = moment(filter.fastPassTime).tz(tz, true);
-            var updatedFastPassTime = moment(updatedRide.fastPassTime, "YYYY-MM-DD HH:mm:ss").tz(tz, true);
-            var savedFastPassTime = moment(savedRide.fastPassTime).tz(tz, true);
+            var updatedFastPassTime = moment(updatedRide.fastPassTime).tz(tz, true);
+            var savedFastPassTime = moment(savedRide.fastPassTime, "HH:mm:ss").tz(tz, true);
             if (updatedFastPassTime >= fastPassTime && savedFastPassTime < fastPassTime) {
                 if (update == null) {
                     update = {};
@@ -604,6 +611,9 @@ async function getWatchUpdates(updatedRides, tz, query) {
             }
         }
         if (update != null) {
+            update.rideID = filter.rideID;
+            update.rideName = (filter.customRideName != null)? filter.customRideName: savedRide.name;
+            update.picUrl = savedRide.imgUrl;
             userUpdates.push(update);
         }
     }
@@ -632,6 +642,6 @@ module.exports = {
     getFilters: getFilters,
     updateFilter: updateFilter,
     deleteFilters: deleteFilters,
-     getWaitRating: getWaitRating,
+    getWaitRating: getWaitRating,
     getWatchUpdates: getWatchUpdates
 };
