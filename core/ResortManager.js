@@ -54,15 +54,13 @@ async function addEvent(date, resortID, event, query) {
             [rows]);
 }
 
-async function addSchedules(resortID, query) {
+async function addSchedules(resortID, now, tz, query) {
     var parkNamesToID = {};
     var parks = await getParks(resortID, query);
     for (var park of parks) {
         parkNamesToID[park["urlName"]] = park["id"];
     }
-    
-    var tz = await getResortTimezone(resortID, query);
-    var now = moment().tz(tz);
+
     var resortSchedule = await schedules.getAllSchedules(now, tz);
     //Assign events to schedule
     var dt = now.clone();
@@ -148,6 +146,34 @@ async function getSchedules(resortID, startDate, query) {
     return schedules;
 }
 
+async function getParkSchedule(parkID, date, tz, query) {
+    console.log("PARKSCHEDULES: ", parkID, date.format("YYYY-MM-DD"));
+    var schedules = await query(`SELECT ps.openTime AS openTime, ps.closeTime AS closeTime, 
+        ps.magicHourStartTime AS magicStartTime, ps.magicHourEndTime AS magicEndTime, ps.crowdLevel AS crowdLevel,
+        ps.blockLevel AS blockLevel
+        FROM ParkSchedules ps
+        WHERE ps.date=? AND ps.parkID=?`,
+        [date.format("YYYY-MM-DD"), parkID]);
+    var schedule = schedules[0];
+    setDateTime = (timeKey, dtKey) => {
+        if (schedule[timeKey] == null) {
+            return;
+        }
+        var time = moment(schedule[timeKey], "HH:mm:ss").tz(tz, true);
+        var dt = date.clone();
+
+        if (time.hours() < 4) {
+            dt.add(1, 'days');
+        }
+        schedule[dtKey] = moment(`${dt.format("YYYY-MM-DD")} ${time.format("HH:mm:ss")}`, "YYYY-MM-DD HH:mm:ss").tz(tz, true);
+    };
+    setDateTime("openTime", "openDateTime");
+    setDateTime("closeTime", "closeDateTime");
+    setDateTime("magicStartTime", "magicStartDateTime");
+    setDateTime("magicEndTime", "magicEndDateTime");
+    return schedule;
+}
+
 async function getHourlyWeather(resortID, date, query) {
     var weathers = await query(`SELECT feelsLikeF, rainStatus, dateTime FROM HourlyWeather
         WHERE resortID=? AND DATE(dateTime)=? ORDER BY dateTime`, [resortID, date.format("YYYY-MM-DD")]);
@@ -162,5 +188,6 @@ module.exports = {
     getResortTimezone: getResortTimezone,
     getResortInfo: getResortInfo,
     getParks: getParks,
-    getHourlyWeather: getHourlyWeather
+    getHourlyWeather: getHourlyWeather,
+    getParkSchedule: getParkSchedule
 };

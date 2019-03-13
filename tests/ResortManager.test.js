@@ -39,8 +39,8 @@ beforeAll(async () => {
         await query(`DELETE FROM Events`);
         await query(`DELETE FROM HourlyWeather`);
         await query(`DELETE FROM ParkSchedules`);
-        await query(`DELETE FROM Resorts`);
         await query(`DELETE FROM Parks`);
+        await query(`DELETE FROM Resorts`);
         
         await query(`INSERT INTO Resorts VALUES ?`,
             [[[80008297, 'Disneyland', 92802, 33.81011, -117.91897, 'America/Los_Angeles']]]);
@@ -89,7 +89,8 @@ test('Add / Get Schedules', async() => {
         }
         resolve(resp);
     }));
-    await resortManager.addSchedules(80008297, query);
+    
+    await resortManager.addSchedules(80008297, moment("2018-02-06", "YYYY-MM-DD"), "America/Los_Angeles", query);
     var parkSchedules = await resortManager.getSchedules(80008297, moment("2018-02-06", "YYYY-MM-DD"), query);
     expect(parkSchedules.length).toBe(84);
     expect(parkSchedules[0].parkName).toBe("Disneyland");
@@ -113,7 +114,7 @@ test('Add / Get Weather', async() => {
     await resortManager.addForecasts('', 80008297, query);
     var forecasts = await resortManager.getHourlyWeather(80008297, moment("2019-02-07", "YYYY-MM-DD"), query);
     expect(forecasts.length).toBe(24);
-    expect(forecasts[2].dateTime).toBe("2019-02-07 02:00:00");
+    expect(moment(forecasts[2].dateTime).tz("America/Los_Angeles").format("YYYY-MM-DD HH:mm:ss")).toBe("2019-02-07 02:00:00");
     expect(forecasts[2].rainStatus).toBe(4);
     expect(forecasts[2].feelsLikeF).toBe(44);
 }, 50000);
@@ -126,6 +127,8 @@ afterEach(async () => {
 });
 
 afterAll(async () => {
+    await query(`DELETE FROM Parks`);
+    await query(`DELETE FROM Resorts`);
     await query(`DROP TABLE HourlyWeather`);
     await query(`DROP TABLE EventTimes`);
     await query(`DROP TABLE Events`);

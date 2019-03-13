@@ -26,15 +26,35 @@ async function updatePass(userID, passID, isPrimary, isEnabled, accesssToken, tz
     }
     var maxPassDateStr = null;
     if (passInfo.hasMaxPass) {
-        maxPassDateStr = moment().tz(tz).format("YYYY-MM-DD HH:mm:ss");
+        maxPassDateStr = moment().tz(tz).subtract(4, 'hours').format("YYYY-MM-DD HH:mm:ss");
     }
     await query(`INSERT INTO ParkPasses VALUES ?
         ON DUPLICATE KEY UPDATE
-        isPrimary=?, isEnabled=?, expirationDT=?, maxPassDate=?`, 
+        isPrimary=?, isEnabled=?, expirationDT=?, maxPassDate=?`,
         [[[passInfo.passID, userID, passInfo.name, passInfo.disID, passInfo.type, passInfo.expireDT, isPrimary, isEnabled, maxPassDateStr]]
         , isPrimary, isEnabled, passInfo.expireDT, maxPassDateStr]);
 }
 
+async function getSplitters(groupID) {
+    var splitters = await query(`SELECT userID FROM Splitters WHERE groupID=?`, [groupID]);
+    var userIDs = [];
+    for (var splitter of splitters) {
+        userIDs.push(splitter.userID);
+    }
+    return userIDs;
+}
+
+async function splitPasses(groupID, userID) {
+    await query(`INSERT INTO PassSplitters VALUES ?`, [[[groupID, userID]]]);
+}
+
+async function mergePasses(groupID) {
+    await query(`DELETE FROM PassSplitters WHERE groupID=?`, [groupID]);
+}
+
+async function unsplitPasses(groupID, userID) {
+    await query(`DELETE FROM PassSplitters WHERE groupID=? AND userID=?`, [groupID, userID]);
+}
 
 /*
     Response: [
@@ -67,7 +87,6 @@ async function getPassesForUsers(userIDs, showDisabled, tz, query) {
         p.type AS type, p.expirationDT AS expirationDT, p.isPrimary AS isPrimary, p.isEnabled AS isEnabled, p.maxPassDate=? AS hasMaxPass
         FROM ParkPasses p
         WHERE p.ownerID in (?) ${enabledCondition} ORDER BY p.isPrimary DESC, p.ownerID, p.id`, [dateTime.format('YYYY-MM-DD'), userIDs]);
-    console.log("PASSES: ", JSON.stringify(passes));
     
     //Map passID to primary status
     var foundPasses = {};
@@ -87,7 +106,7 @@ async function getPassesForUsers(userIDs, showDisabled, tz, query) {
                 name: pass.name,
                 disID: pass.disID,
                 type: pass.type,
-                expirationDT: pass.expirationDT,
+                expirationDT: moment(pass.expirationDT).tz(tz, true).format("YYYY-MM-DD HH:mm:ss"),
                 isPrimary: pass.isPrimary,
                 isEnabled: pass.isEnabled,
                 hasMaxPass: pass.hasMaxPass
@@ -108,5 +127,9 @@ async function removePass(userID, passID, query) {
 module.exports = {
     updatePass: updatePass,
     getPassesForUsers: getPassesForUsers,
-    removePass: removePass
+    removePass: removePass,
+    getSplitters: getSplitters,
+    splitPasses: splitPasses,
+    mergePasses: mergePasses,
+    unsplitPasses: unsplitPasses
 };

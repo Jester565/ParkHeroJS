@@ -25,7 +25,7 @@ test('monthly schedules', async () => {
 });
 
 test('blackouts', async () => {
-    var respText = await readFileAsync(__dirname + "/BlackoutResp.html", {encoding: 'utf8'});
+    var respText = await readFileAsync(__dirname + "/BlackoutResp.xml", {encoding: 'utf8'});
     rp.mockResolvedValueOnce(new Promise((resolve) => {
         resolve(respText);
     }));
@@ -52,7 +52,7 @@ test('crowdlevels', async () => {
 });
 
 test('daily events', async () => {
-    var respText = await readFileAsync(__dirname + "/EventResp.html", {encoding: 'utf8'});
+    var respText = await readFileAsync(__dirname + "/EventResp.xml", {encoding: 'utf8'});
     rp.mockResolvedValueOnce(new Promise((resolve) => {
         resolve(respText);
     }));
@@ -83,7 +83,7 @@ test('all schedules', async () => {
         resolve(marchCalendarResp);
     }));
 
-    var blackoutResp = await readFileAsync(__dirname + "/BlackoutResp.html", {encoding: 'utf8'});
+    var blackoutResp = await readFileAsync(__dirname + "/BlackoutResp.xml", {encoding: 'utf8'});
     rp.mockResolvedValueOnce(new Promise((resolve) => {
         resolve(blackoutResp);
     }));
@@ -93,7 +93,7 @@ test('all schedules', async () => {
         resolve(JSON.parse(crowdResp));
     }));
 
-    var eventResp = await readFileAsync(__dirname + "/EventResp.html", {encoding: 'utf8'});
+    var eventResp = await readFileAsync(__dirname + "/EventResp.xml", {encoding: 'utf8'});
     rp.mockResolvedValue(new Promise((resolve) => {
         resolve(eventResp);
     }));
