@@ -240,7 +240,7 @@ async function getUserIDsForParty(partyID, query) {
 }
 
 async function getPartyMembers(userID, query) {
-    var partyID = await(getPartyID(userID, query));
+    var partyID = await getPartyID(userID, query);
     if (partyID == null) {
         return [];
     }
@@ -322,6 +322,7 @@ module.exports = {
     addFriend: addFriend,
     removeFriend: removeFriend,
     areFriends: areFriends,
+    getPartyID: getPartyID,
     getPartyMembers: getPartyMembers,
     inviteToParty: inviteToParty,
     leaveParty: leaveParty,

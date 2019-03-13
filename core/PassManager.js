@@ -35,6 +35,26 @@ async function updatePass(userID, passID, isPrimary, isEnabled, accesssToken, tz
         , isPrimary, isEnabled, passInfo.expireDT, maxPassDateStr]);
 }
 
+async function getSplitters(groupID) {
+    var splitters = await query(`SELECT userID FROM Splitters WHERE groupID=?`, [groupID]);
+    var userIDs = [];
+    for (var splitter of splitters) {
+        userIDs.push(splitter.userID);
+    }
+    return userIDs;
+}
+
+async function splitPasses(groupID, userID) {
+    await query(`INSERT INTO PassSplitters VALUES ?`, [[[groupID, userID]]]);
+}
+
+async function mergePasses(groupID) {
+    await query(`DELETE FROM PassSplitters WHERE groupID=?`, [groupID]);
+}
+
+async function unsplitPasses(groupID, userID) {
+    await query(`DELETE FROM PassSplitters WHERE groupID=? AND userID=?`, [groupID, userID]);
+}
 
 /*
     Response: [
@@ -107,5 +127,9 @@ async function removePass(userID, passID, query) {
 module.exports = {
     updatePass: updatePass,
     getPassesForUsers: getPassesForUsers,
-    removePass: removePass
+    removePass: removePass,
+    getSplitters: getSplitters,
+    splitPasses: splitPasses,
+    mergePasses: mergePasses,
+    unsplitPasses: unsplitPasses
 };
