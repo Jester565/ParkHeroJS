@@ -1,5 +1,5 @@
 var auth = require('../dis/Auth');
-var moment = require('moment');
+var moment = require('moment-timezone');
 
 async function _storeAccessTokenInfo(accessToken, apiToken, lastRefresh, disID, query) {
     await query(`UPDATE DisTokens SET token=?, accessToken=?, lastRefresh=?, disId=? WHERE userId=?`,
@@ -8,27 +8,28 @@ async function _storeAccessTokenInfo(accessToken, apiToken, lastRefresh, disID, 
 
 async function _storeLoginTokenInfo(credID, accessToken, refreshToken, lastLogin, loginTTL, apiToken, lastRefresh, disID, query) {
     await query(`INSERT INTO DisTokens VALUES ? 
-        ON DUPLICATE KEY UPDATE accessToken=?, refreshToken=?, lastLogin=?, loginTTL=?, apiToken=?, lastRefresh=?, disID=?`,
+        ON DUPLICATE KEY UPDATE accessToken=?, refreshToken=?, lastLogin=?, loginTTL=?, token=?, lastRefresh=?, disID=?`,
         [[[credID, apiToken, accessToken, refreshToken, lastRefresh, lastLogin, loginTTL, disID]], 
         accessToken, refreshToken, lastLogin, loginTTL, apiToken, lastRefresh, disID]);
 }
 
 async function getAccessToken(credID, username, password, query) {
+    var tokenInfo = null;
     var tokenResults = await query(`SELECT token AS apiToken, accessToken, refreshToken, lastRefresh AS refreshTime, lastLogin AS loginTime, loginTTL, disId AS disID
         FROM DisTokens WHERE userId=?`, [credID]);
     if (tokenResults.length == 0) {
-        throw "CredID has never logged in";
-    }
-    var lastTokenInfo = tokenResults[0];
-    var tokenInfo = null;
-    try {
-        tokenInfo = await auth.getAccessToken(lastTokenInfo);
-        if (tokenInfo != lastTokenInfo) {
-            await _storeAccessTokenInfo(tokenInfo.accessToken, tokenInfo.apiToken, tokenInfo.refreshTime, tokenInfo.disID, query);
-        }
-    } catch (e) {
-        //If getAccessToken fails, we need to login
         tokenInfo = await login(credID, username, password, query);
+    } else {
+        var lastTokenInfo = tokenResults[0];
+        try {
+            tokenInfo = await auth.getAccessToken(lastTokenInfo);
+            if (tokenInfo != lastTokenInfo) {
+                await _storeAccessTokenInfo(tokenInfo.accessToken, tokenInfo.apiToken, tokenInfo.refreshTime, tokenInfo.disID, query);
+            }
+        } catch (e) {
+            //If getAccessToken fails, we need to login
+            tokenInfo = await login(credID, username, password, query);
+        }
     }
     return tokenInfo;
 }

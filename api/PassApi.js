@@ -3,8 +3,11 @@ var userManager = require('../core/User');
 var passManager = require('../core/PassManager');
 var commons = require('./Commons');
 var authManager = require('../core/AuthManager');
+var resortManager = require('../core/ResortManager');
 
 var query = commons.getDatabaseQueryMethod();
+
+var RESORT_ID = 80008297;
 
 /*
     Response: [
@@ -27,7 +30,8 @@ var query = commons.getDatabaseQueryMethod();
     ]
 */
 async function getUserPasses(_, userID) {
-    var userPasses = await passManager.getPassesForUsers([userID]);
+    var tz = await resortManager.getResortTimezone(RESORT_ID, query);
+    var userPasses = await passManager.getPassesForUsers([userID], true, tz, query);
     return userPasses;
 }
 
@@ -56,6 +60,7 @@ async function getUserPasses(_, userID) {
     }
 */
 async function getPartyPasses(_, userID) {
+    var tz = await resortManager.getResortTimezone(RESORT_ID, query);
     var partyID = await userManager.getPartyID(userID, query);
     var partyMembers = await userManager.getPartyMembers(userID, query);
     var userIDs = [];
@@ -65,8 +70,8 @@ async function getPartyPasses(_, userID) {
     if (userIDs.length == 0) {
         userIDs.push(userID);
     }
-    var userPasses = await passManager.getPartyMembers(userID, query);
-    var splitters = await passManager.getSplitters(partyID + ":" + partyID);
+    var userPasses = await passManager.getPassesForUsers(userIDs, true, tz, query);
+    var splitters = await passManager.getSplitters(partyID + ":" + partyID, query);
     return {
         userPasses: userPasses,
         splitters: splitters
@@ -90,16 +95,19 @@ async function updateSplitters(body, userID) {
     }
     var realGroupID = partyID + ":" + groupID;
     if (action == "split") {
-        await passManager.splitPasses(realGroupID, userID);
+        await passManager.splitPasses(realGroupID, userID, query);
     } else if (action == "unsplit") {
-        await passManager.unsplitPasses(realGroupID, userID);
+        await passManager.unsplitPasses(realGroupID, userID, query);
     } else if (action == "merge") {
-        await passManager.mergePasses(realGroupID);
+        await passManager.mergePasses(realGroupID, query);
     } else {
         throw "Unknown action: " + action;
     }
-    var splitters = await passManager.getSplitters(realGroupID);
-    return splitters;
+    var splitters = await passManager.getSplitters(realGroupID, query);
+    return {
+        groupID: groupID,
+        splitters: splitters
+    };
 }
 
 /*
@@ -110,12 +118,19 @@ async function updateSplitters(body, userID) {
     }
 */
 async function updatePass(body, userID) {
+    var tz = await resortManager.getResortTimezone(RESORT_ID, query);
     var passID = body["passID"];
     var isPrimary = body["isPrimary"];
     var isEnabled = body["isEnabled"];
     
-    var accessToken = await authManager.getAccessToken('0', config.dis.username, config.dis.password, query);
-    await passManager.updatePass(userID, passID, isPrimary, isEnabled, disToken, accessToken, query);
+    var loginRes = await authManager.getAccessToken('0', config.dis.username, config.dis.password, query);
+    var accessToken = loginRes.accessToken;
+    var user = userManager.getUser(userID, query);
+    var pass = await passManager.updatePass(userID, passID, isPrimary, isEnabled, accessToken, tz, query);
+    return {
+        "user": user,
+        "pass": pass
+    };
 }
 
 /*

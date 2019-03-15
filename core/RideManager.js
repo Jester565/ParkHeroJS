@@ -556,9 +556,6 @@ async function getWatchUpdates(updatedRides, tz, query) {
         var savedRide = savedRidesMap[filter.rideID][0];
         var updatedRide = updatedRidesMap[filter.rideID][0];
         
-        console.log("FILTER: ", JSON.stringify(filter, null, 2));
-        console.log("SAVED RIDE: ", JSON.stringify(savedRide, null, 2));
-        console.log("UPDATED RIDE: ", JSON.stringify(updatedRide, null, 2));
         var update = null;
         if (filter.waitMins != null && updatedRide.waitMins != null && updatedRide.waitMins <= filter.waitMins && (savedRide.waitMins == null || savedRide.waitMins > filter.waitMins)) {
             if (update == null) {

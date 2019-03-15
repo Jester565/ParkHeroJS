@@ -10,6 +10,9 @@ var modules = {
     },
     multi: () => {
         return require('./api/MultiApi');
+    },
+    passes: () => {
+        return require('./api/PassApi');
     }
 };
 

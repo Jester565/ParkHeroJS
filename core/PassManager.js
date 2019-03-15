@@ -1,5 +1,5 @@
 var passes = require('../dis/Pass');
-var users = require('../core/User')
+var users = require('../core/User');
 var moment = require('moment-timezone');
 
 //add or update existing pass (can also be used to refresh pass information)
@@ -28,14 +28,26 @@ async function updatePass(userID, passID, isPrimary, isEnabled, accesssToken, tz
     if (passInfo.hasMaxPass) {
         maxPassDateStr = moment().tz(tz).subtract(4, 'hours').format("YYYY-MM-DD HH:mm:ss");
     }
+    var expireDTStr = (passInfo.expireDT)? passInfo.expireDT.format("YYYY-MM-DD HH:mm:ss"): null;
     await query(`INSERT INTO ParkPasses VALUES ?
         ON DUPLICATE KEY UPDATE
         isPrimary=?, isEnabled=?, expirationDT=?, maxPassDate=?`,
-        [[[passInfo.passID, userID, passInfo.name, passInfo.disID, passInfo.type, passInfo.expireDT, isPrimary, isEnabled, maxPassDateStr]]
-        , isPrimary, isEnabled, passInfo.expireDT, maxPassDateStr]);
+        [[[passInfo.passID, userID, passInfo.name, passInfo.disID, passInfo.type, expireDTStr, isPrimary, isEnabled, maxPassDateStr]]
+        , isPrimary, isEnabled, expireDTStr, maxPassDateStr]);
+    
+    return {
+        id: passInfo.passID,
+        name: passInfo.name,
+        disID: passInfo.disID,
+        type: passInfo.type,
+        expirationDT: expireDTStr,
+        isPrimary: isPrimary,
+        isEnabled: isEnabled,
+        hasMaxPass: passInfo.hasMaxPass
+    };
 }
 
-async function getSplitters(groupID) {
+async function getSplitters(groupID, query) {
     var splitters = await query(`SELECT userID FROM Splitters WHERE groupID=?`, [groupID]);
     var userIDs = [];
     for (var splitter of splitters) {
@@ -44,15 +56,15 @@ async function getSplitters(groupID) {
     return userIDs;
 }
 
-async function splitPasses(groupID, userID) {
+async function splitPasses(groupID, userID, query) {
     await query(`INSERT INTO PassSplitters VALUES ?`, [[[groupID, userID]]]);
 }
 
-async function mergePasses(groupID) {
+async function mergePasses(groupID, query) {
     await query(`DELETE FROM PassSplitters WHERE groupID=?`, [groupID]);
 }
 
-async function unsplitPasses(groupID, userID) {
+async function unsplitPasses(groupID, userID, query) {
     await query(`DELETE FROM PassSplitters WHERE groupID=? AND userID=?`, [groupID, userID]);
 }
 
