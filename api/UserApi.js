@@ -16,34 +16,54 @@ async function createUser(body, userID) {
 
 /*
 body: {
-    name: String? (new username)
+    name: String? (chosen username),
+    imgUri: String? (new profile pic)
 }
-*/
-async function renameUser(body, userID) {
-    var name = body["name"];
-    
-    await userManager.renameUser(userID, name, query);
-}
-
-/*
-objKey: String (key of uploaded profile picture)
-bucket: String (bucket profile picture is found in)
-*/
-async function updateProfilePic(bucket, objKey) {
-    var AWS = require('aws-sdk');
-    AWS.config.update({region: config.region});
-
-    var s3 = new AWS.S3();
-    var sns = new AWS.SNS();
-
-    try {
-        var userID = objKey.substr(objKey.find('/') + 1);
-        userID = userID.substr(0, userID.indexOf('/'));
-        var profilePicPrefix = await userManager.updateProfilePic(userID, bucket, objKey, query, s3);
-        await commons.sendSNS(userID, "updateProfilePic", { profilePicUrl: profilePicPrefix }, sns);
-    } catch (e) {
-        await commons.sendSNS(userID, "updateProfilePicErr", { message: e.message }, sns);
+--
+{
+    user: {
+        id
+        name
+        profilePicUrl
     }
+    errors: [STRING]
+}
+*/
+async function updateUser(body, userID) {
+    var username = body["name"];
+    var imgUri = body["imgUri"];
+    var promises = [];
+    if (username != null) {
+        promises.push(userManager.renameUser(userID, username, query));
+    }
+    if (imgUri != null) {
+        var AWS = require('aws-sdk');
+        AWS.config.update({region: config.region});
+        var s3 = new AWS.S3();
+        
+        const vision = require('@google-cloud/vision');
+        const imageAnnotatorClient = new vision.ImageAnnotatorClient({
+        	keyFile: config.google.configFile
+        });
+        
+        promises.push(userManager.updateProfilePic(userID, imgUri, config.s3.bucket, query, s3, imageAnnotatorClient));
+    }
+    
+    var errors = [];
+    for (var promise of promises) {
+        try {
+            await promise;
+        } catch (err) {
+            console.log("ERR: ", JSON.stringify(err));
+            errors.push(JSON.stringify(err));
+        }
+    }
+    var user = await userManager.getUser(userID, query);
+    
+    return {
+        user: user,
+        errors: errors
+    };
 }
 
 /*
@@ -119,6 +139,7 @@ async function addFriend(body, userID) {
     var isFriend = await userManager.addFriend(userID, friendID, query);
     var user = await userManager.getUser(userID, query);
     await commons.sendSNS(friendID, "addFriend", { user: user, isFriend: isFriend }, sns);
+    return isFriend;
 }
 
 /*
@@ -134,6 +155,10 @@ async function removeFriend(body, userID) {
     var friendID = body["friendID"];
     await userManager.removeFriend(userID, friendID, query);
     await commons.sendSNS(friendID, "removeFriend", { userID: userID }, sns);
+}
+
+async function getFriends(_, userID) {
+    return await userManager.getFriends(userID, query);
 }
 
 /*
@@ -166,6 +191,7 @@ async function inviteToParty(body, userID) {
     var user = await userManager.getUser(userID, query);
     var isFriend = await userManager.areFriends(userID, [memberID], query);
     await commons.sendSNS(memberID, "inviteToParty", { user: user, isFriend: isFriend }, sns);
+    return isFriend;
 }
 
 /*
@@ -320,13 +346,13 @@ async function verifySns(body, userID) {
 
 module.exports = {
     createUser: createUser,
-    renameUser: renameUser,
-    updateProfilePic: updateProfilePic,
+    updateUser: updateUser,
     getUser: getUser,
     searchUsers: searchUsers,
     getInvites: getInvites,
     addFriend: addFriend,
     removeFriend: removeFriend,
+    getFriends: getFriends,
     getPartyMembers: getPartyMembers,
     inviteToParty: inviteToParty,
     acceptPartyInvite: acceptPartyInvite,

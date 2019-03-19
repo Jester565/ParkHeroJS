@@ -3,7 +3,7 @@ var imageUploader = require('./ImageUploader');
 
 var uuidv4 = require('uuid/v4');
 
-var DEFAULT_PROFILE_PIC = "profileImgs/blank-profile-picture-973460_640.png";
+var DEFAULT_PROFILE_PIC = "profileImgs/blank-profile-picture-973460_640";
 var USER_QUERY = `u.id AS id, u.name AS name, COALESCE(pp.url, "${DEFAULT_PROFILE_PIC}") AS profilePicUrl `;
 var FRIEND_INVITE_TYPE = 0;
 var PARTY_INVITE_TYPE = 1;
@@ -48,7 +48,7 @@ async function renameUser(userID, name, query) {
     if (profanity.containsProfanity(name)) {
         throw "Name contains profanity";
     }
-    await query(`UPDATE Users SET name=? AND defaultName=? WHERE id=?`, [name, false, userID]);
+    await query(`UPDATE Users SET name=?, defaultName=? WHERE id=?`, [name, 0, userID]);
 }
 
 async function _isImageAppropiate(pic, imageAnnotatorClient) {
@@ -66,21 +66,19 @@ async function _isImageAppropiate(pic, imageAnnotatorClient) {
     return true;
 }
 
-async function updateProfilePic(userID, bucket, objKey, query, s3Client, imageAnnotatorClient) {
-    var getParams = {
-        Bucket: bucket,
-        Key: objKey
-    }
-
-    var picData = await s3Client.getObject(getParams).promise();
-    var pic = picData.Body;
-    var isAppropiate = await _isImageAppropiate(pic, imageAnnotatorClient);
+async function updateProfilePic(userID, imgUri, bucket, query, s3Client, imageAnnotatorClient) {
+    var base64Img = imgUri;
+    base64Img = base64Img.substr(base64Img.indexOf(',') + 1);
+    var imgBuffer = Buffer.from(base64Img, 'base64');
+            
+    var isAppropiate = await _isImageAppropiate(imgBuffer, imageAnnotatorClient);
     if (!isAppropiate) {
         throw "Image may contain inappropiate content!";
     }
 
-    var newKeyPrefix = `profileImgs/${userID}`;
-    await imageUploader.uploadImageDataOfSizes(pic, IMAGE_SIZES, bucket, newKeyPrefix, s3Client, true);
+    var time = Date.now();
+    var newKeyPrefix = `profileImgs/${userID}-${time}`;
+    await imageUploader.uploadImageDataOfSizes(imgBuffer, IMAGE_SIZES, bucket, newKeyPrefix, s3Client, true);
 
     await query(`INSERT INTO ProfilePictures VALUES ? ON DUPLICATE KEY UPDATE url=?`, [[[userID, newKeyPrefix]], newKeyPrefix]);
     return newKeyPrefix;
@@ -117,7 +115,7 @@ async function searchUsers(prefix, userID, query) {
 //INVITES
 async function getInvites(userID, type, query) {
     var typeStr = ``;
-    var queryArgs = [userID, userID, userID];
+    var queryArgs = [userID, userID, userID, userID, userID];
     if (type != null) {
         typeStr = `AND i.type=?`;
         queryArgs.push(type);
@@ -130,7 +128,7 @@ async function getInvites(userID, type, query) {
         INNER JOIN Users u ON i.inviterId=u.id OR i.receiverId=u.id
         LEFT JOIN ProfilePictures pp ON pp.userId=u.id
         LEFT JOIN Friends f ON (i.inviterId=f.userId OR i.receiverId=f.userId) AND f.userId != ?
-        WHERE u.id=? ${typeStr}`, queryArgs);
+        WHERE u.id != ? AND (i.inviterId=? OR i.receiverId=?) ${typeStr}`, queryArgs);
     
     var invites = [];
     for (var row of result) {
@@ -152,7 +150,7 @@ async function hasInvite(ownerID, receiverID, type, query) {
 }
 
 async function createInvite(inviterID, receiverID, type, query) {
-    await query('INSERT INTO Invitations VALUES ?', [[[inviterID, receiverID, type]]]);
+    await query('INSERT INTO Invitations VALUES ? ON DUPLICATE KEY UPDATE type=?', [[[inviterID, receiverID, type]], PARTY_INVITE_TYPE]);
 }
 
 async function deleteInvite(ownerID, receiverID, type, query) {
