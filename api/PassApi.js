@@ -29,7 +29,27 @@ var RESORT_ID = 80008297;
         }
     ]
 */
-async function getUserPasses(_, userID) {
+async function getUserPasses(body, userID) {
+    var reqUserID = body["userID"];
+    if (reqUserID != null && reqUserID != userID) {
+        var checkPromises = [
+            userManager.areFriends(userID, [reqUserID], query),
+            userManager.getPartyMembers(userID, query)
+        ];
+        var checkResults = await Promise.all(checkPromises);
+        if (checkResults[0]) {
+            userID = reqUserID;
+        } else {
+            for (var partyMember of checkResults[1]) {
+                if (partyMember.id == reqUserID) {
+                    userID = reqUserID;
+                }
+            }
+        }
+        if (userID != reqUserID) {
+            throw "User is not friend or party member";
+        }
+    }
     var tz = await resortManager.getResortTimezone(RESORT_ID, query);
     var userPasses = await passManager.getPassesForUsers([userID], true, tz, query);
     return userPasses;
