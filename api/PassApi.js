@@ -51,7 +51,7 @@ async function getUserPasses(body, userID) {
         }
     }
     var tz = await resortManager.getResortTimezone(RESORT_ID, query);
-    var userPasses = await passManager.getPassesForUsers([userID], true, tz, query);
+    var userPasses = await passManager.getPassesForUsers([userID], false, tz, query);
     return userPasses;
 }
 
@@ -90,8 +90,10 @@ async function getPartyPasses(_, userID) {
     if (userIDs.length == 0) {
         userIDs.push(userID);
     }
-    var userPasses = await passManager.getPassesForUsers(userIDs, true, tz, query);
-    var splitters = await passManager.getSplitters(partyID + ":" + partyID, query);
+    console.log("USERID: ", userID);
+    console.log("USERIDS: ", JSON.stringify(userIDs));
+    var userPasses = await passManager.getPassesForUsers(userIDs, false, tz, query);
+    var splitters = await passManager.getSplitters(partyID + ":" + "party", query);
     return {
         userPasses: userPasses,
         splitters: splitters
@@ -109,7 +111,7 @@ async function getPartyPasses(_, userID) {
 async function updateSplitters(body, userID) {
     var groupID = body["groupID"];
     var action = body["action"];
-    var partyID = userManager.getPartyID(userID, query);
+    var partyID = await userManager.getPartyID(userID, query);
     if (partyID == null) {
         throw "User not in party";
     }

@@ -191,7 +191,12 @@ async function inviteToParty(body, userID) {
     var user = await userManager.getUser(userID, query);
     var isFriend = await userManager.areFriends(userID, [memberID], query);
     await commons.sendSNS(memberID, "inviteToParty", { user: user, isFriend: isFriend }, sns);
+    
     return isFriend;
+}
+
+async function getPartyInvites(_, userID) {
+    
 }
 
 /*
@@ -243,12 +248,12 @@ async function leaveParty(_, userID) {
     var AWS = require('aws-sdk');
     AWS.config.update({region: config.region});
     var sns = new AWS.SNS();
-
+    var oldPartyMembers = await userManager.getPartyMembers(userID, query);
+    
     await userManager.leaveParty(userID, query);
 
-    var partyMembers = await userManager.getPartyMembers(userID, query);
     var promises = [];
-    for (var partyMember of partyMembers) {
+    for (var partyMember of oldPartyMembers) {
         if (partyMember.id != userID) {
             promises.push(
                 commons.sendSNS(partyMember.id, "leaveParty", { userID: userID }, sns)

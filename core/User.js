@@ -241,7 +241,8 @@ async function getUserIDsForParty(partyID, query) {
 async function getPartyMembers(userID, query) {
     var partyID = await getPartyID(userID, query);
     if (partyID == null) {
-        return [];
+        var currentUser = await getUser(userID, query);
+        return [currentUser];
     }
     return await getPartyMembersForParty(partyID, query);
 }
@@ -276,6 +277,7 @@ async function inviteToParty(userID, memberID, query) {
 async function leaveParty(userID, query) {
     await query(`DELETE FROM Parties WHERE userID=?`, userID);
     await deleteInvites(userID, PARTY_INVITE_TYPE, query);  //Delete all outgoing party invites
+    
 }
 
 async function _joinParty(userID, partyID, query) {

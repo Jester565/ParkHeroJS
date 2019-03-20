@@ -48,7 +48,7 @@ async function updatePass(userID, passID, isPrimary, isEnabled, accesssToken, tz
 }
 
 async function getSplitters(groupID, query) {
-    var splitters = await query(`SELECT userID FROM Splitters WHERE groupID=?`, [groupID]);
+    var splitters = await query(`SELECT userID FROM PassSplitters WHERE groupID=?`, [groupID]);
     var userIDs = [];
     for (var splitter of splitters) {
         userIDs.push(splitter.userID);
