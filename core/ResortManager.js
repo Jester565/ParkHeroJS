@@ -50,7 +50,7 @@ async function addEvent(date, resortID, event, query) {
     for (var eventTime of event.operatingTimes) {
         rows.push([event.name, resortID, date.format("YYYY-MM-DD") + " " + eventTime.format("HH:mm:ss")]);    
     }
-    await query(`INSERT INTO EventTimes VALUES ?`,
+    await query(`INSERT IGNORE INTO EventTimes VALUES ?`,
             [rows]);
 }
 
@@ -60,7 +60,7 @@ async function addSchedules(resortID, now, tz, query) {
     for (var park of parks) {
         parkNamesToID[park["urlName"]] = park["id"];
     }
-
+    
     var resortSchedule = await schedules.getAllSchedules(now, tz);
     //Assign events to schedule
     var dt = now.clone();
@@ -146,34 +146,6 @@ async function getSchedules(resortID, startDate, query) {
     return schedules;
 }
 
-async function getParkSchedule(parkID, date, tz, query) {
-    console.log("PARKSCHEDULES: ", parkID, date.format("YYYY-MM-DD"));
-    var schedules = await query(`SELECT ps.openTime AS openTime, ps.closeTime AS closeTime, 
-        ps.magicHourStartTime AS magicStartTime, ps.magicHourEndTime AS magicEndTime, ps.crowdLevel AS crowdLevel,
-        ps.blockLevel AS blockLevel
-        FROM ParkSchedules ps
-        WHERE ps.date=? AND ps.parkID=?`,
-        [date.format("YYYY-MM-DD"), parkID]);
-    var schedule = schedules[0];
-    setDateTime = (timeKey, dtKey) => {
-        if (schedule[timeKey] == null) {
-            return;
-        }
-        var time = moment(schedule[timeKey], "HH:mm:ss").tz(tz, true);
-        var dt = date.clone();
-
-        if (time.hours() < 4) {
-            dt.add(1, 'days');
-        }
-        schedule[dtKey] = moment(`${dt.format("YYYY-MM-DD")} ${time.format("HH:mm:ss")}`, "YYYY-MM-DD HH:mm:ss").tz(tz, true);
-    };
-    setDateTime("openTime", "openDateTime");
-    setDateTime("closeTime", "closeDateTime");
-    setDateTime("magicStartTime", "magicStartDateTime");
-    setDateTime("magicEndTime", "magicEndDateTime");
-    return schedule;
-}
-
 async function getHourlyWeather(resortID, date, query) {
     var weathers = await query(`SELECT feelsLikeF, rainStatus, dateTime FROM HourlyWeather
         WHERE resortID=? AND DATE(dateTime)=? ORDER BY dateTime`, [resortID, date.format("YYYY-MM-DD")]);
@@ -188,6 +160,5 @@ module.exports = {
     getResortTimezone: getResortTimezone,
     getResortInfo: getResortInfo,
     getParks: getParks,
-    getHourlyWeather: getHourlyWeather,
-    getParkSchedule: getParkSchedule
+    getHourlyWeather: getHourlyWeather
 };
