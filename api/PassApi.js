@@ -51,7 +51,7 @@ async function getUserPasses(body, userID) {
         }
     }
     var tz = await resortManager.getResortTimezone(RESORT_ID, query);
-    var userPasses = await passManager.getPassesForUsers([userID], false, tz, query);
+    var userPasses = await passManager.getPassesForUsers([userID], true, tz, query);
     return userPasses;
 }
 
@@ -92,12 +92,24 @@ async function getPartyPasses(_, userID) {
     }
     console.log("USERID: ", userID);
     console.log("USERIDS: ", JSON.stringify(userIDs));
-    var userPasses = await passManager.getPassesForUsers(userIDs, false, tz, query);
+    var userPasses = await passManager.getPassesForUsers(userIDs, true, tz, query);
     var splitters = await passManager.getSplitters(partyID + ":" + "party", query);
     return {
         userPasses: userPasses,
         splitters: splitters
     };
+}
+
+async function getFriendPasses(_, userID) {
+    var tz = await resortManager.getResortTimezone(RESORT_ID, query);
+    var friends = await userManager.getFriends(userID, query);
+    var userIDs = [userID];
+    for (var friend of friends) {
+        userIDs.push(friend.id);
+    }
+    var userPasses = await passManager.getPassesForUsers(userIDs, true, tz, query);
+    return userPasses;
+    
 }
 
 /*
@@ -168,6 +180,7 @@ async function removePass(body, userID) {
 module.exports = {
     getUserPasses: getUserPasses,
     getPartyPasses: getPartyPasses,
+    getFriendPasses: getFriendPasses,
     updateSplitters: updateSplitters,
     updatePass: updatePass,
     removePass: removePass
