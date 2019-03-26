@@ -21,26 +21,21 @@ async function addRideInformations() {
     await rideManager.addRideInformations(RESORT_ID, RIDE_IMG_SIZES, 'disneyapp3', s3, query);
 }
 
-async function updateCustomRideInfo(body, userID) {
+async function updateCustomAttractionInfo(body, userID) {
     var AWS = require('aws-sdk');
     AWS.config.update({region: config.region});
 
     var s3 = new AWS.S3();
 
-    var rideID = body["rideID"];
+    var attractionID = body["attractionID"];
     var customName = body["customName"];
     var pics = body["pics"];
     var promises = [];
-    promises.push(rideManager.updateCustomRideName(rideID, customName, userID, query));
-    promises.push(rideManager.updateCustomRidePics(rideID, pics, RIDE_IMG_SIZES, userID, s3, query));
+    promises.push(rideManager.updateCustomAttractionName(attractionID, customName, userID, query));
+    promises.push(rideManager.updateCustomAttractionPics(attractionID, pics, RIDE_IMG_SIZES, userID, s3, query));
     await Promise.all(promises);
-    var rides = await getSavedRides(null, userID);
-    for (var ride of rides) {
-        if (ride.id.toString() == rideID) {
-            return ride;
-        }
-    }
-    return null;
+    
+    return await rideManager.getAttractionInfo(attractionID, userID, query);
 }
 
 async function getSavedRides(_, userID) {
@@ -54,8 +49,8 @@ async function getSavedRides(_, userID) {
         predictionManager.getPredictTime(nextHourDateTime, query)];
 
     var customInfoPromises = [
-        rideManager.getCustomRideNames(userID, query),
-        rideManager.getCustomRidePics(userID, query)
+        rideManager.getCustomAttractionNames(userID, query),
+        rideManager.getCustomAttractionPics(userID, query)
     ];
 
     var savedRides = await rideManager.getSavedRides(query, true);
@@ -210,15 +205,17 @@ async function getFilters(_, userID) {
 
 async function updateFilter(body, userID) {
     var filterName = body["filterName"];
-    var rideIDs = body["rideIDs"];
+    var attractionIDs = body["attractionIDs"];
     var watchConfig = body["watchConfig"];
+    var filterType = body["filterType"];
     var tz = await resortManager.getResortTimezone(RESORT_ID, query);
-    await rideManager.updateFilter(filterName, rideIDs, watchConfig, userID, tz, query);
+    await rideManager.updateFilter(filterName, attractionIDs, filterType, watchConfig, userID, tz, query);
 }
 
 async function deleteFilters(body, userID) {
     var filterNames = body["filterNames"];
-    await rideManager.deleteFilters(filterNames, userID, query);
+    var filterType = body["filterType"];
+    await rideManager.deleteFilters(filterNames, filterType, userID, query);
 }
 
 module.exports = {
@@ -228,7 +225,7 @@ module.exports = {
     getRideDPs: getRideDPs,
     updateRides: updateRides,
     addHistoricalRideTimes: addHistoricalRideTimes,
-    updateCustomRideInfo: updateCustomRideInfo,
+    updateCustomAttractionInfo: updateCustomAttractionInfo,
     getFilters: getFilters,
     updateFilter: updateFilter, 
     deleteFilters: deleteFilters

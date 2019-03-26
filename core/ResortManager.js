@@ -1,6 +1,19 @@
 var schedules = require('../dis/Schedule');
 var weathers = require('./Weather');
 var moment = require('moment-timezone');
+var request = require('request');
+var imgUploader = require('./ImageUploader');
+
+String.prototype.hashCode = function() {
+  var hash = 0, i, chr;
+  if (this.length === 0) return hash;
+  for (i = 0; i < this.length; i++) {
+    chr   = this.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
 
 /*
     parkInfo: {
@@ -41,27 +54,42 @@ async function addParkSchedule(date, parkID, parkInfo, query) {
         parkInfo.blockLevel]);
 }
 
-async function addEvent(date, resortID, event, query) {
+async function addEvent(date, resortID, event, imgSizes, bucket, query, s3Client) {
+    var savedEventImgUrls = await query(`SELECT imgUrl FROM Events WHERE id=?`, [event.id]);
+    var imgKey = null;
+    if (savedEventImgUrls.length == 0) {
+        imgKey = 'eventPics/' + event.id;
+        console.log("IMGURL: ", event.imgUrl);
+        var readStream = request.get(event.imgUrl);
+        await imgUploader.uploadImageStreamOfSizes(readStream, 
+            imgSizes, 
+            bucket,
+            imgKey,
+            s3Client,
+            true);
+    } else {
+        imgKey = savedEventImgUrls[0].imgUrl;
+    }
     await query(`INSERT INTO Events VALUES ?
-        ON DUPLICATE KEY UPDATE imgUrl=?, location=?`, 
-        [[[event.name, resortID, event.imgUrl, event.location]],
-        event.imgUrl, event.location]);
+        ON DUPLICATE KEY UPDATE name=?, resortID=?, imgUrl=?, location=?`, 
+        [[[event.id, event.name, resortID, imgKey, event.location]],
+        event.name, resortID, imgKey, event.location]);
     var rows = [];
     for (var eventTime of event.operatingTimes) {
-        rows.push([event.name, resortID, date.format("YYYY-MM-DD") + " " + eventTime.format("HH:mm:ss")]);    
+        rows.push([event.id, date.format("YYYY-MM-DD") + " " + eventTime.format("HH:mm:ss")]);    
     }
     await query(`INSERT IGNORE INTO EventTimes VALUES ?`,
             [rows]);
 }
 
-async function addSchedules(resortID, now, tz, query) {
+async function addSchedules(resortID, now, tz, imgSizes, bucket, query, s3Client) {
     var parkNamesToID = {};
     var parks = await getParks(resortID, query);
     for (var park of parks) {
         parkNamesToID[park["urlName"]] = park["id"];
     }
     
-    var resortSchedule = await schedules.getAllSchedules(now, tz);
+    var resortSchedule = await schedules.getAllSchedules(now, imgSizes[imgSizes.length - 1], tz);
     //Assign events to schedule
     var dt = now.clone();
     var lastMonth = dt.month();
@@ -85,7 +113,7 @@ async function addSchedules(resortID, now, tz, query) {
         }
         if (daySchedule.events != null) {
             for (var event of daySchedule.events) {
-                await addEvent(dt, resortID, event, query);
+                await addEvent(dt, resortID, event, imgSizes, bucket, query, s3Client);
             }
         }
 
@@ -146,6 +174,39 @@ async function getSchedules(resortID, startDate, query) {
     return schedules;
 }
 
+async function getEvents(resortID, date, userID, tz, query) {
+    var dbEvents = await query(`SELECT e.id AS id, e.name AS officialName, e.location AS land, e.imgUrl AS officialPicUrl, et.dateTime AS dateTime
+        FROM Events e INNER JOIN EventTimes et ON e.id=et.eventID WHERE e.resortID=? AND DATE(et.dateTime)=? ORDER BY e.id, et.dateTime`, [resortID, date.format("YYYY-MM-DD")]);
+    var lastDbEvent = null;
+    var events = [];
+    var dateTimes = [];
+    var addEvent = () => {
+        events.push({
+            id: lastDbEvent.id,
+            info: {
+                officialName: lastDbEvent.officialName,
+                land: lastDbEvent.land,
+                officialPicUrl: lastDbEvent.officialPicUrl
+            },
+            dateTimes: dateTimes
+        });
+    };
+    for (var dbEvent of dbEvents) {
+        if (lastDbEvent != null && dbEvent.id != lastDbEvent.id) {
+            addEvent();
+            dateTimes = [];
+        }
+        lastDbEvent = dbEvent;
+        var dateTimeTzStr = moment(dbEvent.dateTime).tz(tz, true).format("YYYY-MM-DD HH:mm:ss");
+        console.log("DATETIME: ", dbEvent.dateTime, "TZ: ", dateTimeTzStr);
+        dateTimes.push(dateTimeTzStr);
+    }
+    if (lastDbEvent != null) {
+        addEvent();
+    }
+    return events;
+}
+
 async function getHourlyWeather(resortID, date, query) {
     var weathers = await query(`SELECT feelsLikeF, rainStatus, dateTime FROM HourlyWeather
         WHERE resortID=? AND DATE(dateTime)=? ORDER BY dateTime`, [resortID, date.format("YYYY-MM-DD")]);
@@ -160,5 +221,6 @@ module.exports = {
     getResortTimezone: getResortTimezone,
     getResortInfo: getResortInfo,
     getParks: getParks,
-    getHourlyWeather: getHourlyWeather
+    getHourlyWeather: getHourlyWeather,
+    getEvents: getEvents
 };

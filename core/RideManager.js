@@ -210,19 +210,19 @@ async function uploadRideImage(imgUrl, imgSizes, objKey, bucket, s3Client) {
         true);
 }
 
-async function updateCustomRideName(rideID, customName, userID, query) {
+async function updateCustomAttractionName(attractionID, customName, userID, query) {
     if (customName != null) {
-        await query(`INSERT INTO CustomRideNames VALUES ?
-            ON DUPLICATE KEY UPDATE name=?`, [[[rideID, userID, customName]], customName]);
+        await query(`INSERT INTO CustomAttractionNames VALUES ?
+            ON DUPLICATE KEY UPDATE name=?`, [[[attractionID, userID, customName]], customName]);
     } else {
-        await query(`DELETE FROM CustomRideNames WHERE 
-            rideID=? AND userID=?`, [rideID, userID]);
+        await query(`DELETE FROM CustomAttractionNames WHERE 
+            attractionID=? AND userID=?`, [attractionID, userID]);
     }
 }
 
-async function updateCustomRidePics(rideID, pics, imgSizes, userID, s3Client, query) {
-    await query(`DELETE FROM CustomRidePics WHERE 
-        rideID=? AND userID=?`, [rideID, userID]);
+async function updateCustomAttractionPics(attractionID, pics, imgSizes, userID, s3Client, query) {
+    await query(`DELETE FROM CustomAttractionPics WHERE 
+        attractionID=? AND userID=?`, [attractionID, userID]);
     var uploadPromises = [];
     var rows = [];
     pics.forEach((pic, i) => {
@@ -236,25 +236,25 @@ async function updateCustomRidePics(rideID, pics, imgSizes, userID, s3Client, qu
                 buffer, imgSizes, 'disneyapp3', key, s3Client, false
             ));
         }
-        rows.push([rideID, userID, i, key]);
+        rows.push([attractionID, userID, i, key]);
     });
     if (uploadPromises.length > 0) {
         await Promise.all(uploadPromises);
     }
-    await query(`INSERT INTO CustomRidePics VALUES ?`,
+    await query(`INSERT INTO CustomAttractionPics VALUES ?`,
         [rows]);
 }
 
-async function getCustomRideNames(userID, query) {
-    var results = await query(`SELECT rideID, name FROM CustomRideNames WHERE
+async function getCustomAttractionNames(userID, query) {
+    var results = await query(`SELECT attractionID, name FROM CustomAttractionNames WHERE
         userID=?`, [userID]);
-    return commons.indexArray({}, results, "rideID", "name");
+    return commons.indexArray({}, results, "attractionID", "name");
 }
 
-async function getCustomRidePics(userID, query) {
-    var results = await query(`SELECT rideID, url FROM CustomRidePics WHERE
-        userID=? ORDER BY rideID, priority`, [userID]);
-    return commons.indexArray({}, results, "rideID", "url");
+async function getCustomAttractionPics(userID, query) {
+    var results = await query(`SELECT attractionID, url FROM CustomAttractionPics WHERE
+        userID=? ORDER BY attractionID, priority`, [userID]);
+    return commons.indexArray({}, results, "attractionID", "url");
 }
 
 async function addRideInfo(rideInfo, imgSizes, bucket, s3Client, query) {
@@ -312,6 +312,29 @@ async function getSavedRides(query, onlyActive = false) {
         LEFT JOIN LatestRideTimes lrt ON r.id=lrt.rideID
         ${filter}`);
     return savedRideTimes;
+}
+
+async function getAttractionInfo(attractionID, userID, query) {
+    var attractionInfos = await query(`SELECT name AS officalName, imgUrl AS officialPicUrl, land, height, labels FROM Rides WHERE id=?`, attractionID);
+    if (attractionInfos.length == 0) {
+        attractionInfos = await query(`SELECT name AS officialName, imgUrl AS officialPicUrl, location AS land FROM Events WHERE id=?`, attractionID);
+    }
+    var attractionInfo = attractionInfos[0];
+    var customInfoPromises = [
+        getCustomAttractionNames(userID, query),
+        getCustomAttractionPics(userID, query)
+    ];
+
+    var customInfos = await Promise.all(customInfoPromises);
+    var customNames = customInfos[0];
+    var customPics = customInfos[1];
+
+    var customNameArr = customNames[attractionID];
+    var customAttractionPics = customPics[attractionID];
+    attractionInfo.name = (customNameArr)? customNameArr[0]: attractionInfo["officialName"];
+    attractionInfo.picUrl = (customAttractionPics)? customAttractionPics[0]: attractionInfo["officialPicUrl"];
+    attractionInfo.customPicUrls = customAttractionPics;
+    return attractionInfo;
 }
 
 async function getUpdatedRideTimes(rideTimes, query, savedRideTimes = null) {
@@ -412,16 +435,17 @@ async function saveToHistoricalRideTimes(rideTimes, tz, query) {
 
 async function getFilters(userID, tz, query) {
     var nowStr = moment().tz(tz).subtract(4, 'hours').format("YYYY-MM-DD");
-    var results = await query(`SELECT fr.rideID AS rideID, wf.name AS name, wf.waitMins AS waitMins, wf.waitRating AS waitRating, wf.fastPassTime AS fastPassTime, wf.watchDate AS watchDate
-        FROM FilterRides fr INNER JOIN WatchFilters wf ON wf.name=fr.name AND wf.userID=fr.userID WHERE wf.userID=? ORDER BY wf.name`, [userID]);
+    var results = await query(`SELECT fr.attractionID AS attractionID, wf.name AS name, wf.type AS type, wf.waitMins AS waitMins, wf.waitRating AS waitRating, wf.fastPassTime AS fastPassTime, wf.watchDate AS watchDate
+        FROM FilterAttractions fr INNER JOIN Filters wf ON wf.name=fr.name AND wf.userID=fr.userID AND wf.type=fr.type WHERE wf.userID=? ORDER BY wf.name`, [userID]);
 
     var filters = [];
     var lastRow = null;
-    var rideIDs = [];
+    var attractionIDs = [];
     var addFilter = () => {
         var filter = {
             name: lastRow.name,
-            rideIDs: rideIDs
+            type: lastRow.type,
+            attractionIDs: attractionIDs
         };
         if (lastRow.watchDate != null && moment(lastRow.watchDate).format("YYYY-MM-DD") == nowStr) {
             filter.watchConfig = {
@@ -435,9 +459,9 @@ async function getFilters(userID, tz, query) {
     for (var result of results) {
         if (lastRow != null && result.name != lastRow.name) {
             addFilter();
-            rideIDs = [];
+            attractionIDs = [];
         }
-        rideIDs.push(result.rideID);
+        attractionIDs.push(result.attractionID);
         lastRow = result;
     }
     if (lastRow != null) {
@@ -446,28 +470,30 @@ async function getFilters(userID, tz, query) {
     return filters;
 }
 
-async function updateFilter(filterName, rideIDs, watchConfig, userID, tz, query) {
-    await query(`DELETE FROM WatchFilters WHERE name=? AND userID=?`, [filterName, userID]);
-    var filterRides = [];
-    for (var rideID of rideIDs) {
-        filterRides.push([
+async function updateFilter(filterName, attractionIDs, filterType, watchConfig, userID, tz, query) {
+    await query(`DELETE FROM Filters WHERE name=? AND userID=? AND type=?`, [filterName, userID, filterType]);
+    var filterAttractions = [];
+    for (var attractionID of attractionIDs) {
+        filterAttractions.push([
             filterName, 
             userID, 
-            rideID
+            filterType,
+            attractionID
         ]);
     }
-    await query(`INSERT INTO WatchFilters VALUES ?`, [[[
+    await query(`INSERT INTO Filters VALUES ?`, [[[
         filterName, 
         userID, 
+        filterType,
         (watchConfig != null)? watchConfig.waitTime: null,
         (watchConfig != null)? watchConfig.waitRating: null,
         (watchConfig != null)? watchConfig.fastPassTime: null,
         (watchConfig != null)? moment().tz(tz).subtract(4, 'hours').format("YYYY-MM-DD"): null]]]);
-    await query(`INSERT INTO FilterRides VALUES ?`, [filterRides]);
+    await query(`INSERT INTO FilterAttractions VALUES ?`, [filterAttractions]);
 }
 
-async function deleteFilters(filterNames, userID, query) {
-    await query(`DELETE FROM WatchFilters WHERE name IN (?) AND userID=?`, [filterNames, userID]);
+async function deleteFilters(filterNames, filterType, userID, query) {
+    await query(`DELETE FROM Filters WHERE name IN (?) AND type=? AND userID=?`, [filterNames, filterType, userID]);
 }
 
 function getWaitRating(rideTime, predictions) {
@@ -528,13 +554,13 @@ async function getWatchUpdates(updatedRides, tz, query) {
     for (var ride of updatedRides) {
         updatedRideIDs.push(ride.id);
     }
-    var filters = await query(`SELECT wf.userID AS userID, fr.rideID AS rideID, crn.name AS customRideName,
+    var filters = await query(`SELECT wf.userID AS userID, fr.attractionID AS rideID, crn.name AS customRideName,
         wf.waitMins AS waitMins, wf.waitRating AS waitRating, wf.fastPassTime AS fastPassTime
-        FROM WatchFilters wf
-        INNER JOIN FilterRides fr ON wf.name=fr.name AND wf.userID=fr.userID
-        INNER JOIN Rides r ON fr.rideID=r.id
-        LEFT JOIN CustomRideNames crn ON crn.rideID=fr.rideID AND crn.userID=wf.userID
-        WHERE wf.watchDate=? AND fr.rideID IN (?) ORDER BY wf.userID`, [dateStr, updatedRideIDs]);
+        FROM Filters wf
+        INNER JOIN FilterAttractions fr ON wf.name=fr.name AND wf.userID=fr.userID AND wf.type=fr.type
+        INNER JOIN Rides r ON fr.attractionID=r.id
+        LEFT JOIN CustomAttractionNames crn ON crn.attractionID=fr.attractionID AND crn.userID=wf.userID
+        WHERE wf.watchDate=? AND fr.attractionID IN (?) ORDER BY wf.userID`, [dateStr, updatedRideIDs]);
 
     var nowPredictionResults = Promise.all(nowPredictionPromises);
     var savedPredictionResults = Promise.all(savedPredictionPromises);
@@ -632,13 +658,14 @@ module.exports = {
     getUpdatedRideTimes: getUpdatedRideTimes,
     saveLatestRideTimes: saveLatestRideTimes,
     saveToHistoricalRideTimes: saveToHistoricalRideTimes,
-    updateCustomRideName: updateCustomRideName,
-    updateCustomRidePics: updateCustomRidePics,
-    getCustomRideNames: getCustomRideNames,
-    getCustomRidePics: getCustomRidePics,
+    updateCustomAttractionName: updateCustomAttractionName,
+    updateCustomAttractionPics: updateCustomAttractionPics,
+    getCustomAttractionNames: getCustomAttractionNames,
+    getCustomAttractionPics: getCustomAttractionPics,
     getFilters: getFilters,
     updateFilter: updateFilter,
     deleteFilters: deleteFilters,
     getWaitRating: getWaitRating,
-    getWatchUpdates: getWatchUpdates
+    getWatchUpdates: getWatchUpdates,
+    getAttractionInfo: getAttractionInfo
 };

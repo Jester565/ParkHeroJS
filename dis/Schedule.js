@@ -4,13 +4,14 @@ var cheerio = require('cheerio');
 var he = require('he');
 var passes = require('./Pass');
 var util = require('util');
+var disCommons = require('./DisCommons');
 
 var PARK_NAMES = [ "disneyland", "disney-california-adventure" ];
 
 var sleep = util.promisify((a, f) => setTimeout(f, a));
 
 
-async function getAllSchedules(now, tz, reqDelay = 3000) {
+async function getAllSchedules(now, maxImgSize, tz, reqDelay = 3000) {
     var body = await getSchedulesPage('');
     const $ = cheerio.load(body, {
         normalizeWhitespace: true,
@@ -62,7 +63,7 @@ async function getAllSchedules(now, tz, reqDelay = 3000) {
 
     //Assign events to schedule
     var dt = now.clone();
-    var events = await getEvents(now, tz, reqDelay);
+    var events = await getEvents(now, maxImgSize, tz, reqDelay);
     var lastMonth = dt.month();
     var monthI = 0;
     for (var dayEvents of events) {
@@ -181,18 +182,18 @@ function parseHourPair(timeRangeStr) {
     }
 }
 
-async function getEvents(now, tz, reqDelay) {
+async function getEvents(now, maxImgSize, tz, reqDelay) {
     var dateTime = now.clone();
     var events = [];
     for (var i = 0; i < 30; i++) {
-        events.push(await getEventsForDate(dateTime, tz));
+        events.push(await getEventsForDate(dateTime, maxImgSize, tz));
         dateTime.add(1, 'days');
         await sleep(reqDelay * Math.random() * (2.0/3.0) + reqDelay / 3.0);
     }
     return events;
 }
 
-async function getEventsForDate(date, tz) {
+async function getEventsForDate(date, maxImgSize, tz) {
     var options = {
         url: 'https://disneyland.disney.go.com/calendars/day/' + date.format('YYYY-MM-DD') + '/',
         method: 'GET',
@@ -212,18 +213,22 @@ async function getEventsForDate(date, tz) {
         var cardElm = $(cardRef);
         var name = cardElm.find(".eventText").text();
         if (name != null && name.length > 0) {
+            var entityID = cardElm.prop('data-entityid');
+            var id = entityID.substr(0, entityID.indexOf(';'));
             var imgUrl = cardElm.find('.thumbnail').prop('src');
+            imgUrl = disCommons.resizeDisUrl(imgUrl, maxImgSize);
             var location = cardElm.find(".locationNameContainer").text();
             var operatingHoursText = cardElm.find(".operatingHoursContainer").text();
             var operatingHoursSplit = operatingHoursText.split(',');
             var operatingTimes = [];
             for (var operatingHourStr of operatingHoursSplit) {
                 var operatingHourTrimmed = operatingHourStr.trim();
-                var operatingTime = moment(operatingHourTrimmed, "h:mm A").tz(tz);
+                var operatingTime = moment(operatingHourTrimmed, "h:mm A").tz(tz, true);
                 operatingTimes.push(operatingTime);
             }
             events.push({
-                name: name,
+                id: id,
+                name: he.decode(name),
                 imgUrl: imgUrl,
                 location: location,
                 operatingTimes: operatingTimes

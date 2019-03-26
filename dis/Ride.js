@@ -1,10 +1,7 @@
 var rp = require('request-promise-native');
 var moment = require('moment-timezone');
 var cheerio = require('cheerio');
-
-function getPosition(string, subString, index) {
-    return string.split(subString, index).join(subString).length;
-}
+var disCommons = require('./DisCommons');
 
 async function getRideInfos(maxImgSize) {
     var options = {
@@ -48,13 +45,9 @@ async function getRideInfos(maxImgSize) {
         //Get image url for maxImageSize
         var imgElm = elm.find('source').first();
         var imgUrl = imgElm.attr('src');
-        var resizeIdx = imgUrl.indexOf('resize');
-        var resizeStr = imgUrl.substring(resizeIdx);
-        var widthStartIdx = getPosition(resizeStr, '/', 3) + resizeIdx;
-        var widthEndIdx = getPosition(resizeStr, '/', 4) + resizeIdx;
-        imgUrl = imgUrl.substring(0, widthStartIdx) + '/' + maxImgSize.toString() + imgUrl.substring(widthEndIdx);
+        imgUrl = disCommons.resizeDisUrl(imgUrl, maxImgSize);
         rideInfo.imgUrl = imgUrl;
-
+        
         var i = 0;
         elm.find('.line1').each((idx, lineRef) => {
             var lineElm = $(lineRef);
