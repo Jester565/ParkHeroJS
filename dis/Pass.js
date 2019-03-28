@@ -1,5 +1,6 @@
 var rp = require('request-promise-native');
 var moment = require('moment-timezone');
+var commons = require("../core/Commons");
 
 function getBlockLevel(type) {
     if (type == "socal-select-annual") {
@@ -101,10 +102,30 @@ function getEntitlementsForPassID(passID, fpResponse, tz) {
                     if (guest.guestId == passID) {
                         elm.partyGuest = guest;
                         if (elm.startDateTime != null) {
-                            elm.startDateTime = stripTimezone(elm.startDateTime);
+                            elm.startDateTime = moment(elm.startDateTime).tz(tz);
                         }
                         if (elm.endDateTime != null) {
-                            elm.endDateTime = stripTimezone(elm.endDateTime);
+                            elm.endDateTime = moment(elm.endDateTime).tz(tz);
+                        }
+                        matchingElms.push(elm);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    var nonStandards = fpResponse.nonStandards;
+    if (nonStandards != null) {
+        for (var elm of nonStandards) {
+            if (elm.entitlementType == "NON") {
+                for (var guest of elm.partyGuests) {
+                    if (guest.guestId == passID) {
+                        elm.partyGuest = guest;
+                        if (elm.startDateTime != null) {
+                            elm.startDateTime = moment(elm.startDateTime).tz(tz);
+                        }
+                        if (elm.endDateTime != null) {
+                            elm.endDateTime = moment(elm.endDateTime).tz(tz);
                         }
                         matchingElms.push(elm);
                         break;
@@ -157,17 +178,217 @@ async function getFastPasses(disID, accessToken) {
             'Content-Type': 'application/json',
             'Authorization': `BEARER ${accessToken}`,
             'Accept-Language': 'en'
-        }
+        },
+        json: true
     };
     var respData = await rp(options);
-    return respData;
+    //return respData;
+    return {
+        "partyMembers": [
+            {
+                "name": "ALEX CRAIG",
+                "nextSelectionTime": "2019-02-01T19:35:10-08:00",
+                "managed": true,
+                "annualPass": true,
+                "id": "***REMOVED***",
+                "ticketType": "PASS"
+            },
+            {
+                "name": "***REMOVED*** CRAIG",
+                "nextSelectionTime": "2019-02-01T19:35:10-08:00",
+                "managed": false,
+                "annualPass": true,
+                "id": "***REMOVED***",
+                "ticketType": "PASS"
+            },
+            {
+                "name": "***REMOVED*** SMITH",
+                "managed": false,
+                "annualPass": true,
+                "id": "801150013402914489",
+                "ticketType": "PASS"
+            },
+            {
+                "name": "***REMOVED*** ***REMOVED***",
+                "managed": false,
+                "annualPass": true,
+                "id": "***REMOVED***",
+                "ticketType": "PASS"
+            }
+        ],
+        "entitlements": [
+            {
+                "startDateTime": "2019-02-02T03:35:00Z",
+                "endDateTime": "2019-02-02T04:35:00Z",
+                "operationalDate": "2019-02-01",
+                "facilityType": "Attraction",
+                "locationId": "16514416",
+                "locationType": "Attraction",
+                "parkId": "336894",
+                "partyGuests": [
+                    {
+                        "guestId": "***REMOVED***",
+                        "entitlementId": "97833072",
+                        "status": "Booked",
+                        "canModify": true,
+                        "canCancel": true,
+                        "canRedeem": false
+                    },
+                    {
+                        "guestId": "***REMOVED***",
+                        "entitlementId": "97833071",
+                        "status": "Booked",
+                        "canModify": true,
+                        "canCancel": true,
+                        "canRedeem": false
+                    }
+                ],
+                "facility": "16514416",
+                "isBonus": false
+            },
+            {
+                "startDateTime": "2019-02-02T03:45:00Z",
+                "endDateTime": "2019-02-02T04:45:00Z",
+                "operationalDate": "2019-02-01",
+                "facilityType": "Attraction",
+                "locationId": "15822029",
+                "locationType": "Attraction",
+                "parkId": "336894",
+                "partyGuests": [
+                    {
+                        "guestId": "***REMOVED***",
+                        "entitlementId": "97937156",
+                        "status": "Booked",
+                        "canModify": true,
+                        "canCancel": true,
+                        "canRedeem": false
+                    },
+                    {
+                        "guestId": "***REMOVED***",
+                        "entitlementId": "97937157",
+                        "status": "Booked",
+                        "canModify": true,
+                        "canCancel": true,
+                        "canRedeem": false
+                    }
+                ],
+                "facility": "15822029",
+                "isBonus": false
+            },
+            {
+                "startDateTime": "2019-02-02T03:20:00Z",
+                "endDateTime": "2019-02-02T04:20:00Z",
+                "operationalDate": "2019-02-01",
+                "facilityType": "Attraction",
+                "locationId": "353453",
+                "locationType": "Attraction",
+                "parkId": "336894",
+                "partyGuests": [
+                    {
+                        "guestId": "***REMOVED***",
+                        "entitlementId": "97860567",
+                        "status": "Booked",
+                        "canModify": true,
+                        "canCancel": true,
+                        "canRedeem": false
+                    },
+                    {
+                        "guestId": "***REMOVED***",
+                        "entitlementId": "97860566",
+                        "status": "Booked",
+                        "canModify": true,
+                        "canCancel": true,
+                        "canRedeem": false
+                    }
+                ],
+                "facility": "353453",
+                "isBonus": false
+            }
+        ],
+        "nonStandards": [
+            {
+                "entitlementType": "NON",
+                "reason": "AGR",
+                "usesAllowed": 1,
+                "returnEndDate": "2019-02-01",
+                "startDateTime": "2019-02-01T19:40:00-08:00",
+                "partyGuests": [
+                    {
+                        "guestId": "***REMOVED***",
+                        "entitlementId": "97947308",
+                        "status": "Booked",
+                        "usesRemaining": 1,
+                        "canRedeem": false
+                    },
+                    {
+                        "guestId": "***REMOVED***",
+                        "entitlementId": "97947311",
+                        "status": "Booked",
+                        "usesRemaining": 1,
+                        "canRedeem": false
+                    }
+                ],
+                "experiences": [
+                    {
+                        "facility": "15822029",
+                        "facilityType": "Attraction",
+                        "locationId": "15822029",
+                        "locationType": "Attraction",
+                        "parkId": "336894"
+                    },
+                    {
+                        "facility": "353451",
+                        "facilityType": "Attraction",
+                        "locationId": "353451",
+                        "locationType": "Attraction",
+                        "parkId": "336894"
+                    },
+                    {
+                        "facility": "16514416",
+                        "facilityType": "Attraction",
+                        "locationId": "16514416",
+                        "locationType": "Attraction",
+                        "parkId": "336894"
+                    },
+                    {
+                        "facility": "353453",
+                        "facilityType": "Attraction",
+                        "locationId": "353453",
+                        "locationType": "Attraction",
+                        "parkId": "336894"
+                    },
+                    {
+                        "facility": "353431",
+                        "facilityType": "Attraction",
+                        "locationId": "353431",
+                        "locationType": "Attraction",
+                        "parkId": "336894"
+                    },
+                    {
+                        "facility": "353303",
+                        "facilityType": "Attraction",
+                        "locationId": "353303",
+                        "locationType": "Attraction",
+                        "parkId": "336894"
+                    }
+                ]
+            }
+        ]
+    };
 }
 
 async function getFastPassesForPassID(passID, disID, accessToken, tz) {
     var respData = await getFastPasses(disID, accessToken);
-    var entitlements = getEntitlementsForPassID(passID, respData);
+    console.log("GET FAST PASS RESP DATA: ", JSON.stringify(respData, null, 2));
+    var entitlements = getEntitlementsForPassID(passID, respData, tz);
+    console.log("GET FAST PASS RESP DATA2: ", JSON.stringify(respData, null, 2));
+    console.log("FP ENTITLEMENTS: ", JSON.stringify(entitlements, null, 2));
     var nextSelectionDateTime = getSelectionDateTimeForPassID(passID, respData, tz);
-    var earliestSelectionDateTime = getEarliestPossibleSelectionDateTime(nextSelectionDateTime, entitlements);
+    console.log("NEXT SELECTION DT: ", nextSelectionDateTime, (nextSelectionDateTime != null)? nextSelectionDateTime.format("YYYY-MM-DD HH:mm:ss"): null);
+    var earliestSelectionDateTime = null;
+    if (nextSelectionDateTime) {
+        earliestSelectionDateTime = getEarliestPossibleSelectionDateTime(nextSelectionDateTime, entitlements);
+    }
 
     return {
         passID: passID,
@@ -200,10 +421,12 @@ function aggregateSimilarFastPasses(fpPassResps) {
                         (fpTran.startDateTime != null && entitlement.startDateTime != null) &&
                         Math.abs(moment.duration(fpTran.startDateTime.diff(entitlement.startDateTime)).asMinutes()) <= 10)) 
                     {
-                        if (fpTran.startDateTime < entitlement.startDateTime) {
-                            fpTran.startDateTime = entitlement.startDateTime;
-                        } else if (fpTran.endDateTime > entitlement.endDateTime) {
-                            fpTran.endDateTime = entitlement.endDateTime;
+                        if (fpTran.startDateTime != null) {
+                            if (fpTran.startDateTime < entitlement.startDateTime) {
+                                fpTran.startDateTime = entitlement.startDateTime;
+                            } else if (fpTran.endDateTime != null && fpTran.endDateTime > entitlement.endDateTime) {
+                                fpTran.endDateTime = entitlement.endDateTime;
+                            }
                         }
                         
                         matchingFpTran = fpTran;
@@ -216,12 +439,12 @@ function aggregateSimilarFastPasses(fpPassResps) {
                     rideID: entitlement.locationId,
                     startDateTime: entitlement.startDateTime,
                     endDateTime: entitlement.endDateTime,
-                    fps: []
+                    passes: []
                 };
                 fastPassTransactions.push(matchingFpTran);
             }
-            matchingFpTran.fps.push({ 
-                passID: fpResp.passID, 
+            matchingFpTran.passes.push({ 
+                id: fpResp.passID, 
                 startDateTime: entitlement.startDateTime, 
                 endDateTime: entitlement.endDateTime });
         }
@@ -296,7 +519,7 @@ async function aggregateFastPassesForPassIDs(passAndDisIDs, accessToken, tz) {
     //I refer to common fastPasses as transactions
     var transactions = aggregateSimilarFastPasses(fpPassResps);
     sortFastPassTransactions(transactions);
-    
+
     return {
         selectionDateTime: selectionDT,
         earliestSelectionDateTime: earlistSelectionDT,
@@ -394,15 +617,15 @@ async function getPartyFastPassConflicts(disID, accessToken) {
     return respData;
 }
 
-async function getMaxPassInfo(disID, passIDs, parkID, rideID, startTime, endTime, date, accessToken) {
+async function getMaxPassInfo(disID, passIDs, parkID, rideID, startTime, endTime, date, accessToken, tz) {
     var dateStr = date.format("YYYY-MM-DD");
 
     var passIDsStr = "";
     passIDs.forEach((passID, i) => {
-        passIDsStr += passID;
-        if (i < passIDs.length - 1) {
+        if (passIDsStr.length > 0) {
             passIDsStr += ",";
         }
+        passIDsStr += passID;
     });
     var startTimeStr = startTime.format("H:m:s");
     var endTimeStr = endTime.format("H:m:s");
@@ -474,16 +697,29 @@ async function reserveFastPass(maxPassID, excludePassIDs, disID, accessToken, tz
 
 async function orderPartyMaxPass(parkID, rideID, parkDate, parkCloseDateTime, passIDs, disID, accessToken, tz) {
     var startDateTime = moment().tz(tz);
-    var promises = [
-        getMaxPassInfo(disID, passIDs, parkID, rideID, startDateTime, parkCloseDateTime, parkDate, accessToken),
-        fillPartyWithPasses(passIDs, disID, accessToken)
-    ];
-    var results = await Promise.all(promises);
-    var maxPassInfo = results[0];
-    var partyPassRes = results[1];
+    var maxPassInfo = null;
+    var partyPassRes = null;
+    try {
+        var promises = [
+            getMaxPassInfo(disID, passIDs, parkID, rideID, startDateTime, parkCloseDateTime, parkDate, accessToken, tz),
+            fillPartyWithPasses(passIDs, disID, accessToken)
+        ];
+        var results = await Promise.all(promises);
+        maxPassInfo = results[0];
+        partyPassRes = results[1];
+    } catch (e) {
+        console.log("FAILED MAX PASS 1");
+        var promises = [
+            getMaxPassInfo(disID, passIDs, parkID, rideID, startDateTime, parkCloseDateTime.clone().subtract(30, 'minutes'), parkDate, accessToken, tz),
+            fillPartyWithPasses(passIDs, disID, accessToken)
+        ];
+        var results = await Promise.all(promises);
+        maxPassInfo = results[0];
+        partyPassRes = results[1];
+    }
 
     //The FastPass is no longer available
-    if (maxPassID == null) {
+    if (maxPassInfo == null) {
         await removePartyMembers(partyPassRes.addedPassIDs, disID, accessToken);
         return null;
     }

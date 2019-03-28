@@ -13,6 +13,9 @@ var modules = {
     },
     passes: () => {
         return require('./api/PassApi');
+    },
+    fastPasses: () => {
+        return require('./api/FastPassApi');
     }
 };
 

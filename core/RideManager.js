@@ -49,12 +49,18 @@ async function getRideDPs(date, now, tz, query, filterRideID = null) {
     var queryPromises = [
         predictionManager.getPredictions(date, tz, query, filterRideID),
         getRideHistory(date, tz, query, filterRideID),
-        getSavedRides(query, true)
+        getSavedRides(query, true),
+        query(`SELECT dateTime FROM LatestRideUpdateDateTimes ORDER BY dateTime DESC LIMIT 1`)
     ];
     var queryResults = await Promise.all(queryPromises);
     var allRidePredictions = queryResults[0];
     var allRideHistory = queryResults[1];
     var rides = queryResults[2];
+    var latestUpdateDTs = queryResults[3];
+    var latestUpdateDateTime = null;
+    if (latestUpdateDTs != null && latestUpdateDTs.length > 0) {
+        latestUpdateDateTime = moment(latestUpdateDTs[0].dateTime).tz(tz, true);
+    }
 
     var isToday = now.clone().subtract(4, 'hours').format("YYYY-MM-DD") == date.format("YYYY-MM-DD");
 
@@ -75,9 +81,13 @@ async function getRideDPs(date, now, tz, query, filterRideID = null) {
         var maxFastPassAvailableDiff = diffDateTimes(now, firstDateTime);
 
         if (isToday && ride.fastPassTime != null) {
-            allRideHistory[rideID].push({
+            rideHistory.push({
+                hour: Math.trunc(latestUpdateDateTime.hours()),
+                waitMins: ride.waitMins,
                 fastPassTime: moment(now.format("YYYY-MM-DD") + " " + ride.fastPassTime, "YYYY-MM-DD HH:mm:ss").tz(tz, true),
-                dateTime: now.clone()
+                dateTime: latestUpdateDateTime.clone(),
+                minute: Math.trunc(latestUpdateDateTime.minutes()),
+                current: true
             });
         }
         var prevHistoryPoint = null;
@@ -99,6 +109,7 @@ async function getRideDPs(date, now, tz, query, filterRideID = null) {
                 var historyPointsInHour = [];
                 while (historyI < rideHistory.length) {
                     var historyPoint = rideHistory[historyI];
+                    console.log("PREDICTI: ", i, " HISTORYI: ", historyI, "HOUR: ", historyPoint.hour);
                     if (historyPoint.hour > prediction.hour) {
                         break;
                     } else if (historyPoint.hour == prediction.hour) {
@@ -123,8 +134,10 @@ async function getRideDPs(date, now, tz, query, filterRideID = null) {
                         var historyM = historicalFpDiff / dtDiff;
                         var predictionM = prevFpDiff / dtDiff;
                         var fpAvailableDiff = diffDateTimes(now, historyPoint.dateTime);
-                        var delta = ((historyM / predictionM) - 1) * (dtDiff / maxFastPassAvailableDiff) * (1.3 - (fpAvailableDiff / maxFastPassAvailableDiff));
-                        historicalAdjustFactor += delta;
+                        if (fpAvailableDiff > 25 * 60 * 1000) {
+                            var delta = ((historyM / predictionM) - 1) * (dtDiff / maxFastPassAvailableDiff) * (1.3 - (fpAvailableDiff / maxFastPassAvailableDiff));
+                            historicalAdjustFactor += delta;
+                        }
                     } else if (historyPoint.fastPassTime == null && prevHistoryPoint != null) {
                         fastPassesGone = true;
                     }
@@ -142,7 +155,9 @@ async function getRideDPs(date, now, tz, query, filterRideID = null) {
                         },
                         waitMins: historyPoint.waitMins,
                         fastPassTime: (historyPoint.fastPassTime != null)? historyPoint.fastPassTime.format("YYYY-MM-DD HH:mm:ss"): null,
-                        dateTime: historyPoint.dateTime.format("YYYY-MM-DD HH:mm:ss")
+                        fastPassTimeParsed: historyPoint.fastPassTime,
+                        dateTime: historyPoint.dateTime.format("YYYY-MM-DD HH:mm:ss"),
+                        dateTimeParsed: historyPoint.dateTime
                     });
                 }
             } else {
@@ -153,14 +168,17 @@ async function getRideDPs(date, now, tz, query, filterRideID = null) {
                     if (fpDiff == null) {
                         fpDiff = prevPredictFpDiff;
                     }
+                    console.log("PDT: ", prediction.dateTime, " NOW: ", now, " -- ", dtDiff, " --- ", fpDiff);
                     prevFastPassPrediction = prediction.fastPassTime;
                     prevPredictFpDiff = fpDiff;
                     fpDateTime = (prevHistoryPoint != null && prevHistoryPoint.fastPassTime != null)? prevHistoryPoint.fastPassTime.clone(): null;
                     if (fpDateTime == null && prediction.fastPassTime != null) {
                         fpDateTime = prediction.fastPassTime.clone();
                     }
+                    console.log("FPDATETIME: ", fpDateTime);
                     if (fpDateTime != null) {
                         var fpDiffFactor = (prevHistoryPoint != null && dtDiff <= 3 * 60 * 60 * 1000)? ((historicalAdjustFactor - 1) * (1 - (dtDiff / (2 * 60 * 60 * 1000))) + 1): 1;
+                        console.log("FPDIFF_FACTOR: ", fpDiffFactor, " - ", JSON.stringify(prevHistoryPoint), " -- ", dtDiff, " --- ", historicalAdjustFactor, " ---- ", fpDiff);;
                         fpDateTime.add(fpDiff * fpDiffFactor, 'milliseconds');
                         if (fpDateTime < prediction.dateTime) {
                             fpDateTime = prediction.dateTime;
@@ -175,22 +193,59 @@ async function getRideDPs(date, now, tz, query, filterRideID = null) {
                 dps.push({
                     prediction: {
                         waitMins: prediction.waitMins,
-                        fastPassTime: (fpDateTime != null)? fpDateTime.format("YYYY-MM-DD HH:mm:ss"): null
+                        fastPassTime: (fpDateTime != null)? fpDateTime.format("YYYY-MM-DD HH:mm:ss"): null,
                     },
                     waitMins: prediction.waitMins,
                     fastPassTime: (fpDateTime != null)? fpDateTime.format("YYYY-MM-DD HH:mm:ss"): null,
-                    dateTime: prediction.dateTime.format("YYYY-MM-DD HH:mm:ss")
+                    fastPassTimeParsed: fpDateTime,
+                    dateTime: prediction.dateTime.format("YYYY-MM-DD HH:mm:ss"),
+                    dateTimeParsed: prediction.dateTime
                 });
             }
         });
         allRideDPs.push({
             rideID: rideID,
+            rideOfficialName: ride.name,
+            rideOfficialPicUrl: ride.imgUrl,
+            rideLabels: ride.labels,
             dps: dps,
             rideOpenDateTime: (rideOpenDateTime != null)? rideOpenDateTime.format("YYYY-MM-DD HH:mm:ss"): null,
             rideCloseDateTime: (rideCloseDateTime != null)? rideCloseDateTime.format("YYYY-MM-DD HH:mm:ss"): null
         });
     }
     return allRideDPs;
+}
+
+async function getPredictedFastPassTime(attractionID, dateTime, tz, query) {
+    var date = dateTime.clone().subtract(4, 'hours');
+    var rideDPs = await getRideDPs(date, dateTime.clone(), tz, query, attractionID);
+    var fastPassEndDateTime = moment(rideDPs.closeDateTime, "YYYY-MM-DD HH:mm:ss").tz(tz, true).subtract(30, 'minutes');
+    var lowerRideDP = null;
+    var predictedFastPassTime = null;
+    for (var rideDP of rideDPs) {
+        if (rideDP.dateTimeParsed <= dateTime) {
+            lowerRideDP = rideDP;
+        }
+        if (rideDP.dateTimeParsed >= dateTime) {
+            if (lowerRideDP != null && lowerRideDP.fastPassTimeParsed != null && rideDP.fastPassTimeParsed != null) {
+                var nowLowerTimeDiff = moment.duration(dateTime.diff(lowerRideDP.dateTimeParsed));
+                var nowLowerMinsDiff = nowLowerTimeDiff.asMinutes();
+                var dateTimeDiff = moment.duration(rideDP.dateTimeParsed.diff(lowerRideDP.dateTimeParsed));
+                var dateTimeMinsDiff = dateTimeDiff.asMinutes();
+                var fastPassTimeDiff = moment.duration(rideDP.fastPassTimeParsed.diff(lowerRideDP.fastPassTimeParsed));
+                var fastPassMinsDiff = fastPassTimeDiff.asMinutes();
+                if (dateTimeMinsDiff > 0) {
+                    predictedFastPassTime = lowerRideDP.fastPassTimeParsed.clone().add((nowLowerMinsDiff / dateTimeMinsDiff) * fastPassMinsDiff);
+                } else {
+                    predictedFastPassTime = lowerRideDP.fastPassTimeParsed.clone();
+                }
+                if (predictedFastPassTime > fastPassEndDateTime) {
+                    predictedFastPassTime = null;
+                }
+            }
+        }
+    }
+    return predictedFastPassTime;
 }
 
 async function updateRideInfoInDB(rideInfo, imgObjKey, query) {
@@ -667,5 +722,6 @@ module.exports = {
     deleteFilters: deleteFilters,
     getWaitRating: getWaitRating,
     getWatchUpdates: getWatchUpdates,
-    getAttractionInfo: getAttractionInfo
+    getAttractionInfo: getAttractionInfo,
+    getPredictedFastPassTime: getPredictedFastPassTime
 };

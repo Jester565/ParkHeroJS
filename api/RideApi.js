@@ -156,14 +156,27 @@ async function getRides(_, userID) {
     return results;
 }
 
-async function getRideDPs(body, _) {
+async function getRideDPs(body, userID) {
+    var customInfoPromises = [
+        rideManager.getCustomAttractionNames(userID, query),
+        rideManager.getCustomAttractionPics(userID, query)
+    ];
     var rideID = body["rideID"];
     var dateStr = body["date"];
     var date = moment(dateStr, "YYYY-MM-DD");
     var tz = await resortManager.getResortTimezone(RESORT_ID, query);
     var now = moment().tz(tz);
-    var rideDPs = await rideManager.getRideDPs(date, now, tz, query, rideID);
-    return rideDPs;
+    var ridesDPs = await rideManager.getRideDPs(date, now, tz, query, rideID);
+    var customInfos = await Promise.all(customInfoPromises);
+    var customNames = customInfos[0];
+    var customPics = customInfos[1];
+    for (var rideDPs of ridesDPs) {
+        var rideCustomNames = customNames[rideDPs.rideID];
+        var rideCustomPics = customPics[rideDPs.rideID];
+        rideDPs.rideName = (rideCustomNames)? rideCustomNames[0]: rideDPs.rideOfficialName;
+        rideDPs.ridePicUrl = (rideCustomPics)? rideCustomPics[0]: rideDPs.rideOfficialPicUrl;
+    }
+    return ridesDPs;
 }
 
 async function updateRides(updatedRideTimes) {

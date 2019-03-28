@@ -198,7 +198,6 @@ async function getEvents(resortID, date, userID, tz, query) {
         }
         lastDbEvent = dbEvent;
         var dateTimeTzStr = moment(dbEvent.dateTime).tz(tz, true).format("YYYY-MM-DD HH:mm:ss");
-        console.log("DATETIME: ", dbEvent.dateTime, "TZ: ", dateTimeTzStr);
         dateTimes.push(dateTimeTzStr);
     }
     if (lastDbEvent != null) {
