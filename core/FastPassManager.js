@@ -380,13 +380,18 @@ async function getFastPasses(resortID, userIDs, accessToken, parkDate, tz, query
             tranPass.endDateTime = (tranPass.endDateTime)? tranPass.endDateTime.format("YYYY-MM-DD HH:mm:ss"): transaction.endDateTime;
         }
     }
-    var passIDsToMaxPriority = {}
+    var passIDsToMaxPriority = {};
+    var passIDsToEarliestSelectionDateTimes = [];
     for (var plannedTransaction of plannedTransactions) {
         plannedTransaction.selectionDateTime = (plannedTransaction.selectionDateTime)? plannedTransaction.selectionDateTime.format("YYYY-MM-DD HH:mm:ss"): null;
         plannedTransaction.fastPassTime = (plannedTransaction.fastPassTime)? plannedTransaction.fastPassTime.format("YYYY-MM-DD HH:mm:ss"): null;
         for (var ptPass of plannedTransaction.passes) {
             ptPass.nextSelectionDateTime = (ptPass.nextSelectionDateTime)? ptPass.nextSelectionDateTime.format("YYYY-MM-DD HH:mm:ss"): null;
             passIDsToMaxPriority[ptPass.id] = (passIDsToMaxPriority[ptPass.id] == null || passIDsToMaxPriority[ptPass.id] < ptPass.priority)? ptPass.priority: passIDsToMaxPriority[ptPass.id];
+            if (passIDsToEarliestSelectionDateTimes[ptPass.id] == null) {
+                passIDsToEarliestSelectionDateTimes[ptPass.id] = [];
+            }
+            passIDsToEarliestSelectionDateTimes[ptPass.id].push(ptPass.nextSelectionDateTime);
         }
     }
     for (var allUserPassArr of allUserPasses) {
@@ -394,6 +399,9 @@ async function getFastPasses(resortID, userIDs, accessToken, parkDate, tz, query
             allPass.fastPassInfo.selectionDateTime = (allPass.fastPassInfo != null && allPass.fastPassInfo.selectionDateTime != null)? allPass.fastPassInfo.selectionDateTime.format("YYYY-MM-DD HH:mm:ss"): null;
             allPass.fastPassInfo.earliestSelectionDateTime = (allPass.fastPassInfo != null && allPass.fastPassInfo.earliestSelectionDateTime)? allPass.fastPassInfo.earliestSelectionDateTime.format("YYYY-MM-DD HH:mm:ss"): null;
             allPass.fastPassInfo.priority = passIDsToMaxPriority[allPass.pass.id];
+            var earliestSelectionDateTimes = (passIDsToEarliestSelectionDateTimes[allPass.pass.id] != null)? passIDsToEarliestSelectionDateTimes[allPass.pass.id]: [];
+            earliestSelectionDateTimes.unshift(allPass.fastPassInfo.earliestSelectionDateTime);
+            allPass.fastPassInfo.earliestSelectionDateTimes = earliestSelectionDateTimes;
         }
     }
     await Promise.all(dbUpdatePromises);
@@ -449,7 +457,9 @@ async function pollSelectionUpdates(parkDate, now, lastCheckDateTime, query) {
 
 async function getActiveTransactions(now, parkDate, tz, query) {
     var transactionPasses = await query(`SELECT 
-        t.id AS transactionID, r.id AS rideID, r.parkID AS parkID,
+        t.id AS transactionID, 
+        r.id AS rideID, 
+        r.parkID AS parkID,
         fp.priority AS priority, fp.userID AS userID,
         p.id AS passID, p.disID AS disID, 
         pst.earliestSelectionTime AS selectionDateTime
@@ -497,10 +507,14 @@ async function getActiveTransactions(now, parkDate, tz, query) {
 
 //Consider calling this until updates is empty
 async function pollMaxPassOrders(transactions, resortID, accessToken, parkDate, tz, query) {
-    var parks = await resortManager.getParks(resortID, query);
-    var parkSchedules = [];
-    for (var park of parks) {
-        parkSchedules[park.id] = await resortManager.getParkSchedule(park.id, parkDate, tz, query);
+    var parkDateStr = parkDate.format("YYYY-MM-DD");
+    var parkCloseTimes = await query(`SELECT ps.parkID AS parkID, ps.closeTime AS closeTime FROM ParkSchedules ps
+        INNER JOIN Parks p ON ps.parkID=p.id WHERE p.resortID=? AND ps.date=?`, [resortID, parkDateStr]);
+    var parkSchedules = {};
+    for (var parkClose of parkCloseTimes) {
+        parkSchedules[parkClose.parkID] = {
+            closeDateTime: moment(parkDateStr + " " + parkClose.closeTime, "YYYY-MM-DD HH:mm:ss")
+        };
     }
 
     
@@ -531,7 +545,7 @@ async function pollMaxPassOrders(transactions, resortID, accessToken, parkDate, 
                 updates[pass.userID].push({
                     passID: pass.passID,
                     rideID: transaction.rideID,
-                    err: "FastPasses no longer available"
+                    error: "FastPasses no longer available"
                 });
                 passIDs.push(passID);
             }
@@ -548,11 +562,17 @@ async function pollMaxPassOrders(transactions, resortID, accessToken, parkDate, 
         for (var passSelectionTime of orderResult.passes) {
             var passID = passSelectionTime["passID"];
             var selectionDateTime = passSelectionTime["selectionDateTime"];
-            var earliestSelectionDateTime = passes.getEarliestPossibleSelectionDateTime(selectionDateTime, entitlements);
+            var earliestSelectionDateTime = null;
+            if (selectionDateTime != null) {
+                earliestSelectionDateTime = passes.getEarliestPossibleSelectionDateTime(selectionDateTime, entitlements);
+            }
             dbUpdatePromises.push(query(`INSERT INTO PassSelectionTimes VALUES ?
                 ON DUPLICATE KEY UPDATE selectionTime=?, earliestSelectionTime=?`, [
-                [[passID, selectionDateTime.format("YYYY-MM-DD HH:mm:ss"), earliestSelectionDateTime.format("YYYY-MM-DD HH:mm:ss")]],
-                selectionDateTime.format("YYYY-MM-DD HH:mm:ss"), earliestSelectionDateTime.format("YYYY-MM-DD HH:mm:ss")
+                [[passID, 
+                (selectionDateTime != null)? selectionDateTime.format("YYYY-MM-DD HH:mm:ss"): null, 
+                (earliestSelectionDateTime != null)? earliestSelectionDateTime.format("YYYY-MM-DD HH:mm:ss"): null]],
+                (selectionDateTime != null)? selectionDateTime.format("YYYY-MM-DD HH:mm:ss"): null, 
+                (earliestSelectionDateTime != null)? earliestSelectionDateTime.format("YYYY-MM-DD HH:mm:ss"): null
             ]));
             passIDs.push(passID);
 
@@ -563,7 +583,7 @@ async function pollMaxPassOrders(transactions, resortID, accessToken, parkDate, 
             updates[pass.userID].push({
                 passID: pass.passID,
                 rideID: transaction.rideID,
-                fastPassDateTime: fastPassDateTime
+                fastPassDateTime: fastPassDateTime.format("YYYY-MM-DD HH:mm:ss")
             });
         }
         dbUpdatePromises.push(query(`DELETE FROM PlannedFpTransactions WHERE id=?`, [transaction.id]));
