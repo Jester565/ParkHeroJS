@@ -109,7 +109,6 @@ async function getRideDPs(date, now, tz, query, filterRideID = null) {
                 var historyPointsInHour = [];
                 while (historyI < rideHistory.length) {
                     var historyPoint = rideHistory[historyI];
-                    console.log("PREDICTI: ", i, " HISTORYI: ", historyI, "HOUR: ", historyPoint.hour);
                     if (historyPoint.hour > prediction.hour) {
                         break;
                     } else if (historyPoint.hour == prediction.hour) {
@@ -168,17 +167,14 @@ async function getRideDPs(date, now, tz, query, filterRideID = null) {
                     if (fpDiff == null) {
                         fpDiff = prevPredictFpDiff;
                     }
-                    console.log("PDT: ", prediction.dateTime, " NOW: ", now, " -- ", dtDiff, " --- ", fpDiff);
                     prevFastPassPrediction = prediction.fastPassTime;
                     prevPredictFpDiff = fpDiff;
                     fpDateTime = (prevHistoryPoint != null && prevHistoryPoint.fastPassTime != null)? prevHistoryPoint.fastPassTime.clone(): null;
                     if (fpDateTime == null && prediction.fastPassTime != null) {
                         fpDateTime = prediction.fastPassTime.clone();
                     }
-                    console.log("FPDATETIME: ", fpDateTime);
                     if (fpDateTime != null) {
                         var fpDiffFactor = (prevHistoryPoint != null && dtDiff <= 3 * 60 * 60 * 1000)? ((historicalAdjustFactor - 1) * (1 - (dtDiff / (2 * 60 * 60 * 1000))) + 1): 1;
-                        console.log("FPDIFF_FACTOR: ", fpDiffFactor, " - ", JSON.stringify(prevHistoryPoint), " -- ", dtDiff, " --- ", historicalAdjustFactor, " ---- ", fpDiff);;
                         fpDateTime.add(fpDiff * fpDiffFactor, 'milliseconds');
                         if (fpDateTime < prediction.dateTime) {
                             fpDateTime = prediction.dateTime;
@@ -617,8 +613,8 @@ async function getWatchUpdates(updatedRides, tz, query) {
         LEFT JOIN CustomAttractionNames crn ON crn.attractionID=fr.attractionID AND crn.userID=wf.userID
         WHERE wf.watchDate=? AND fr.attractionID IN (?) ORDER BY wf.userID`, [dateStr, updatedRideIDs]);
 
-    var nowPredictionResults = Promise.all(nowPredictionPromises);
-    var savedPredictionResults = Promise.all(savedPredictionPromises);
+    var nowPredictionResults = await Promise.all(nowPredictionPromises);
+    var savedPredictionResults = await Promise.all(savedPredictionPromises);
     var prevUserID = null;
     var allUpdates = [];
     var userUpdates = [];
@@ -681,12 +677,10 @@ async function getWatchUpdates(updatedRides, tz, query) {
             closeDateTime.subtract(savedRide.lastStatusChangeOffset, 'milliseconds');
             var closedDuration = now.valueOf() - closeDateTime.valueOf();
             var closedMins = Math.round(closedDuration / (60 * 1000));
-            if (closedMins >= NOTIFY_CLOSE_MINS) {
-                if (update == null) {
-                    update = {};
-                }
-                update.closedMins = closedMins;
+            if (update == null) {
+                update = {};
             }
+            update.closedMins = closedMins;
         }
         if (update != null) {
             update.rideID = filter.rideID;

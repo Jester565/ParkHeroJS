@@ -166,6 +166,8 @@ async function getPlannedTransactions(userIDs, passes, parkDate, tz, query) {
     }]
 */
 async function updatePlannedTransactions(plannedTransactions, userIDs, parkDate, tz, query) {
+    console.log("PLANNED TRANASCATIONS: ", JSON.stringify(plannedTransactions, null, 2));
+    console.log("USERIDS: ", JSON.stringify(userIDs));
     //<passID, <priority, transactionID>>
     var passIDsToTransactionIDs = {};
     for (var transaction of plannedTransactions) {
@@ -198,7 +200,7 @@ async function updatePlannedTransactions(plannedTransactions, userIDs, parkDate,
         }
     }
     //Verify all passes for plans belong to users
-    var userPassesArr = await passManager.getPassesForUsers(userIDs, false, tz, query);
+    var userPassesArr = await passManager.getPassesForUsers(userIDs, true, tz, query);
     var userPassIDs = {};
     for (var userPasses of userPassesArr) {
         for (var pass of userPasses.passes) {
@@ -210,8 +212,9 @@ async function updatePlannedTransactions(plannedTransactions, userIDs, parkDate,
             throw "PassID: " + passID + " does not belong to users";
         }
     }
+    console.log("DELETING PASSES FOR: ", JSON.stringify(Object.keys(userPassIDs)));
     //Delete all previous transactions for passes in party
-    await query(`DELETE FROM FpTransactionPasses WHERE passID IN (?)`, Object.keys(userPassIDs));
+    await query(`DELETE FROM FpTransactionPasses WHERE passID IN (?)`, [Object.keys(userPassIDs)]);
     await query(`DELETE pfpt FROM PlannedFpTransactions  pfpt
         LEFT JOIN FpTransactionPasses ftp ON ftp.transactionID=pfpt.id 
         WHERE ftp.transactionID IS NULL`);

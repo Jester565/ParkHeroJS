@@ -184,4 +184,4 @@ module.exports = {
     updateSplitters: updateSplitters,
     updatePass: updatePass,
     removePass: removePass
-}
+};

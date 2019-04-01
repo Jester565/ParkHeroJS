@@ -134,6 +134,10 @@ async function getPassesForUsers(userIDs, showDisabled, tz, query) {
 
 async function removePass(userID, passID, query) {
     await query(`DELETE FROM ParkPasses WHERE id=? AND ownerID=?`, [passID, userID]);
+    //Delete FastPassTransactions for Pass
+    await query(`DELETE pfpt FROM PlannedFpTransactions  pfpt
+        LEFT JOIN FpTransactionPasses ftp ON ftp.transactionID=pfpt.id 
+        WHERE ftp.transactionID IS NULL`);
 }
 
 module.exports = {
