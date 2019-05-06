@@ -3,8 +3,8 @@ var users = require('../core/User');
 var moment = require('moment-timezone');
 
 //add or update existing pass (can also be used to refresh pass information)
-async function updatePass(userID, passID, isPrimary, isEnabled, accesssToken, tz, query) {
-    var passInfo = await passes.getParsedPass(passID, accesssToken, tz);
+async function updatePass(userID, passID, isPrimary, isEnabled, accessToken, tz, query) {
+    var passInfo = await passes.getParsedPass(passID, accessToken, tz);
     var primaryOwners = await query(`SELECT ownerID FROM ParkPasses WHERE id=? AND isPrimary=1`, [passID]);
 
     //Make sure only one primary pass for this id exists for all users
@@ -94,7 +94,7 @@ async function getPassesForUsers(userIDs, showDisabled, tz, query) {
         enabledCondition = `AND isEnabled=1`;
     }
     var dateTime = moment().tz(tz);
-    dateTime.subtract(4, 'hours')
+    dateTime.subtract(4, 'hours');
     var passes = await query(`SELECT p.ownerID AS userID, p.id AS id, p.name AS name, p.disID AS disID, 
         p.type AS type, p.expirationDT AS expirationDT, p.isPrimary AS isPrimary, p.isEnabled AS isEnabled, p.maxPassDate=? AS hasMaxPass
         FROM ParkPasses p

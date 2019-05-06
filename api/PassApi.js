@@ -4,6 +4,8 @@ var passManager = require('../core/PassManager');
 var commons = require('./Commons');
 var authManager = require('../core/AuthManager');
 var resortManager = require('../core/ResortManager');
+var disPasses = require('../dis/Pass');
+var moment = require('moment-timezone');
 
 var query = commons.getDatabaseQueryMethod();
 
@@ -167,6 +169,20 @@ async function updatePass(body, userID) {
     };
 }
 
+async function refreshPass(passID, accessToken, tz) {
+    try {
+        var passInfo = await disPasses.getParsedPass(passID, accessToken, tz);
+        var maxPassDateStr = null;
+        if (passInfo.hasMaxPass) {
+            maxPassDateStr = moment().tz(tz).subtract(4, 'hours').format("YYYY-MM-DD HH:mm:ss");
+        }
+        var expireDTStr = (passInfo.expireDT)? passInfo.expireDT.format("YYYY-MM-DD HH:mm:ss"): null;
+        await query(`UPDATE ParkPasses SET expirationDT=?, maxPassDate=? WHERE id=?`, [expireDTStr, maxPassDateStr, passID]);
+    } catch (e) {
+        console.log("PASS INFO ERROR: ", e);
+    }
+}
+
 /*
     body: {
         passID
@@ -177,11 +193,65 @@ async function removePass(body, userID) {
     await passManager.removePass(userID, passID, query);
 }
 
+async function refreshPasses(body, userID) {
+    var tz = await resortManager.getResortTimezone(RESORT_ID, query);
+    var loginRes = await authManager.getAccessToken('0', config.dis.username, config.dis.password, query);
+    var accessToken = loginRes.accessToken;
+    var partyMembers = await userManager.getPartyMembers(userID, query);
+    var userIDs = [];
+    for (var partyMember of partyMembers) {
+        userIDs.push(partyMember.id);
+    }
+    var passInfoPromises = [];
+    var allUserPasses = await passManager.getPassesForUsers(userIDs, true, tz, query);
+    for (var userPasses of allUserPasses) {
+        for (var pass of userPasses.passes) {
+            passInfoPromises.push(refreshPass(pass.id, accessToken, tz));
+        }
+    }
+    await Promise.all(passInfoPromises);
+    return "Done";
+}
+
+/*
+    body: {
+        passID
+    }
+*/
+async function syncPasses(body, userID) {
+    var tz = await resortManager.getResortTimezone(RESORT_ID, query);
+    var passID = body["passID"];
+    var disIDs = await query(`SELECT disID FROM ParkPasses WHERE id=?`, passID);
+    if (disIDs.length == 0) {
+        throw "No Matching Pass";
+    }
+    var disID = disIDs[0].disID;
+    var loginRes = await authManager.getAccessToken('0', config.dis.username, config.dis.password, query);
+    var accessToken = loginRes.accessToken;
+    var partyMembers = await userManager.getPartyMembers(userID, query);
+    var userIDs = [];
+    for (var partyMember of partyMembers) {
+        userIDs.push(partyMember.id);
+    }
+    var passIDs = [];
+    var allUserPasses = await passManager.getPassesForUsers(userIDs, true, tz, query);
+    for (var userPasses of allUserPasses) {
+        for (var pass of userPasses.passes) {
+            passIDs.push(pass.id);
+        }
+    }
+    
+    await disPasses.fillPartyWithPasses(passIDs, disID, accessToken);
+    return "Done";
+}
+
 module.exports = {
     getUserPasses: getUserPasses,
     getPartyPasses: getPartyPasses,
     getFriendPasses: getFriendPasses,
     updateSplitters: updateSplitters,
     updatePass: updatePass,
-    removePass: removePass
+    removePass: removePass,
+    refreshPasses: refreshPasses,
+    syncPasses: syncPasses
 };

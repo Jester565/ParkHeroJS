@@ -543,20 +543,29 @@ async function fillPartyWithPasses(passIDs, disID, accessToken) {
     var addPromises = [];
     for (var passID of newPassIDs) {
         console.log("ADD PASS: ", passID);
-        addPromises.push(addPartyMember(passID));
+        addPromises.push(addPartyMember(passID, disID, accessToken));
     }
     var excessPassIDs = [];
-    for (var partyMember of partyMembers) {
-        if (passIDMap[partyMember.id] == null) {
-            excessPassIDs.push(partyMember.id);
+    for (var partyPassID in passIDsToPartyMembers) {
+        var found = false;
+        for (var passID of passIDs) {
+            if (passID == partyPassID) {
+                found = true;
+                break;
+            } 
+        }
+        if (!found) {
+            excessPassIDs.push(passID);
         }
     }
     await Promise.all(addPromises);
-
-    return {
+    
+    var result = {
         "addedPassIDs": newPassIDs,
         "excessPassIDs": excessPassIDs
     };
+    console.log("RESULT: ", JSON.stringify(result, null, 2));
+    return result;
 }
 
 async function removePartyMembers(passIDs, disID, accessToken) {
@@ -581,8 +590,10 @@ async function addPartyMember(passID, disID, accessToken) {
             'profileId': disID,
             'guest_type': 'SHARED'
         },
-        json: true
+        json: true,
+        gzip: true
     };
+    console.log("ADD: ", JSON.stringify(options));
     await rp(options);
 }
 
@@ -613,7 +624,8 @@ async function getPartyFastPassConflicts(disID, accessToken) {
             'Accept-Encoding': 'gzip',
             'X-Guest-ID': disID
         },
-        json: true
+        json: true,
+        gzip: true
     };
     console.log("CONFICT REQ: ", JSON.stringify(options, null, 2));
     var respData = await rp(options);
@@ -673,7 +685,7 @@ async function getMaxPassInfo(disID, passIDs, parkID, rideID, startTime, endTime
     try {
         var options = {
             method: 'POST',
-            uri: `https://selection-svcs.fastpass.disneyland.disney.go.com/gxp-services/services/orchestration/parks/${parkID}/${dateStr}/offers/guest-xids=${passIDsStr};start-time=${startTimeStr};end-time=${endTimeStr}?includeAssets=false`,
+            uri: `https://selection-svcs.fastpass.disneyland.disney.go.com/gxp-services/services/orchestration/park/${parkID}/${dateStr}/offers;guest-xids=${passIDsStr};start-time=${startTimeStr};end-time=${endTimeStr}?includeAssets=false`,
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -681,7 +693,8 @@ async function getMaxPassInfo(disID, passIDs, parkID, rideID, startTime, endTime
                 'Accept-Encoding': 'gzip',
                 'X-Guest-ID': disID
             },
-            json: true
+            json: true,
+            gzip: true
         };
         console.log("ENTITLEMENTS OPTIONS", JSON.stringify(options, null, 2));
         respData = await rp(options);
@@ -697,7 +710,8 @@ async function getMaxPassInfo(disID, passIDs, parkID, rideID, startTime, endTime
                 'Accept-Encoding': 'gzip',
                 'X-Guest-ID': disID
             },
-            json: true
+            json: true,
+            gzip: true
         };
         console.log("ENTITLEMENTS OPTIONS2", JSON.stringify(options, null, 2));
         respData = await rp(options);
@@ -754,6 +768,23 @@ async function getMaxPassInfo(disID, passIDs, parkID, rideID, startTime, endTime
 
 async function reserveFastPass(maxPassID, excludePassIDs, disID, accessToken, tz) {
     //TODO: Determine how guestsToExclude is calculated
+    {
+    var options = {
+        method: 'POST',
+        uri: `https://selection-svcs.fastpass.disneyland.disney.go.com/gxp-services/services/orchestration/inventory/${maxPassID}`,
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'BEARER ' + accessToken,
+            'Accept-Encoding': 'gzip',
+            'X-Guest-ID': disID
+        },
+        json: true,
+        gzip: true
+    };
+    console.log("RESERVE OPTIONS: ", JSON.stringify(options, null, 2));
+    var resp = await rp(options);
+    }
     var options = {
         method: 'POST',
         uri: `https://selection-svcs.fastpass.disneyland.disney.go.com/gxp-services/services/orchestration/offer/${maxPassID}`,
@@ -767,7 +798,8 @@ async function reserveFastPass(maxPassID, excludePassIDs, disID, accessToken, tz
         body: {
             "guestsToExclude": []
         },
-        json: true
+        json: true,
+        gzip: true
     };
     console.log("RESERVE OPTIONS: ", JSON.stringify(options, null, 2));
     var resp = await rp(options);
@@ -801,30 +833,37 @@ async function reserveFastPass(maxPassID, excludePassIDs, disID, accessToken, tz
 
 async function orderPartyMaxPass(parkID, rideID, parkDate, parkCloseDateTime, passIDs, disID, accessToken, tz) {
     var startDateTime = moment().tz(tz);
-    var maxPassInfo = null;
     var partyPassRes = null;
-    try {
-        partyPassRes = await fillPartyWithPasses(passIDs, disID, accessToken);
-        var endDateTime = startDateTime.clone().add(1, 'hour');
-        maxPassInfo = await getMaxPassInfo(disID, passIDs, parkID, rideID, startDateTime, endDateTime, parkDate, accessToken, tz);
-    } catch (e) {
-        console.log("FAILED MAX PASS 1: ", JSON.stringify(e, null, 2));
-        var endDateTime = startDateTime.clone().add(1, 'hour');
-        endDateTime.set({second: 0, millisecond: 0});
-        maxPassInfo = await getMaxPassInfo(disID, passIDs, parkID, rideID, startDateTime, endDateTime, parkDate, accessToken, tz);
+    partyPassRes = await fillPartyWithPasses(passIDs, disID, accessToken);
+    var endDateTime = startDateTime.clone().add(1, 'hour');
+    var conflictResp = await getPartyFastPassConflicts(disID, accessToken);
+    var conflicts = conflictResp["conflicts"];
+    var conflictFound = false;
+    if (conflicts != null) {
+        for (var conflict of conflicts) {
+            for (var passID of passIDs) {
+                if (conflict["guestXid"] == passID) {
+                    conflictFound = true;
+                }
+            }
+        }
     }
-
+    if (conflictFound) {
+        await removePartyMembers(partyPassRes.addedPassIDs, disID, accessToken);
+        throw "Conflict";
+    }
+    var maxPassInfo = await getMaxPassInfo(disID, passIDs, parkID, rideID, startDateTime, endDateTime, parkDate, accessToken, tz);
     //The FastPass is no longer available
     if (maxPassInfo == null) {
         console.log("NULL MAX PASS INFO");
-        //await removePartyMembers(partyPassRes.addedPassIDs, disID, accessToken);
+        await removePartyMembers(partyPassRes.addedPassIDs, disID, accessToken);
         return null;
     }
     
     console.log("RESERVING");
-    var selectionTimes = await reserveFastPass(maxPassInfo.id, partyPassRes.exessPassIDs, disID, accessToken);
+    var selectionTimes = await reserveFastPass(maxPassInfo.id, partyPassRes.excessPassIDs, disID, accessToken);
     console.log("RESERVE DONE");
-    //await removePartyMembers(partyPassRes.addedPassIDs, disID, accessToken);
+    await removePartyMembers(partyPassRes.addedPassIDs, disID, accessToken);
 
     return {
         fastPassDateTime: maxPassInfo.fastPassDateTime,
@@ -840,5 +879,6 @@ module.exports = {
     getFastPasses: getFastPasses,
     getFastPassesForPassID: getFastPassesForPassID,
     aggregateFastPassesForPassIDs: aggregateFastPassesForPassIDs,
-    orderPartyMaxPass: orderPartyMaxPass
+    orderPartyMaxPass: orderPartyMaxPass,
+    fillPartyWithPasses: fillPartyWithPasses
 };

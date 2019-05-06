@@ -213,35 +213,52 @@ async function getRideDPs(date, now, tz, query, filterRideID = null) {
 }
 
 async function getPredictedFastPassTime(attractionID, dateTime, tz, query) {
-    var date = dateTime.clone().subtract(4, 'hours');
-    var rideDPs = await getRideDPs(date, dateTime.clone(), tz, query, attractionID);
-    var fastPassEndDateTime = moment(rideDPs.closeDateTime, "YYYY-MM-DD HH:mm:ss").tz(tz, true).subtract(30, 'minutes');
-    var lowerRideDP = null;
-    var predictedFastPassTime = null;
-    for (var rideDP of rideDPs) {
-        if (rideDP.dateTimeParsed <= dateTime) {
-            lowerRideDP = rideDP;
-        }
-        if (rideDP.dateTimeParsed >= dateTime) {
-            if (lowerRideDP != null && lowerRideDP.fastPassTimeParsed != null && rideDP.fastPassTimeParsed != null) {
-                var nowLowerTimeDiff = moment.duration(dateTime.diff(lowerRideDP.dateTimeParsed));
-                var nowLowerMinsDiff = nowLowerTimeDiff.asMinutes();
-                var dateTimeDiff = moment.duration(rideDP.dateTimeParsed.diff(lowerRideDP.dateTimeParsed));
-                var dateTimeMinsDiff = dateTimeDiff.asMinutes();
-                var fastPassTimeDiff = moment.duration(rideDP.fastPassTimeParsed.diff(lowerRideDP.fastPassTimeParsed));
-                var fastPassMinsDiff = fastPassTimeDiff.asMinutes();
-                if (dateTimeMinsDiff > 0) {
-                    predictedFastPassTime = lowerRideDP.fastPassTimeParsed.clone().add((nowLowerMinsDiff / dateTimeMinsDiff) * fastPassMinsDiff);
-                } else {
-                    predictedFastPassTime = lowerRideDP.fastPassTimeParsed.clone();
-                }
-                if (predictedFastPassTime > fastPassEndDateTime) {
-                    predictedFastPassTime = null;
+    try {
+        var date = dateTime.clone().subtract(4, 'hours');
+        var allRideDPs = await getRideDPs(date, dateTime.clone(), tz, query, attractionID);
+        var predictedFastPassTime = null;
+        if (allRideDPs.length > 0) {
+            var rideDPs = allRideDPs[0];
+            var fastPassEndDateTime = null;
+            if (rideDPs.rideCloseDateTime != null) {
+                fastPassEndDateTime = moment(rideDPs.rideCloseDateTime, "YYYY-MM-DD HH:mm:ss").tz(tz, true);
+            }
+            var lowerRideDP = null;
+            if (rideDPs.dps != null) {
+                for (var rideDP of rideDPs.dps) {
+                    if (rideDP.dateTimeParsed <= dateTime) {
+                        lowerRideDP = rideDP;
+                    }
+                    if (rideDP.dateTimeParsed >= dateTime) {
+                        if (lowerRideDP != null && lowerRideDP.fastPassTimeParsed != null && rideDP.fastPassTimeParsed != null) {
+                            var nowLowerTimeDiff = moment.duration(dateTime.diff(lowerRideDP.dateTimeParsed));
+                            var nowLowerMinsDiff = nowLowerTimeDiff.asMinutes();
+                            var dateTimeDiff = moment.duration(rideDP.dateTimeParsed.diff(lowerRideDP.dateTimeParsed));
+                            var dateTimeMinsDiff = dateTimeDiff.asMinutes();
+                            var fastPassTimeDiff = moment.duration(rideDP.fastPassTimeParsed.diff(lowerRideDP.fastPassTimeParsed));
+                            var fastPassMinsDiff = fastPassTimeDiff.asMinutes();
+                            if (dateTimeMinsDiff > 0) {
+                                predictedFastPassTime = lowerRideDP.fastPassTimeParsed.clone().add((nowLowerMinsDiff / dateTimeMinsDiff) * fastPassMinsDiff);
+                                if (fastPassEndDateTime != null && predictedFastPassTime != null && predictedFastPassTime > fastPassEndDateTime) {
+                                    predictedFastPassTime = null;
+                                }
+                                return predictedFastPassTime;
+                            } else {
+                                predictedFastPassTime = lowerRideDP.fastPassTimeParsed.clone();
+                                if (fastPassEndDateTime != null && predictedFastPassTime != null && predictedFastPassTime > fastPassEndDateTime) {
+                                    predictedFastPassTime = null;
+                                }
+                                return predictedFastPassTime;
+                            }
+                        }
+                    }
                 }
             }
         }
+    } catch (e) {
+        console.log("GET PREDICTED TIME ERROR: ", JSON.stringify(e, null, 2));
+        return null;
     }
-    return predictedFastPassTime;
 }
 
 async function updateRideInfoInDB(rideInfo, imgObjKey, query) {
@@ -582,21 +599,22 @@ async function getWatchUpdates(updatedRides, tz, query) {
     var nowNextHourDateTime = now.clone().add(1, 'hours');
     
     var dateStr = now.subtract(4, 'hours').format("YYYY-MM-DD");
-
+    /*
     var nowPredictionPromises = [
         predictionManager.getPredictTimeHeuristics(now, query), 
         predictionManager.getPredictTime(now, query), 
         predictionManager.getPredictTime(nowNextHourDateTime, query)];
-    
+    */
     var savedRideDateTimeResult = await query(`SELECT dateTime FROM LatestRideUpdateDateTimes ORDER BY dateTime DESC LIMIT 1`);
     var savedRideDateTime = moment(savedRideDateTimeResult[0].dateTime).tz(tz, true);
     var savedRideDateTimeNextHour = savedRideDateTime.clone().add(1, 'hours');
     var savedRideDateTimeStr = savedRideDateTime.format("YYYY-MM-DD HH:mm:ss");
+    /*
     var savedPredictionPromises = [
         predictionManager.getPredictTimeHeuristics(savedRideDateTime, query),
         predictionManager.getPredictTime(savedRideDateTime, query),
         predictionManager.getPredictTime(savedRideDateTimeNextHour, query)];
-    
+    */
     var savedRides = await getSavedRides(query);
     var savedRidesMap = commons.indexArray({}, savedRides, 'id');
     var updatedRidesMap = commons.indexArray({}, updatedRides, 'id', null, false);
@@ -613,8 +631,8 @@ async function getWatchUpdates(updatedRides, tz, query) {
         LEFT JOIN CustomAttractionNames crn ON crn.attractionID=fr.attractionID AND crn.userID=wf.userID
         WHERE wf.watchDate=? AND fr.attractionID IN (?) ORDER BY wf.userID`, [dateStr, updatedRideIDs]);
 
-    var nowPredictionResults = await Promise.all(nowPredictionPromises);
-    var savedPredictionResults = await Promise.all(savedPredictionPromises);
+    //var nowPredictionResults = await Promise.all(nowPredictionPromises);
+    //var savedPredictionResults = await Promise.all(savedPredictionPromises);
     var prevUserID = null;
     var allUpdates = [];
     var userUpdates = [];
@@ -643,6 +661,7 @@ async function getWatchUpdates(updatedRides, tz, query) {
                 old: savedRide.waitMins
             };
         }
+        /*
         if (filter.waitRating != null) {
             var updatedWaitRaiting = getWaitRating(updatedRide, nowPredictionResults);
             var savedWaitRating = getWaitRating(savedRide, savedPredictionResults);
@@ -657,6 +676,7 @@ async function getWatchUpdates(updatedRides, tz, query) {
                 };
             }
         }
+        */
         if (filter.fastPassTime != null) {
             var fastPassTime = moment(filter.fastPassTime).tz(tz, true);
             var updatedFastPassTime = moment(updatedRide.fastPassTime).tz(tz, true);
