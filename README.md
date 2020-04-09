@@ -19,55 +19,55 @@ The API is a GraphQL API deployed on AWS AppSync and AWS Lambda.
 
 | Endpoint | Method | Params | Return Type | Description |
 | -- | -- | -- | -- | -- |
-| getRides | Query | - | [Ride] | Get all rides and the wait times & fastpasses stored in db |
-| getRideTimes | Mutation | - | [Ride] | Get the latest wait and Fastpass data from Disney's API & update the database |
-| getRideDPs | Query | <b>date</b>: String ("2019-05-30")<br/><b>rideID</b>: String | [RideDataPoints] | Provides more static information on the ride with <i>rideID</i> as well as all wait times and FastPasses for the <i>date</i> |
-| getEvents | Query | <b>date</b>: String ("2019-05-30") | [Event] | Get all events (ex. Fantasmic) and the times they are showing |
+| getRides | Query | - | [[Ride](#ride)] | Get all rides and the wait times & fastpasses stored in db |
+| getRideTimes | Mutation | - | [[Ride](#ride)] | Get the latest wait and Fastpass data from Disney's API & update the database |
+| getRideDPs | Query | <b>date</b>: String ("2019-05-30")<br/><b>rideID</b>: String | [[RideDataPoints](#ridedatapoints)] | Provides more static information on the ride with <i>rideID</i> as well as all wait times and FastPasses for the <i>date</i> |
+| getEvents | Query | <b>date</b>: String ("2019-05-30") | [[Event](#event)] | Get all events (ex. Fantasmic) and the times they are showing |
 | updateCustomAttractionInfo | Mutation | <b>attractionID</b>: String! <br/> <b>customName</b>: String ("Thunder") <br /> <b>pics</b>: [Pic] | - | For the <i>attractionID</i> (either a Ride or Event), update the <i>customName</i> if not null (no profanity check since user only).  Update the order of the pictures to match the provided <i>pics</i> array.  If `pic.added=true`, save the image to S3. |
-| updateFilter | Mutation | <b>filterName</b>: String! <br /> <b>attractionIDs</b>: [String] <br /> <b>filterType</b>: String ("ride" or "event") <br /> <b>watchConfig</b>: watchConfig | - | Create or update filter with new attractions and notification preferences (<i>watchConfig</i>) |
-| getFilters | Query | - | [Filter] | Get attraction filters belonging to the user |
+| updateFilter | Mutation | <b>filterName</b>: String! <br /> <b>attractionIDs</b>: [String] <br /> <b>filterType</b>: String ("ride" or "event") <br /> <b>watchConfig</b>: [WatchConfig](#watchconfig) | - | Create or update filter with new attractions and notification preferences (<i>watchConfig</i>) |
+| getFilters | Query | - | [[Filter](#filter)] | Get attraction filters belonging to the user |
 | deleteFilters | Mutation | <b>filterNames</b>: [String] <br /> <b>filterType</b>: String | - | Delete all filters in <i>filterNames</i> belonging to the same <i>fitlerType</i> |
-| getSchedules | Query | - | [ParkSchedule] | Get schedules for the Disneyland resort |
-| getWeather | Query | <b>date</b>: String ("2019-05-30") | [Weather] | get 24 Weather entries for the <i>date</i> (index corresponds to hour) |
+| getSchedules | Query | - | [[ParkSchedule](#parkschedule)] | Get schedules for the Disneyland resort |
+| getWeather | Query | <b>date</b>: String ("2019-05-30") | [[Weather](#weather)] | get 24 Weather entries for the <i>date</i> (index corresponds to hour) |
 
 ## Users
 
 | Endpoint | Method | Params | Return Type | Description |
 | -- | -- | -- | -- | -- |
-| createUser | Mutation | <b>name</b>: String | User | On first start, create user and can provide an optional <i>name</i> (will be checked for profanity) |
-| updateUser | Mutation | <b>name</b>: String <br/> <b>imgUri</b>: String ("data:image/gif;base64,R0l...") | User | If <i>name</i> provided, update profile name. <i>imgUri</i> is URI encoded <u>image data</u> to set as profilePic if not null. Returns updated user. |
-| verifySNS | Mutation | <b>token</b>: String! <br/> <b>endpointArn</b>: String  <br/> <b>subscriptionArn</b>: String <br/> <b>endpointUserID</b>: String | VerifySnsResult | Create a new SNS topic to send notifications directly to the user. <br /> Use the <i>token</i> to create a new SNS endpoint for the User's device. <br/> Subscribe the user to their new topic. |
-| searchUsers | Query | <b>prefix</b>: String | [User] | Get users with name beginning with the <i>prefix</i> |
+| createUser | Mutation | <b>name</b>: String | [User](#user) | On first start, create user and can provide an optional <i>name</i> (will be checked for profanity) |
+| updateUser | Mutation | <b>name</b>: String <br/> <b>imgUri</b>: String ("data:image/gif;base64,R0l...") | [User](#user) | If <i>name</i> provided, update profile name. <i>imgUri</i> is URI encoded <u>image data</u> to set as profilePic if not null. Returns updated user. |
+| verifySNS | Mutation | <b>token</b>: String! <br/> <b>endpointArn</b>: String  <br/> <b>subscriptionArn</b>: String <br/> <b>endpointUserID</b>: String | [VerifySnsResult](#verifysnsresult) | Create a new SNS topic to send notifications directly to the user. <br /> Use the <i>token</i> to create a new SNS endpoint for the User's device. <br/> Subscribe the user to their new topic. |
+| searchUsers | Query | <b>prefix</b>: String | [[User](#user)] | Get users with name beginning with the <i>prefix</i> |
 | addFriend | Mutation | <b>friendID</b>: String! | Boolean | Send friend invite or accept friend invite (if one exists). `true` if user with id of <i>friendID</i> was added, `false` if invite was sent instead. |
-| getFriends | Query | - | [User] | Get profile of all friends |
+| getFriends | Query | - | [[User](#user)] | Get profile of all friends |
 | removeFriend | Mutation | <b>friendID</b>: String! | - | Unfriend user with id of <i>friendID</i> |
 | inviteToParty | Mutation | <b>memberID</b>: String! | - | Invite user with id of <i>memberID</i> to your current party |
-| getInvites | Query | - | [Invite] | Get all party and friend invitations |
-| acceptPartyinvite | Mutation | <b>inviterID</b>: String! | [User] | Join party you were invited to by the user with id <i>inviterID</i>. Return other members in the party. |
+| getInvites | Query | - | [[Invite](#invite)] | Get all party and friend invitations |
+| acceptPartyinvite | Mutation | <b>inviterID</b>: String! | [[User](#user)] | Join party you were invited to by the user with id <i>inviterID</i>. Return other members in the party. |
 | deleteInvite | Mutation | <b>type</b>: Int (0 = friend, 1 = party)<br/> <b>isOwner</b>: Boolean <br/> <b>userID</b>: String | - | Delete an invite sent to you or an invite you sent to someone else (depends on <i>isOwner</i>) that belongs to <i>type</i> for the <i>userID</i> |
-| getPartyMembers | Query | - | [User] | Get profiles of all party members |
+| getPartyMembers | Query | - | [[User](#user)] | Get profiles of all party members |
 | leaveParty | Mutation | - | - | Leave the party you are currently in |
 
 ## Park Passes
 
 | Endpoint | Method | Params | Return Type | Description |
 | -- | -- | -- | -- | -- |
-| updatePass | Mutation | <b>passID</b>: String! <br/> <b>isPrimary</b>: Boolean <br/> <b>isEnabled</b>isEnabled: Boolean | UserPass |  Add or update park pass with <i>passID</i> to the user if its a valid passID.  If <i>primary</i> show it first, if <i>enabled</i> its visible to the party |
-| getUserPasses | Query | <b>userID</b>: String | [UserPasses] | Get park passes and profile of user with <i>userID</i>. Only allowed if user is your friend or in your party. |
+| updatePass | Mutation | <b>passID</b>: String! <br/> <b>isPrimary</b>: Boolean <br/> <b>isEnabled</b>: Boolean | [UserPass](#userpass) |  Add or update park pass with <i>passID</i> to the user if its a valid passID.  If <i>primary</i> show it first, if <i>enabled</i> its visible to the party |
+| getUserPasses | Query | <b>userID</b>: String | [[UserPasses](#userpasses)] | Get park passes and profile of user with <i>userID</i>. Only allowed if user is your friend or in your party. |
 | removePass | Mutation | <b>passID</b>: String! | - | Remove pass with <i>passID</i> belonging to the user |
-| getFriendPasses | Query | - | [UserPasses] | Get all park passes for friends |
+| getFriendPasses | Query | - | [[UserPasses](#userpasses)] | Get all park passes for friends |
 | syncPasses | Mutation | <b>passID</b>: String | - | All passes will be added to an official Disney app user who owns a pass with id <i>passID</i>.  Used to easily order the MaxPass from the official app. |
-| getPartyPasses | Query | - | PassGroup | Get park passes and profiles of all party members. Also, send splitters (users that want to split the pass view with you) |
-| updateSplitters | Mutation | <b>groupID</b>: String! ("party") <br /> <b>action</b>: String! ("split", "unsplit", "merge") | SplitterUpdate | The <i>groupID</i> specifies a group <u>within a party</u> that will determine how park passes are split between users. The <i>action</i> determines how that group is modified |
-| subUpdateSplitters | Subscription | <b>groupID</b>: String! | SplitterUpdate | Subscribe to changes to the users splitting the pass group of id <i>groupID</i> |
+| getPartyPasses | Query | - | [PassGroup](#passgroup) | Get park passes and profiles of all party members. Also, send splitters (users that want to split the pass view with you) |
+| updateSplitters | Mutation | <b>groupID</b>: String! ("party") <br /> <b>action</b>: String! ("split", "unsplit", "merge") | [SplitterUpdate](#spiltterupdate) | The <i>groupID</i> specifies a group <u>within a party</u> that will determine how park passes are split between users. The <i>action</i> determines how that group is modified |
+| subUpdateSplitters | Subscription | <b>groupID</b>: String! | [SplitterUpdate](#splitterupdate) | Subscribe to changes to the users splitting the pass group of id <i>groupID</i> |
 | refreshPasses | Mutation | - | - | Update each park pass in the party with data from Disney's API (used to update MaxPass status) |
 
 ## Fast Passes
 
 | Endpoint | Method | Params | Return Type | Description |
 | -- | -- | -- | -- | -- |
-| updatePlannedFpTransactions | Mutation | <b>plannedTransactions</b>: [PlannedFpTransactoinIn] | FastPassData | Update the party's planned FastPasses to the provided |
-| getFastPasses | Query | - | FastPassData | Get planned and scheduled FastPasses for all party members |
+| updatePlannedFpTransactions | Mutation | <b>plannedTransactions</b>: [[PlannedFpTransactionIn](#plannedfptransactionin)] | [FastPassData](#fastpassdata) | Update the party's planned FastPasses to the provided |
+| getFastPasses | Query | - | [FastPassData](#fastpassdata) | Get planned and scheduled FastPasses for all party members |
 
 # Data Types
 
