@@ -78,15 +78,15 @@ Represents an attraction with varying wait times
 | PropertyName | Type | Description |
 | -- | -- | -- |
 | id | String! | ID for attraction from Disney |
-| info | AttractionInfo | Consistent information of attraction |
-| time | RideTime | Current status of ride |
+| info | [AttractionInfo](#attractioninfo) | Consistent information of attraction |
+| time | [RideTime](#ridetime) | Current status of ride |
 
 ### Event
 Represents park event with showtimes (ex. Fantasmic)
 | PropertyName | Type | Description |
 | -- | -- | -- |
 | id | String! | ID for attraction from Disney |
-| info | AttractionInfo | Consistent information of attraction |
+| info | [AttractionInfo](#attractioninfo) | Consistent information of attraction |
 | dateTimes | [String] | The dateTimes the event is showing today in format "YYYY-MM-DD HH:mm:ss" |
 
 ### AttractionInfo
@@ -124,14 +124,14 @@ The varying data for a ride on a date
 | rideOpenDateTime | String | The dateTime the ride opened ("2019-02-09T19:30:00.000Z") |
 | rideCloseDateTime | String | The dateTime the ride closes ("2019-02-09T19:30:00.000Z") |
 | rideLabels | String | List of properties for the ride |
-| dps | [RideDataPoint] | Predictions and historical data for wait times & FastPasses on this date |
+| dps | [[RideDataPoint](#ridedatapoint)] | Predictions and historical data for wait times & FastPasses on this date |
 
 ### RideDataPoint
 The predicted and historical queue data at a given dateTime
 | PropertyName | Type | Description |
 | -- | -- | -- |
-| prediction | RidePredictDataPoint | The predicted waitMins & fastPassTime at given dateTime |
-| history | RideHistoricalDataPoint | The historical waitMins,fastPassTime, and status at that time |
+| prediction | [RidePredictDataPoint](#ridepredictdatapoint) | The predicted waitMins & fastPassTime at given dateTime |
+| history | [RideHistoricalDataPoint](#ridehistoricaldatapoint) | The historical waitMins,fastPassTime, and status at that time |
 | waitMins | Float | The # of minutes to wait for the ride at the DateTime (will be history but falls back to prediction) |
 | fastPassTime | String | The fastPassTimeat the dateTime in format YYYY-MM-DD HH:mm:ss (will be history but falls back to prediction) |
 | dateTime | String | The dateTime for the values in "YYYY-MM-DD HH:mm:ss" format |
@@ -165,7 +165,7 @@ A named list of attractions that can be displayed or watched
 | name | String | The name & unique ID of the filter |
 | attractionIDs | [String] | IDs for ride or events that belong to the filter |
 | type | String | Specifies the type of attraction this filter is for ("event" or "ride") |
-| watchConfig | WatchConfig | If defined, the attractions will be monitored for changes and, if parameters in watchConfig are met, the user will be notified |
+| watchConfig | [WatchConfig](#watchconfig) | If defined, the attractions will be monitored for changes and, if parameters in watchConfig are met, the user will be notified |
 
 ### WatchConfig
 Users can get notifications if parameters in this configuration are met
@@ -173,7 +173,7 @@ Users can get notifications if parameters in this configuration are met
 | -- | -- | -- |
 | waitTime | Int | If # of minutes the queue wait is >= this value, send notification (if null ignore)  |
 | waitRating | Float | If waitRating is >= this value, send notification (if null ignore) |
-| fastPassTime | DateTime | If fastPasses are now available >= this time, send notification (if null ignore) |
+| fastPassTime | String | If fastPasses are now available >= this time, send notification (if null ignore) |
 
 ### ParkSchedule
 Information on park hours & other info for a date
@@ -221,7 +221,7 @@ A party of friend invitation from one user to another
 | isOwner | Boolean | This user created the invite |
 | isFriend | Boolean | The other user is already a friend |
 | type | Int | Indicates if a party or friend invitation (0 is friend, 1 is party) |
-| user | User | Other user that sent or received the invite |
+| user | [User](#user) | Other user that sent or received the invite |
 
 ## Park Passes
 
@@ -241,21 +241,21 @@ An annual or day pass for admission and some data linked with it
 A user paired with one the passes they own
 | PropertyName | Type | Description |
 | -- | -- | -- |
-| user | User | The user that owns the pass |
-| pass | Pass | The park pass |
+| user | [User](#user) | The user that owns the pass |
+| pass | [Pass](#pass) | The park pass |
 
 ### UserPasses
 The passes that belong to a user and the user's profile
 | PropertyName | Type | Description |
 | -- | -- | -- |
-| user | User | The user that owns the pass |
-| passes | [Pass] | The passes owned by the user |
+| user | [User](#user) | The user that owns the pass |
+| passes | [[Pass](#pass)] | The passes owned by the user |
 
 ### PassGroup
 A group within a party that can divide passes between users (for easier scan-in)
 | PropertyName | Type | Description |
 | -- | -- | -- |
-| userPasses | [UserPasses] | List passes that belong to the group with their user |
+| userPasses | [[UserPasses](#userpasses)] | List passes that belong to the group with their user |
 | splitters | [String] | The userIDs of users that are splitting the pass view |
 
 ### SplitterUpdate
@@ -273,7 +273,7 @@ Input to queue a FastPass order (what ride, users, order in the queue, etc.)
 | -- | -- | -- |
 | id | String | Unique ID for the FastPass transaction |
 | rideID | String | The ID of the ride the FastPass is for |
-| passes | [PlannedFpPassIn] | The park passes getting the FastPass and the priority the pass is for them |
+| passes | [[PlannedFpPassIn](#plannedfppassin)] | The park passes getting the FastPass and the priority the pass is for them |
 
 ### PlannedFpPassIn
 The park pass to get the FastPass for and what priority it is in the queue
@@ -293,7 +293,7 @@ Describes a queued FastPass order (what ride, users, order in the queue, etc.)
 | attractionOfficialPicUrl | String | The url for Disney's thumbnail for the attraction |
 | selectionDateTime | String | The dateTime (or predicted dateTime) the FastPass can be ordered - format "YYYY-MM-DD HH:mm:ss" |
 | fastPassTime | String | The dateTime (or predicted dateTime) the FastPass can be redeemed - format "YYYY-MM-DD HH:mm:ss" |
-| passes | [PlannedFpPass] | The park passes getting the FastPass and the priority the pass is for them |
+| passes | [[PlannedFpPass](#plannedfppass)] | The park passes getting the FastPass and the priority the pass is for them |
 
 ### PlannedFpPass
 The park pass to get the FastPass for and what priority it is in the queue
@@ -307,7 +307,7 @@ The park pass to get the FastPass for and what priority it is in the queue
 Contains data for all FastPasses and planned FastPasses for the user's party
 | PropertyName | Type | Description |
 | -- | -- | -- |
-| transactions | [FpTransaction] | A park pass ID |
+| transactions | [[FpTransaction](#fptransaction)] | A park pass ID |
 | priority | Int | Where the order is in the FastPass queue (0 is highest priority) |
 
 ## FpTransaction
@@ -320,7 +320,7 @@ Describes a group of ordered Fastpass near the same time & for the same ride
 | attractionOfficialPicUrl | String | The url for Disney's thumbnail for the attraction |
 | startDateTime | String | The dateTime the FastPass can be redeemed - format "YYYY-MM-DD HH:mm:ss" |
 | endDateTime | String | The dateTime the FastPass can no longer be redeemed - format "YYYY-MM-DD HH:mm:ss" |
-| passes | [FpPass] | The park passes who have the FastPass |
+| passes | [[FpPass](#fppass)] | The park passes who have the FastPass |
 
 ### FpPass
 Describes one ordered FastPass for a pass
